@@ -8,30 +8,7 @@ import {setContestsList} from "../../../../store/contest/actions";
 export const LkHomeRightSlidebar = () => {
     const { auth,contests } = useSelector((state) => state);
     const [contest,setContest]= useState([])
-    const dispatch=useDispatch()
-    const setContests = useCallback(() => {
-        dispatch(setContestsList(contest))
-    }, [dispatch,contest]);
 
-    useEffect(()=>{
-        fetch('http://lk.pride.kb-techno.ru/api/Contest/contest-list',{
-            method:'GET',
-            headers:{
-                'Accept': 'application/json',
-                'Authorization':`Bearer ${auth.token}`}
-        })
-            .then((res) => res.json())
-            .then((body)=>{
-                setContest(body)
-                console.log(body)
-            })
-            .catch((e) => {
-                console.log(e.message);
-            });
-    },[auth.token])
-    useEffect(()=>{
-        setContests()
-    },[contest])
 
 
 

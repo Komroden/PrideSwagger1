@@ -1,6 +1,8 @@
 import React from 'react';
 import './style.scss';
+import {useParams} from "react-router";
  export const ContFullNews = () => {
+const{id}=useParams()
     return (
         <div className="main_cont">
             <div className="containerP">

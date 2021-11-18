@@ -128,6 +128,7 @@ export const Registration = () => {
                         <div className="news_slider">
                             <Slider ref={slider} {...settings}>
                                 {news.value.map((item,index)=><NewsCard key={index} date={item.publishDate} url={item.image} text={item.objectName}/>)}
+                                {news.value.map((item,index)=><NewsCard key={index} date={item.publishDate} url={item.image} text={item.objectName}/>)}
                             {/*<NewsCard url={'url(/images/newsimg.jpg)'}/>*/}
                             {/*<NewsCard url={'url(/images/newsimg2.png)'}/>*/}
                             {/*<NewsCard url={'url(/images/newsimg3.png)'}/>*/}

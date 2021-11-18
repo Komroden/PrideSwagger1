@@ -19,7 +19,7 @@ export const NewsCard = ({url,date,text}) => {
     let d= new Date(date)
     const {push}=useHistory()
     const handlePushFullNews=() => {
-       push(`/full/${text}`)
+       push(`/full:1`)
     }
     return (
         <div className="news_item">

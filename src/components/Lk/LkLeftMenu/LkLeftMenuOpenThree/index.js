@@ -1,7 +1,7 @@
-import React, {useCallback, useState} from 'react';
+import React, {useState} from 'react';
 
 import {LkLeftMenuOpenSubmenu} from "../LkLeftMenuOpenSubmenu";
-import {CSSTransition} from "react-transition-group";
+import Collapse from '@mui/material/Collapse';
 
 
 
@@ -21,7 +21,7 @@ export const LkLeftMenuOpenThree = ({icon, title,subtitle1,subtitle2,subtitle3,p
             <span onClick={handleOpen} className="open_child">
                 <img src="/images/chevr.png" alt=""/>
             </span>
-            <CSSTransition  in={open} classNames='alert' timeout={500} unmountOnExit>
+            <Collapse  in={open}>
                 <ul className="child_ul">
                     <LkLeftMenuOpenSubmenu title={subtitle1} path={path1}/>
                     <LkLeftMenuOpenSubmenu title={subtitle2} path={path2}/>
@@ -29,7 +29,7 @@ export const LkLeftMenuOpenThree = ({icon, title,subtitle1,subtitle2,subtitle3,p
 
 
                 </ul>
-            </CSSTransition>
+            </Collapse>
         </li>
     );
 };

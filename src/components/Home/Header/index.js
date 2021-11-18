@@ -80,7 +80,7 @@ export const Header = (props) => {
                             <div className="hello_open">
                                 <span className="hello_bas">Привет:</span>
                                 <div onClick={()=>setShowName(!showName)} className="open_name_info">
-                                    <div className="hello_name">{userData.value.Username?userData.value.Username:'User'}</div>
+                                    <div className="hello_name">{userData.value.userInfo.login?userData.value.userInfo.login:'User'}</div>
                                     <div className="btn_open_name"/>
                                 </div>
                             </div>

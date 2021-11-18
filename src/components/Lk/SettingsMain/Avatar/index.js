@@ -4,6 +4,7 @@ import {useSelector} from "react-redux";
 import 'react-image-crop/dist/ReactCrop.css'
 import {UploadButtons} from "./UploadButtons";
 
+
 export const Avatar = ({open,maxWidth,maxHeight}) => {
     const {auth} = useSelector((state) => state);
     const [crop, setCrop] = useState({
@@ -19,6 +20,7 @@ export const Avatar = ({open,maxWidth,maxHeight}) => {
         avatarImage:null,
     });
     const [url,setUrl]=useState('')
+    const [uploadUrl,setUploadUrl]=useState('')
     const [drag,setDrag]=useState(false);
     const dragStartHandler=(e)=>{
         e.preventDefault()
@@ -42,13 +44,13 @@ export const Avatar = ({open,maxWidth,maxHeight}) => {
     }
     const onAddImage=(e)=>{
         const file =e.target.files[0]
-        console.log(file)
+        setUploadUrl(file)
         let reader = new FileReader()
         reader.addEventListener('load',()=>{
+            console.log(reader.result)
             setUrl(reader.result)
         },false)
         reader.readAsDataURL(file)
-        console.log(url)
 
         setDrag(false)
     }
@@ -65,17 +67,23 @@ export const Avatar = ({open,maxWidth,maxHeight}) => {
 
     }
     const handlePost =()=>{
+console.log(payload)
+        const formData=new FormData()
+        // formData.append('X',payload.X)
+        // formData.append('Y',payload.Y)
+        // formData.append('Width',payload.Width)
+        // formData.append('Height',payload.Height)
+        formData.append('avatarImage',uploadUrl)
 
-        fetch('http://lk.pride.kb-techno.ru/api/Profile/avatar', {
+
+        fetch('http://lk.pride.kb-techno.ru/api/Profile/crop-avatar', {
             method: 'POST',
-            body: payload,
+            body: formData,
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'multipart/form-data',
                 'Authorization': `Bearer ${auth.token}`
-
             }
-
         })
             .then((res) => {
                 console.log(res)

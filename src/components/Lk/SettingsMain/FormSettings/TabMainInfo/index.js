@@ -1,8 +1,16 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {useInputV} from "../../../../../hooks/useInputV";
+import {useDispatch, useSelector} from "react-redux";
+import { UserDataUpDate} from "../../../../../store/userInfo/actions";
 
 
 export const TabMainInfo = () => {
+    const {auth} = useSelector((state) => state);
+    // const dispatch = useDispatch();
+    // const setUserData = useCallback(() => {
+    //     dispatch(UserDataUpDate())
+    // }, [dispatch]);
+
     const[value,setValue]=useState({
         firstName:'',
         lastName:'',
@@ -23,10 +31,37 @@ export const TabMainInfo = () => {
             firstName:firstName.value,
             lastName:lastName.value,
             middleName:middleName.value,
-            birthDate:(birthDate.value),
+            birthDate:birthDate.value,
             country:country,
             city:city.value,
         })
+        const payload={
+            firstName:value.firstName,
+            lastName:value.lastName,
+            middleName:value.middleName,
+            birthDate:value.birthDate,
+            country:value.country,
+            city:value.city,
+        }
+
+        fetch('http://lk.pride.kb-techno.ru/api/Profile/update',{
+            method:'PUT',
+            body:JSON.stringify(payload),
+            headers:{'Accept': 'application/octet-stream',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${auth.token}`}
+        })
+            .then((res) => {
+                if (res.status >= 200 && res.status < 300) {
+                    // setUserData()
+                } else {
+                    let error = new Error(res.statusText);
+                    error.response = res;
+                    throw error
+                }
+            })
+            .catch(error=>console.log(error))
+
 
     }
     const handleReset=()=>{
@@ -64,7 +99,7 @@ export const TabMainInfo = () => {
                 </div>
                 <div className="setting_form_item setting_form_item_for_three">
                     <span className="title_input">Страна</span>
-                    <select  defaultValue={'Россия'} value={country.value} onChange={e=>setCountry(e.target.value)}  className="dark_input" name="country">
+                    <select  defaultValue={'Россия'}  onChange={e=>setCountry(e.target.value)}  className="dark_input" name="country">
                         <option value='Россия' >Россия</option>
                         <option value='Пункт 2'  >Пункт 2</option>
                         <option value='Пункт 3'  >Пункт 3</option>
@@ -82,7 +117,7 @@ export const TabMainInfo = () => {
             </div>
 
             <div className="setting_form_bottom">
-                <button disabled={true} type='submit' className="form_sbm">Сохранить</button>
+                <button type='submit' className="form_sbm">Сохранить</button>
                 <button type='reset' className="form_refresh">Отменить</button>
             </div>
         </form>

@@ -1,17 +1,23 @@
-import React  from 'react';
+import React, {useCallback} from 'react';
 import './style.scss';
 
 import {useHistory} from "react-router";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {LkLeftMenuOpenFive} from "./LkLeftMenuOpenFive";
 import {LkLeftMenuOpenThree} from "./LkLeftMenuOpenThree";
+import {openLeftMenu} from "../../../store/leftMenu/actions";
 
 
 export const LkLeftMenu = () => {
+    const dispatch = useDispatch();
+    const openMenu = useCallback(() => {
+        dispatch(openLeftMenu())
+    }, [dispatch]);
     const { leftMenu } = useSelector((state) => state);
     const {push}=useHistory()
     const handlePushSettings=() => {
         push('settings')
+        openMenu()
     }
     const handlePushHome=() => {
         push('/lk')

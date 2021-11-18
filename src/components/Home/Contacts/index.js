@@ -1,7 +1,10 @@
 import React from 'react';
 import './style.scss'
+
+import 'react-slide-captcha/dist/styles.css';
 import {useInputV} from "../../../hooks/useInputV";
 export const Contacts = ({title,isSocial}) => {
+
 
     const email=useInputV('',{isEmpty:true});
     const name=useInputV('',{isEmpty:true});

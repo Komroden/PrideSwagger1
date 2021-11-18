@@ -25,9 +25,9 @@ export const FormSettings = () => {
                 indicatorColor="secondary"
                 aria-label="secondary tabs example"
             >
-                <Tab value="one" label="Основная информация" />
-                <Tab value="two" label="Дополнительная информация" />
-                <Tab value="three" label="Важная информация" />
+                <Tab value="one" label="Основная " />
+                <Tab value="two" label="Дополнительная " />
+                <Tab value="three" label="Смена пароля" />
             </Tabs>
             <TabPanel value={'one'}><TabMainInfo/></TabPanel>
             <TabPanel value={'two'}><TabDopInfo/></TabPanel>

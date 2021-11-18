@@ -47,10 +47,14 @@ import {Notifications} from "./pages/Lk/Notifications";
 
 
 export function App() {
-    const { showMessage,timerDown,auth } = useSelector((state) => state);
+    const { showMessage,timerDown,auth,userData } = useSelector((state) => state);
     const dispatch = useDispatch();
     const[news,setNews]=useState([])
-    const[value,setValue]=useState({})
+    const[value,setValue]=useState({
+
+            userInfo:
+                    {login:''}
+                })
     const setUserData = useCallback(() => {
         dispatch(UserData(value))
     }, [dispatch,value]);
@@ -60,31 +64,35 @@ export function App() {
 
     useEffect(()=>{
         if (!auth.token){
-            setValue({})
+            setValue({
+
+                userInfo:
+                    {login:''}
+            })
             return
         }
-        // fetch('http://lk.pride.kb-techno.ru/api/Main/info',{
-        //     method:'GET',
-        //     headers:{'Content-Type': 'application/json',
-        //         'Accept': 'application/json',
-        //         'Authorization':`Bearer ${auth.token}`}
-        // })
-        //     .then((res) => {
-        //         if (res.status >= 200 && res.status < 300) {
-        //             return res.json();
-        //         } else {
-        //             let error = new Error(res.statusText);
-        //             error.response = res;
-        //             throw error
-        //         }
-        //     })
-        //     .then((body)=>{
-        //         setValue(body)
-        //     })
-        //     .catch((e) => {
-        //         console.log(e.message);
-        //
-        //     });
+        fetch('http://lk.pride.kb-techno.ru/api/Main/info',{
+            method:'GET',
+            headers:{'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization':`Bearer ${auth.token}`}
+        })
+            .then((res) => {
+                if (res.status >= 200 && res.status < 300) {
+                    return res.json();
+                } else {
+                    let error = new Error(res.statusText);
+                    error.response = res;
+                    throw error
+                }
+            })
+            .then((body)=>{
+                setValue(body)
+            })
+            .catch((e) => {
+                console.log(e.message);
+
+            });
     },[auth.token])
 
 
@@ -119,9 +127,6 @@ export function App() {
         setTimeout(() => setPri(pri+25) , 5000);
     });
 
-
-
-
     useEffect(() => {
         setMinutes()
     },[min])
@@ -131,6 +136,21 @@ export function App() {
     useEffect(() => {
         setSecond()
     },[pri])
+
+
+    //crypto
+    // useEffect(()=>{
+    //     fetch('https://api.blockchain.info/stats',{
+    //         method:'GET',
+    //         headers:{
+    //             'accept': 'application/octet-stream'
+    //         }
+    //     })
+    //         .then(res=>res.json())
+    //         .then(body=>console.log(body))
+    //
+    // },[])
+
 
     const setNewses = useCallback(() => {
         dispatch(setNewsList(news))

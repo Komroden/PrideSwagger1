@@ -1,25 +1,21 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import './style.scss';
 import {NewMessage} from "./NewMessage";
 import {useFetch} from "../../../hooks/useFetch";
 import {useSelector} from "react-redux";
 export const NewMessageMain = ({title,mode}) => {
     const { auth } = useSelector((state) => state);
-    // 'http://lk.pride.kb-techno.ru/api/Chat/chatrooms?pageNumber=1&pageSize=10'
-    // const {data}=useFetch('http://lk.pride.kb-techno.ru/api/Chat/chatrooms',{
-    //     method:'GET',
-    //     headers:{'accept':'application/json',
-    //         'Authorization':`Bearer ${auth.token}`}
-    // })
-    // console.log(data)
-    // useEffect(()=>{
-    //     fetch('http://lk.pride.kb-techno.ru/api/Chat/chatrooms',{
-    //         method:'GET',
-    //             headers:{'accept':'application/json',
-    //                 'Authorization':`Bearer ${auth.token}`}
-    //     })
-    //         .then(res=>console.log(res.json()))
-    // })
+    const [messageList,setMessageList]=useState({items:[]})
+    useEffect(()=>{
+        fetch('http://lk.pride.kb-techno.ru/api/Chat/chatrooms',{
+            method:'GET',
+                headers:{'accept':'application/json',
+                    'Authorization':`Bearer ${auth.token}`}
+        })
+            .then(res=>res.json())
+            .then(body=>setMessageList(body))
+
+    },[])
     return (
         <>
             <div className="grey_line"/>
@@ -30,18 +26,7 @@ export const NewMessageMain = ({title,mode}) => {
                     </div>
                 </div>
                 <div className="messages_row">
-                    <NewMessage name={'Eunice Clarke'} text={'Привет как дела тут тема сообщения короч'} date={'19 мин'} mode={mode}/>
-                    <NewMessage name={'Nathan Cooper'} text={'Привет как дела тут тема сообщения короч'} date={'час назад'} mode={mode}/>
-                    <NewMessage name={'Lura Osborne'} text={'Привет!'} date={'12.09.2020'} mode={mode}/>
-                    <NewMessage name={'Nathan Cooper'} text={'Привет как дела тут тема сообщения короч'} date={'час назад'} mode={mode}/>
-                    <NewMessage name={'Lura Osborne'} text={'Привет!'} date={'12.09.2020'} mode={mode}/>
-                    <NewMessage name={'Nathan Cooper'} text={'Привет как дела тут тема сообщения короч'} date={'час назад'} mode={mode}/>
-                    <NewMessage name={'Lura Osborne'} text={'Привет!'} date={'12.09.2020'} mode={mode}/>
-                    <NewMessage name={'Nathan Cooper'} text={'Привет как дела тут тема сообщения короч'} date={'час назад'} mode={mode}/>
-                    <NewMessage name={'Lura Osborne'} text={'Привет!'} date={'12.09.2020'} mode={mode}/>
-                    <NewMessage name={'Nathan Cooper'} text={'Привет как дела тут тема сообщения короч'} date={'час назад'} mode={mode}/>
-                    <NewMessage name={'Lura Osborne'} text={'Привет!'} date={'12.09.2020'} mode={mode}/>
-
+                    {messageList.items.map(item=><NewMessage key={item.id} mode={mode} date={item.lastMessageDate} text={item.lastMessageText} name={item.recipientName}/>)}
                 </div>
             </div>
         </>
