@@ -1,0 +1,215 @@
+.alert-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+.alert-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+.alert-exit {
+  opacity: 1;
+}
+.alert-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 300ms, transform 300ms;
+}
+.header{
+  position: relative;
+  z-index: 1;
+  padding-top: 67px;
+  .logo{
+    &:hover{
+      opacity: 0.7;
+    }
+  }
+  .logoImage{
+    //content: url("../../../images/logo.png");
+  }
+  .first_containerP, .header_left, .header_right{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .navig_menu{
+
+    width: 100%;
+    margin-left: 40%;
+    ul{
+      display: flex;
+      li{
+        a{
+          cursor: pointer;
+          text-decoration: none;
+          font-weight: 300;
+          letter-spacing: 1.2px;
+          padding: 15px 0;
+          margin-right: 35px;
+          position: relative;
+          &:before{
+            transition: all 0.3s ease-in-out;
+            position: absolute;
+            content: "";
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: transparent;
+            bottom: 0;
+            left:calc(50% - 5px);
+          }
+          &:hover, &.active{
+            color: #ee3364;
+            &:before{
+              background: #ee3364;
+            }
+          }
+        }
+        &.active{
+          a{
+            color: #ee3364;
+            &:before{
+              background: #ee3364;
+            }
+          }
+        }
+      }
+    }
+  }
+  .name_row_open{
+
+    background: #7028a9;
+    position: absolute;
+    margin-top: 15px;
+    width: 144px;
+    padding: 15px 0 5px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 14px;
+    &:before{
+      transition:all 0.3s ease-in-out;
+      content:"\f0d8";
+      font-family: 'FontAwesome';
+      position: absolute;
+      top: -16px;
+      right: 14px;
+      color: #7028a9;
+      font-size: 22px;
+    }
+    a{
+      cursor: pointer;
+      display: block;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      &:hover{
+        color: #ee3364;
+      }
+    }
+  }
+  .hello_open{
+    display: flex;
+    margin-right: 20px;
+    border-radius: 30px;
+    background: #7028a9;
+    padding: 15px;
+    font-size: 14px;
+    .hello_bas{
+      margin-right: 5px;
+      color: #ee3364;
+      display: inline-block;
+    }
+    .hello_name{
+      padding-left: 3px;
+      display: inline-block;
+      position: relative;
+
+    }
+    .open_name_info {
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      &:hover{
+        color: #ee3364;
+      }
+    }
+    .btn_open_name{
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+      &:after{
+
+        padding-left: 5px;
+        content:"";
+        font-size: 12px;
+        font-family: 'FontAwesome';
+      }
+
+    }
+
+  }
+  .languag{
+    position: relative;
+    margin-right: 20px;
+    .lang_btn{
+      font-weight: 600;
+      font-size: 14px;
+      text-transform: uppercase;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #ee3364;
+      transition: all 0.3s ease-in-out;
+      border-radius: 50%;
+      height: 47px;
+      width: 47px;
+      cursor: pointer;
+      border:1px solid #ee3364;
+      &:hover{
+        color: #ee3364;
+        background: #fff;
+      }
+
+    }
+  }
+  .menu_right_btn{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #ee3364;
+    transition: all 0.3s ease-in-out;
+    border-radius: 50%;
+    height: 65px;
+    width: 65px;
+    cursor: pointer;
+    border:1px solid #ee3364;
+    span{
+      transition: all 0.3s ease-in-out;
+      width: 20px;
+      height: 2px;
+      display: block;
+      margin-bottom: 5px;
+      background: #fff;
+      &:last-child{
+        margin-bottom: 0;
+      }
+    }
+    &:hover{
+      color: #ee3364;
+      background: #fff;
+      span{
+        background: #ee3364;
+      }
+    }
+
+  }
+  .open_row_lang{
+
+    position: absolute;
+    .lang_btn{
+      margin-top: 10px;
+    }
+  }
+
+}
+

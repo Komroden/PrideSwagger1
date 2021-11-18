@@ -1,0 +1,88 @@
+.messages_row {
+  margin-top: 50px;
+  border-top: 1px solid #f7f8f9;
+  margin: 0 -30px;
+}
+
+.messages_line {
+  justify-content: space-between;
+  min-height: 75px;
+  padding: 0 35px;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  &:nth-child(2n) {
+    background-color: #f7f8f9;
+  }
+  .messages_line_name {
+    flex-basis: 27%;
+    display: block;
+    color: #a0a0a0;
+    font-size: 17px;
+    font-weight: 300;
+    padding-left: 20px;
+    padding-right: 5px;
+  }
+  .messages_line_text {
+    font-size: 17px;
+    color: #676767;
+    flex-basis: 40%;
+  }
+  .messages_line_active {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #cfcfcf;
+    &.active {
+      background-color: #38c6da;
+    }
+  }
+  .messages_line_time {
+    flex-basis: 13%;
+    padding-left: 20px;
+    font-size: 14px;
+    color: #676767;
+  }
+  .messages_line_remove {
+    margin-left: 10px;
+  }
+  .red_remove_btn,
+  .answer_l {
+    width: 85px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    color: #fff;
+    border-radius: 10px;
+  }
+  .answer_l {
+    background-color: #6ad36e;
+    &:hover {
+      background: #50af95;
+    }
+    &.no_active {
+      background-color: #cfcfcf;
+      &:hover {
+        background-color: #cfcfcf;
+      }
+    }
+  }
+  .red_remove_btn {
+    background-color: #fb5867;
+    &:hover {
+      background: #cc1e1e;
+    }
+  }
+}
+
+.messages_row {
+  margin-bottom: 50px;
+}
+
+.balance_for_every_page {
+  .balance_cost_item {
+    margin-bottom: 15px;
+  }
+}

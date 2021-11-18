@@ -1,0 +1,55 @@
+.alert-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+.alert-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+.alert-exit {
+  opacity: 1;
+}
+.alert-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 300ms, transform 300ms;
+}
+.resend_wrapper{
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+.no_code{
+  font-size: 15px;
+  color: #fec40c;
+  &:hover{
+    color: #9addff;
+    transition: color 200ms;
+  }
+}
+.resend_number{
+  font-size: 13px;
+  margin-bottom: 15px;
+}
+.timer_resend{
+  font-size: 18px;
+  color: #99999b;
+}
+.input_sms{
+  text-align: center;
+}
+.button_group{
+  display: flex;
+  margin: 0 -5px;
+}
+.button_item{
+  margin: 10px 5px 0 5px!important;
+  font-size: 13px!important;
+  padding: 15px!important;
+  &:after{
+    content: none!important;
+  }
+
+
+}

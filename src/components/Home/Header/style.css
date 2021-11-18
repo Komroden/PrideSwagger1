@@ -1,0 +1,204 @@
+.alert-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.alert-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.alert-exit {
+  opacity: 1;
+}
+
+.alert-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.header {
+  position: relative;
+  z-index: 1;
+  padding-top: 67px;
+}
+.header .logo:hover {
+  opacity: 0.7;
+}
+.header .logoImage {
+  content: url("../../../images/logo.png");
+}
+.header .first_containerP, .header .header_left, .header .header_right {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header .navig_menu {
+  width: 100%;
+  margin-left: 40%;
+}
+.header .navig_menu ul {
+  display: flex;
+}
+.header .navig_menu ul li a {
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 300;
+  letter-spacing: 1.2px;
+  padding: 15px 0;
+  margin-right: 35px;
+  position: relative;
+}
+.header .navig_menu ul li a:before {
+  transition: all 0.3s ease-in-out;
+  position: absolute;
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: transparent;
+  bottom: 0;
+  left: calc(50% - 5px);
+}
+.header .navig_menu ul li a:hover, .header .navig_menu ul li a.active {
+  color: #ee3364;
+}
+.header .navig_menu ul li a:hover:before, .header .navig_menu ul li a.active:before {
+  background: #ee3364;
+}
+.header .navig_menu ul li.active a {
+  color: #ee3364;
+}
+.header .navig_menu ul li.active a:before {
+  background: #ee3364;
+}
+.header .name_row_open {
+  background: #7028a9;
+  position: absolute;
+  margin-top: 15px;
+  width: 182px;
+  padding: 15px 0 5px;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 14px;
+}
+.header .name_row_open:before {
+  transition: all 0.3s ease-in-out;
+  content: "\f0d8";
+  font-family: "FontAwesome";
+  position: absolute;
+  top: -16px;
+  right: 14px;
+  color: #7028a9;
+  font-size: 22px;
+}
+.header .name_row_open a {
+  cursor: pointer;
+  display: block;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+.header .name_row_open a:hover {
+  color: #ee3364;
+}
+.header .hello_open {
+  display: flex;
+  margin-right: 20px;
+  border-radius: 30px;
+  background: #7028a9;
+  padding: 15px;
+  font-size: 14px;
+}
+.header .hello_open .hello_bas {
+  margin-right: 5px;
+  color: #ee3364;
+  display: inline-block;
+}
+.header .hello_open .hello_name {
+  padding-left: 3px;
+  display: inline-block;
+  position: relative;
+}
+.header .hello_open .open_name_info {
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.header .hello_open .open_name_info:hover {
+  color: #ee3364;
+}
+.header .hello_open .btn_open_name {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+.header .hello_open .btn_open_name:after {
+  padding-left: 5px;
+  content: "\f078";
+  font-size: 12px;
+  font-family: "FontAwesome";
+}
+.header .languag {
+  position: relative;
+  margin-right: 20px;
+}
+.header .languag .lang_btn {
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ee3364;
+  transition: all 0.3s ease-in-out;
+  border-radius: 50%;
+  height: 47px;
+  width: 47px;
+  cursor: pointer;
+  border: 1px solid #ee3364;
+}
+.header .languag .lang_btn:hover {
+  color: #ee3364;
+  background: #fff;
+}
+.header .menu_right_btn {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #ee3364;
+  transition: all 0.3s ease-in-out;
+  border-radius: 50%;
+  height: 65px;
+  width: 65px;
+  cursor: pointer;
+  border: 1px solid #ee3364;
+}
+.header .menu_right_btn span {
+  transition: all 0.3s ease-in-out;
+  width: 20px;
+  height: 2px;
+  display: block;
+  margin-bottom: 5px;
+  background: #fff;
+}
+.header .menu_right_btn span:last-child {
+  margin-bottom: 0;
+}
+.header .menu_right_btn:hover {
+  color: #ee3364;
+  background: #fff;
+}
+.header .menu_right_btn:hover span {
+  background: #ee3364;
+}
+.header .open_row_lang {
+  position: absolute;
+}
+.header .open_row_lang .lang_btn {
+  margin-top: 10px;
+}
+
+/*# sourceMappingURL=style.css.map */

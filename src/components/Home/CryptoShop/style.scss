@@ -1,0 +1,191 @@
+.bottom_bg{
+  background-image: url('../../../images/bg_table_bottom1.png');
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: inherit;
+  width: 100%;
+  height: 400px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.cripto_table{
+  padding-bottom: 150px;
+  position: relative;
+  margin-top: 70px;
+  color: #756e6d;
+  font-size: 15px;
+  font-weight: 300;
+  padding-top: 40px;
+
+  &:before{
+    z-index: 1;
+    content:"";
+    width: calc(100% - 40px);
+    position: absolute;
+    top:20px;
+    left: 20px;
+    border-radius: 15px;
+    background: #c9daff;
+    opacity: 0.5;
+    height: 100px;
+  }
+  &:after{
+    z-index: 1;
+    content:"";
+    width: calc(100% - 80px);
+    position: absolute;
+    top:0px;
+    left: 40px;
+    border-radius: 15px;
+    background: #c9daff;
+    opacity: 0.5;
+    height: 100px;
+  }
+  .table_cripto{
+    overflow: hidden;
+    z-index: 2;
+    position: relative;
+    background:#fff;
+    border-radius: 15px;
+    width: 100%;
+    tr{
+      padding: 13px 0;
+      display: flex;
+      align-items: center;
+      justify-content:space-between;
+      &:nth-child(2n){
+        background:#f4f7fd;
+      }
+    }
+  }
+  th{
+    display: flex;
+    align-items: center;
+  }
+  .sorting{
+    margin-right: 10px;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    flex-direction: column;
+    .sorting_top{
+      margin-bottom: -2px;
+      transition: all 0.3s ease-in-out;
+      &:hover{
+        color:#6324ad;
+      }
+    }
+    .sorting_bottom{
+      margin-top: -2px;
+      transition: all 0.3s ease-in-out;
+      &:hover{
+        color:#6324ad;
+      }
+    }
+  }
+  .header_table{
+    border-bottom: 3px solid #9358d6;
+    background:#b99cda;
+    color: #fff;
+    text-transform: uppercase;
+    padding: 10px 0 17px !important;
+    th, th span{
+      font-weight: 600;
+    }
+    .name_t{
+      line-height: 1;
+      padding-left: 25px;
+    }
+  }
+  .name_t{
+    padding-left: 10px;
+    flex-basis: 18%;
+    display: flex;
+    align-items: center;
+    .logo_t{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      margin-right: 15px;
+      width: 45px;
+      height: 45px;
+      border: 1px solid #e9ecf0;
+    }
+  }
+  .red_t{
+    color: #ff0000;
+  }
+  .green_t{
+    color: #42d382;
+  }
+  .market_t{
+    flex-basis: 18%;
+  }
+  .price_t{
+    flex-basis: 14%;
+  }
+  .volume_t{
+    flex-basis: 17%;
+  }
+  .supply_t{
+    flex-basis: 13%;
+  }
+  .change_t{
+    flex-basis: 10%;
+  }
+  .actions_t{
+    flex-basis: 10%;
+    .link_info{
+      font-size: 11px;
+      color: #000;
+      border-radius: 5px;
+      background:#f9f9f9;
+      padding: 7px;
+      font-weight: 700;
+      display: inline-block;
+      border:1px solid #bfcae0;
+      &:hover{
+        background: #6324ad;
+        color: #fff;
+      }
+    }
+  }
+  td{
+    padding-left: 20px;
+  }
+  .name_tt{
+    color: #3679b6;
+    font-weight: 600;
+  }
+}
+.cripto_shop{
+  position: relative;
+  z-index: 1;
+  .text_bg{
+    top: 30%;
+    width: 100%;
+    text-align: center;
+    span{
+      font-size: 380px;
+    }
+  }
+}
+.hidden_text{
+  z-index: 10;
+  opacity: 1!important;
+  display: block!important;
+  font-size: 22px;
+  position: absolute;
+  margin: auto;
+  top: 45%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  height: inherit;
+}
+.hidden__none{
+  display: none;
+}

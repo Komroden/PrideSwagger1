@@ -1,0 +1,122 @@
+.alert-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+.alert-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+.alert-exit {
+  opacity: 1;
+}
+.alert-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 300ms, transform 300ms;
+}
+.menu_right_open_r {
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 20%;
+  background: #6324ad;
+  height: 100%;
+  z-index: 20;
+  @media screen and (min-height:600px ){
+    justify-content: center;
+  }
+
+
+  ul {
+    text-align: center;
+
+    a {
+      cursor: pointer;
+      display: inline-block;
+      text-transform: uppercase;
+      margin-top: 40px;
+      font-size: 20px;
+      &:hover {
+        color: #ee3364;
+      }
+    }
+  }
+}
+.close_menu_btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  .before,
+  .after {
+    position: absolute;
+    right: 20px;
+    content: " ";
+    height: 40px;
+    width: 2px;
+    background-color: #fff;
+  }
+  .before {
+    transform: rotate(45deg);
+  }
+  .after {
+    transform: rotate(-45deg);
+  }
+  &:hover {
+    opacity: 0.7;
+  }
+}
+.user_profile_rightMenu{
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  @media screen and (min-height:600px ){
+    position: absolute;
+    top: 30px;
+  }
+}
+.none{
+  display: none!important;
+}
+.userProfileText{
+  margin-right: 0!important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.push_link{
+  cursor: pointer;
+  color: #01d2e1;
+  @media screen and (min-height:700px ){
+    position: absolute;
+    top: 110px;
+  }
+}
+.push_linkRegistr{
+  margin-top: 40px;
+  cursor: pointer;
+  color: #01d2e1;
+  @media screen and (min-height:700px ){
+    margin-top: 0;
+    position: absolute;
+    top: 150px;
+  }
+}
+.user_part_exit_marginTop{
+  margin-top:20px;
+}
+.menu_link_wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}

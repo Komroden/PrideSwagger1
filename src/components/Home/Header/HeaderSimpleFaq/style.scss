@@ -1,0 +1,61 @@
+.simple_header_form {
+  padding-top: 12px;
+  form {
+    display: flex;
+    .inputp {
+      padding: 13px 25px;
+      display: inline-block;
+      border-radius: 5px;
+      margin-right: 10px;
+    }
+    input.inputp {
+      padding: 14px 15px 15px 42px!important;
+      width: 270px;
+      font-size: 14px;
+      text-transform: uppercase;
+    }
+    .label_i {
+      position: relative;
+      &:before {
+        position: absolute;
+        content: "";
+        font-size: 14px;
+        color: #fec40c;
+        font-family: "FontAwesome";
+        top: 14px;
+        left: 20px;
+      }
+    }
+    .column_categ {
+      position: relative;
+    }
+    .opencat {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 162px;
+      font-weight: 300;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      position: relative;
+      &:after {
+        content: "";
+        font-family: "FontAwesome";
+        font-size: 16px;
+        display: inline-block;
+      }
+      &:hover {
+        color: #fec40c;
+      }
+    }
+    .subm_search {
+      background: #b62b70;
+      padding: 13px 50px;
+      &:hover {
+        background: #fec40c;
+        color: rgba(39, 17, 86, 1);
+      }
+    }
+  }
+}

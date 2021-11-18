@@ -1,0 +1,116 @@
+.invest_plan{
+  padding-bottom: 50px;
+  margin-bottom: 45px;
+  position: relative;
+  z-index: 1;
+  background-image: url('../../../images/bg_in.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  .pride_subtitle{
+    color: #fdb50a;
+  }
+  .invest_plan_flex{
+    margin-top: 80px;
+    margin-bottom: 40px;
+    display: flex;
+    justify-content:space-between;
+  }
+  .invest_plan_item{
+    cursor: pointer;
+    flex-basis: 25%;
+    padding: 10px;
+    span{
+      display: block;
+    }
+    &:hover{
+      .invest_plan_item_ins{
+        background:#292929;
+        border-color: #000;
+      }
+      .orange_b{
+        background:#000;
+        &:before{
+          border-top-color:#000;
+        }
+      }
+      li, .orange_day{
+        color: #9a9a9a;
+      }
+    }
+  }
+  .invest_plan_item_ins{
+    transition: all 0.3s ease-in-out;
+    border:1px solid #eb5b50;
+    text-align: center;
+    display: block;
+    .inv_name{
+      font-weight: 500;
+      margin-top: 30px;
+      margin-bottom: 25px;
+      font-size: 18px;
+      text-transform: uppercase;
+    }
+    .orange_b{
+      transition: all 0.3s ease-in-out;
+      background:#eb5b50;
+      padding-top: 20px;
+      margin-bottom: 55px;
+      position: relative;
+      height: 147px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      &:before{
+        transition: all 0.3s ease-in-out;
+        position: absolute;
+        bottom:-20px;
+        border-left: 140px solid transparent;
+        border-right: 140px solid transparent;
+        content:"";
+        left: -2px;
+        border-top:  20px solid #eb5b50;
+      }
+      .orange_nubmer{
+        font-size: 72px;
+        line-height: 1;
+      }
+      .orange_white{
+        text-transform: uppercase;
+        font-weight: 600;
+        padding: 5px 15px;
+        color: #eb5b50;
+        background:#fff;
+        display: inline-block;
+        margin-bottom: 5px;
+      }
+    }
+    .red_t{
+      color: #eb5b50 !important;
+    }
+    .green_t{
+      color: #04de19 !important;
+    }
+    li{
+      margin-bottom: 18px;
+      font-size: 14px;
+    }
+    .register_btn{
+      font-size: 13px;
+      font-weight: 300;
+      text-transform: uppercase;
+      padding: 14px 25px;
+      background: #eb5b50;
+      border-radius: 3px;
+      margin: 22px 0 40px;
+      display: inline-block;
+    }
+    .center_text{
+      display: block;
+      font-size: 24px;
+      margin: 20px 0;
+    }
+  }
+}

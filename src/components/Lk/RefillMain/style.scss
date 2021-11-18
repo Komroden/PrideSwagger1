@@ -1,0 +1,93 @@
+.popoln_item {
+  border-radius: 11px;
+  background-color: #e7e7e7;
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 165px;
+  padding: 10px 30px 10px 35px;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    background: #838d98;
+    .popoln_item_title {
+      color: #fff;
+    }
+    .popoln_item_text {
+      color: #fff;
+    }
+  }
+}
+
+.popoln_item_input {
+  width: 275px;
+  height: 80px;
+  text-align: right;
+  padding: 5px 30px;
+  border: 0;
+  border-radius: 10px;
+  background-color: #fff;
+  color: #000;
+  font-size: 24px;
+}
+
+.popoln_item_btn {
+  display: flex;
+  align-items: center;
+  margin-left: 25px;
+  width: 230px;
+  border: 0;
+  border-radius: 10px;
+  height: 80px;
+  padding-left: 25px;
+  padding-right: 15px;
+  background-color: #92989d;
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+  span {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    margin-left: 15px;
+  }
+  &:hover {
+    background-color: #3e4954;
+  }
+}
+
+.popoln_item_form {
+  form {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.popoln_item_logo {
+  max-width: 125px;
+}
+
+.popoln_item_text {
+  max-width: 340px;
+  width: 100%;
+  margin-left: 25px;
+  color: #686f76;
+}
+
+.popoln_item_text_top {
+  opacity: 0.8;
+  font-size: 14px;
+  transition: all 0.3s ease-in-out;
+}
+
+.popoln_item_title {
+  font-size: 36px;
+  font-weight: 600;
+  transition: all 0.3s ease-in-out;
+}
+
+.popoln_item_text_bottom {
+  font-size: 14px;
+  transition: all 0.3s ease-in-out;
+  opacity: 0.55;
+}

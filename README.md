@@ -1,1 +1,1 @@
-# PrideSwagger
+# Pride

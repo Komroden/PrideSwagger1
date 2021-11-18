@@ -1,0 +1,194 @@
+.lineinfo {
+  cursor: pointer;
+  margin-bottom: 10px;
+  background-color: #f4f4f5;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  overflow: hidden;
+}
+.lineinfo__top {
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  -webkit-box-shadow: -2px 0px 6px 0px rgba(34, 60, 80, 0.11);
+  -moz-box-shadow: -2px 0px 6px 0px rgba(34, 60, 80, 0.11);
+  box-shadow: -2px 0px 6px 0px rgba(34, 60, 80, 0.11);
+  background-color: #f5f5f5;
+  margin-bottom: 3px;
+  min-height: 80px;
+  align-items: center;
+  padding: 10px 25px 10px 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.lineinfo__day {
+  flex-basis: 115px;
+  display: inline-flex;
+  align-items: center;
+}
+.lineinfo__day span {
+  font-size: 16px;
+  display: inline-block;
+  margin-top: 2px;
+  margin-left: 2px;
+  font-weight: 600;
+}
+.lineinfo__time {
+  flex-basis: 85px;
+  display: inline-flex;
+  align-items: center;
+}
+.lineinfo__time span {
+  font-size: 16px;
+  font-weight: 600;
+  display: inline-block;
+  margin-left: 2px;
+}
+.lineinfo__active {
+  flex-basis: 65px;
+}
+.lineinfo__activeins {
+  border-radius: 50px;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  -ms-border-radius: 50px;
+  -o-border-radius: 50px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  height: 25px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #56d4a1;
+}
+.lineinfo__activeins_red {
+  background-color: #cc1e1e;
+}
+.lineinfo__user {
+  display: flex;
+  align-items: inherit;
+  flex-basis: 260px;
+  color: #56d4a1;
+  font-weight: 600;
+  font-size: 22px;
+}
+.lineinfo__user img {
+  margin-right: 3px;
+}
+.lineinfo__user_red {
+  color: #cc1e1e;
+}
+.lineinfo__details {
+  flex-basis: 140px;
+  display: flex;
+  align-items: center;
+}
+.lineinfo__detailsitem {
+  margin-left: -5px;
+}
+.lineinfo__email {
+  display: flex;
+  align-items: center;
+  flex-basis: 228px;
+}
+.lineinfo__email a {
+  margin-left: 3px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #2c2e3e;
+}
+.lineinfo__status {
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  background-color: #3e4954;
+  flex-basis: 38px;
+  height: 38px;
+  width: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lineinfo__status span {
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  background-color: #3e4954;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url("../../../images/bg_arrow.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.lineinfo__status.active {
+  background-color: #61c396;
+}
+.lineinfo__status.active span {
+  background-color: #61c396;
+  transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+}
+
+.lineinfo__body {
+  position: relative;
+  background-color: #f4f4f5;
+  padding-left: 42px;
+  padding-bottom: 10px;
+}
+.lineinfo__body:before {
+  content: "";
+  background-color: #c5c5c5;
+  height: calc(100% - 52px);
+  width: 2px;
+  display: block;
+  position: absolute;
+  left: 26px;
+  top: 0;
+}
+.lineinfo__body .lineinfo__top {
+  background-color: #fafafa;
+  position: relative;
+}
+.lineinfo__body .lineinfo__top:before {
+  content: "";
+  background-color: #c5c5c5;
+  width: 15px;
+  height: 2px;
+  display: block;
+  position: absolute;
+  left: -15px;
+  top: calc(50% - 1px);
+}
+.lineinfo__body .lineinfo__body .lineinfo__top {
+  background-color: #fefeff;
+}
+
+/*# sourceMappingURL=style.css.map */

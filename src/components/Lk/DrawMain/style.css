@@ -1,0 +1,203 @@
+.rozgr_item {
+  -webkit-box-shadow: 0px 9px 17px 2px rgba(34, 60, 80, 0.2);
+  -moz-box-shadow: 0px 9px 17px 2px rgba(34, 60, 80, 0.2);
+  box-shadow: 0px 9px 17px 2px rgba(34, 60, 80, 0.2);
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  border-top: 5px solid #4a5ffc;
+  margin-bottom: 40px;
+}
+
+.rozgr_item_archive {
+  border-color: #849098;
+}
+.rozgr_item_archive .rozgr_item_left_descr .rozgr_item_left_title {
+  color: #99999b;
+}
+.rozgr_item_archive .rozgr_item_winner {
+  opacity: 0.2;
+  padding-top: 10px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  padding-left: 110px;
+  color: #ee3364;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.rozgr_archive {
+  border-top: 1px solid #e9edf3;
+  margin-top: 30px;
+  padding-top: 60px;
+}
+
+.rozgr_item_left {
+  flex-basis: 65%;
+}
+
+.rozgr_item_right {
+  flex-basis: 33%;
+}
+
+.rozgr_item_left_row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.rozgr_item_left_row .rozgr_item_left_img,
+.rozgr_item_left_row .rozgr_item_left_bot_text {
+  flex-basis: 37%;
+}
+.rozgr_item_left_row .rozgr_item_left_bot_text {
+  font-size: 13px;
+  color: #959595;
+}
+.rozgr_item_left_row .rozgr_item_left_descr,
+.rozgr_item_left_row .rozgr_item_left_bot_text_r {
+  flex-basis: 60%;
+  margin-top: 5px;
+  padding-right: 4%;
+}
+.rozgr_item_left_row .rozgr_item_left_title {
+  font-size: 22px;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: #ee3364;
+  text-transform: uppercase;
+}
+.rozgr_item_left_row .rozgr_item_left_descr_text {
+  font-size: 14px;
+  line-height: 1.7;
+  font-weight: 500;
+}
+
+.rozgr_item_left_row_bottom {
+  align-items: baseline;
+  margin-bottom: 0;
+}
+
+.rozgr_item_right .rozgr_item_timer {
+  border-radius: 10px;
+  height: 120px;
+  width: 300px;
+  overflow: hidden;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  -webkit-box-shadow: 0px 0px 12px -5px rgba(34, 60, 80, 0.2);
+  -moz-box-shadow: 0px 0px 12px -5px rgba(34, 60, 80, 0.2);
+  box-shadow: 0px 0px 12px -5px rgba(34, 60, 80, 0.2);
+}
+.rozgr_item_right .rozgr_item_img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 130px;
+  height: 100%;
+  background: #fb9931;
+  background: linear-gradient(90deg, #fb9931 0%, #f9694c 100%);
+}
+.rozgr_item_right .rozgr_item_hours {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 170px;
+}
+.rozgr_item_right .rozgr_item_hours .rozgr_item_big_hours {
+  font-size: 55px;
+  color: #fb723b;
+}
+.rozgr_item_right .rozgr_item_hours .rozgr_item_hours_descr {
+  font-size: 12px;
+  color: #919191;
+}
+
+.rozgr_item_text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: #494949;
+  font-weight: 600;
+  max-width: 300px;
+}
+.rozgr_item_text img {
+  margin-right: 5px;
+}
+.rozgr_item_text span {
+  display: inline-block;
+  font-size: 20px;
+  color: #fa5252;
+  font-weight: 700;
+  margin-left: 10px;
+}
+
+.rozgr_item_btn {
+  height: 50px;
+  width: 185px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #ee3364;
+  color: #fff !important;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 0 10px;
+}
+.rozgr_item_btn:hover {
+  background-color: #9f348e;
+}
+
+.rozgr_item_archive {
+  border-color: #849098;
+}
+.rozgr_item_archive .rozgr_item_left_descr .rozgr_item_left_title {
+  color: #99999b;
+}
+.rozgr_item_archive .rozgr_item_winner {
+  opacity: 0.2;
+  padding-top: 10px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  padding-left: 110px;
+  color: #ee3364;
+  font-weight: 500;
+  font-size: 14px;
+}
+.rozgr_item_archive .rozgr_item_img {
+  background: #8b8c8d;
+  background: linear-gradient(90deg, #8b8c8d 0%, #9a9a9b 100%);
+}
+.rozgr_item_archive .rozgr_item_hours .rozgr_item_big_hours {
+  color: #c9c9c9;
+  font-size: 50px;
+}
+.rozgr_item_archive .rozgr_item_text span {
+  color: #dfdfdf;
+}
+.rozgr_item_archive .rozgr_item_btn {
+  background-color: #c9c9c9 !important;
+}
+
+.rozgr_archive {
+  border-top: 1px solid #e9edf3;
+  margin-top: 65px;
+  padding-top: 60px;
+}
+
+#hour {
+  display: none;
+}
+
+/*# sourceMappingURL=style.css.map */

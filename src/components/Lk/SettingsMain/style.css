@@ -1,0 +1,118 @@
+.setting_form_row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.setting_form_item {
+  flex-basis: 100%;
+  margin-bottom: 50px;
+}
+.setting_form_item select {
+  background-image: url("../../../images/select1.png");
+  background-repeat: no-repeat;
+  background-position: 93% center;
+}
+
+.setting_form_item_for_three {
+  flex-basis: 32%;
+}
+
+.setting_form_item_for_two {
+  flex-basis: 48%;
+}
+
+.title_input {
+  opacity: 0.7;
+  display: block;
+  font-size: 16px;
+  padding-left: 4px;
+  padding-bottom: 15px;
+}
+
+.dark_input {
+  height: 50px;
+  width: 100%;
+  border-radius: 5px;
+  color: #fff;
+  padding: 5px 15px;
+  border: 0;
+  background-color: #3e4954;
+}
+.dark_input::placeholder {
+  color: #fff;
+}
+
+.violet_box {
+  margin-bottom: 70px;
+  border-radius: 10px;
+  padding: 20px 55px 30px 10px;
+  background-color: #c6aee1;
+}
+
+.violet_box_title {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 300;
+  margin-bottom: 20px;
+}
+
+.violet_box_row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.violet_box_row .dark_input {
+  flex-basis: 73%;
+}
+.violet_box_row .give_code {
+  background: #f01901;
+  flex-basis: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  border-radius: 10px;
+  height: 50px;
+}
+.violet_box_row .give_code:hover {
+  background: #9f348e;
+}
+
+.setting_form_bottom {
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.setting_form_bottom .form_sbm,
+.setting_form_bottom .form_refresh {
+  transition: all 0.3s ease-in-out;
+  height: 50px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  min-width: 185px;
+  border: 0;
+  margin: 0 10px;
+}
+.setting_form_bottom .form_sbm {
+  transition: all 0.3s ease-in-out;
+  color: #fff;
+  background: #f01901;
+}
+.setting_form_bottom .form_sbm:hover {
+  transition: all 0.3s ease-in-out;
+  background: #9f348e;
+}
+.setting_form_bottom .form_refresh {
+  background-color: #cbcbcb;
+}
+.setting_form_bottom .form_refresh:hover {
+  color: #fff;
+  background: #9f348e;
+}
+
+/*# sourceMappingURL=style.css.map */

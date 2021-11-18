@@ -1,0 +1,29 @@
+
+.bodyLk {
+  background-color: #fff;
+  color: #000;
+}
+
+.full_content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 2500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.bg_fullcontent {
+  background-image: url('../../../images/bg_full.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.main_content {
+  flex-basis: 82.5%;
+  max-width: 1590px;
+}
+.main_content_row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}

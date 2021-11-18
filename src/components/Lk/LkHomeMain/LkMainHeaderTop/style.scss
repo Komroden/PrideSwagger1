@@ -1,0 +1,53 @@
+.alert-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+.alert-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 000ms, transform 0ms;
+}
+.alert-exit {
+  opacity: 1;
+}
+.alert-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 00ms, transform 0ms;
+}
+
+.lider_top_add{
+  position: relative;
+}
+.add_top{
+ opacity: 0;
+  background: #4b4f57;
+  color:#fff8e5;
+  position: absolute;
+  top:-70px;
+  left:30px;
+  width: 80px;
+  padding: 15px 0 5px;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 14px;
+
+}
+.linkNewTop{
+  position: absolute;
+  top: -71px;
+  left: 115px;
+}
+
+.visible{
+  opacity: 1;
+  transition: opacity 0.8s,  transform 1ms;
+}
+
+
+.hidden{
+
+  transition: opacity 0.8s,  transform 1ms;
+  opacity: 0;
+}
+

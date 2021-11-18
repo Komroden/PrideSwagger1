@@ -1,0 +1,132 @@
+.grey_line {
+  border-radius: 10px;
+  background-color: #e8e8e8;
+  opacity: 0.5;
+  margin-top: 15px;
+  width: 100%;
+  height: 5px;
+  margin-bottom: 25px;
+}
+
+.balance_for_every_page {
+  .balance_cost_item {
+    min-height: 66px;
+    padding: 10px 10px 17px 20px;
+    margin-bottom: 15px;
+  }
+  .dark_plus {
+    width: 53px;
+    height: 53px;
+  }
+  .balance_cost_item_plus {
+    padding: 0 !important;
+  }
+}
+.prog_text {
+  margin-bottom: 30px;
+  margin-top: 30px;
+  p {
+    font-size: 16px;
+    color: #92989d;
+    margin-bottom: 10px;
+  }
+}
+
+.addprog_form_input {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  .clasic_input {
+    flex-basis: 49%;
+  }
+}
+
+.clasic_input {
+  border: 1px solid #92989d;
+  margin-bottom: 10px;
+  resize: none;
+  height: 55px;
+  border-radius: 5px;
+  padding: 5px 20px;
+  display: block;
+  width: 100%;
+}
+
+textarea.clasic_input {
+  height: 185px;
+  outline: none;
+  padding-top: 15px;
+}
+
+.addprog_form_grey {
+  padding: 20px 30px 20px 35px;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  background-color: #e7e7e7;
+}
+
+.addprog_form_grey_img {
+  margin-right: 30px;
+}
+
+.addprog_form_send {
+  button {
+    display: flex;
+    width: 230px;
+    height: 80px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background-color: #a685ca;
+    font-size: 14px;
+    border: 0;
+    color: #fff;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      background-color: #ae3987;
+    }
+  }
+}
+
+.addprog_form_grey_doc {
+  margin-right: 30px;
+  label {
+    display: flex;
+    width: 230px;
+    height: 80px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background-color: #fff;
+    font-size: 24px;
+    border: 0;
+    color: #3e4954;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      color: #fff;
+      background-color: #ae3987;
+    }
+  }
+  input {
+    display: none;
+  }
+}
+
+.addprog_form_grey_descr {
+  max-width: 350px;
+  width: 100%;
+  .addprog_form_grey_top {
+    font-size: 14px;
+    opacity: 0.8;
+  }
+  .addprog_form_grey_title {
+    color: #3e4954;
+    font-size: 36px;
+    font-weight: 600;
+  }
+  .addprog_form_grey_bottom {
+    font-size: 14px;
+    opacity: 0.5;
+  }
+}

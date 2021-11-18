@@ -1,0 +1,72 @@
+.news_rowHome {
+  margin-top: 80px;
+  margin-bottom: 30px;
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+.news_item_refer {
+  border-radius: 10px;
+  flex-basis: 48%;
+  border: 1px solid #e94c51;
+  background: #621f81;
+  padding: 40px 35px 34px;
+  span {
+    display: block;
+  }
+  .news_item_head {
+    width: 100%;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    .news_item_head_left {
+      width: 120px;
+      margin-right: 25px;
+    }
+    .news_head_logo {
+      width: 120px;
+      height: 120px;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+    }
+    .news_item_head_name {
+      font-size: 21px;
+      margin-bottom: 5px;
+    }
+    .news_item_head_profes {
+      color: #000;
+      a {
+        color: #4bb7ef;
+        text-decoration: underline;
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+  .news_item_descr {
+    font-size: 18px;
+    opacity: 0.5;
+    line-height: 1.7;
+  }
+  &:nth-child(2) {
+    background: #530179;
+    border-color: #ab8611;
+  }
+  &:nth-child(7) {
+    background: #530179;
+    border-color: #ab8611;
+  }
+  &:nth-child(3n) {
+    background: #530179;
+    border-color: #ab8611;
+  }
+}
+.contact_blockFormReview{
+  padding-bottom: 0;
+}
+.pride_titleFormReview{
+  font-size: 35px;
+  margin-bottom: 0;
+}

@@ -1,0 +1,217 @@
+.userblockplus {
+  background-image: url('../../../images/icon_bg_user.png');
+  background-position: bottom left;
+  background-repeat: no-repeat;
+  padding: 60px 40px 30px !important;
+  display: block;
+  &__botright {
+    flex-basis: calc(100% - 370px);
+    display: flex;
+    flex-wrap: wrap;
+    .userinfo {
+      &:nth-child(2) {
+        opacity: 0;
+      }
+    }
+  }
+  &__botleft {
+    flex-basis: 370px;
+  }
+  &__bottom {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+}
+.userblockplus {
+  &__top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  &__topleft {
+    flex-basis: calc(100% - 265px);
+    display: flex;
+    padding-left: 30px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  &__photo {
+    flex-basis: 200px;
+    .user_main_block_logo {
+      width: 200px;
+      height: 200px;
+      margin: 0;
+      img {
+        width: 100%;
+      }
+    }
+  }
+  &__photolink {
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+    text-align: center;
+    a {
+      color: #ff9100;
+      font-size: 16px;
+      font-weight: 300;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  &__detail {
+    flex-basis: calc(100% - 230px);
+    .user_main_block_info {
+      max-width: 100%;
+    }
+    .user_main_block_years {
+      font-size: 27px;
+      border: 0 !important;
+    }
+    .user_main_block_years span {
+      font-size: 18px;
+    }
+    .user_main_block_verif {
+      border: 0 !important;
+    }
+    .user_main_block_verif span {
+      font-size: 21px;
+    }
+    .user_main_block_name {
+      font-size: 33px;
+    }
+  }
+  &__topright {
+    flex-basis: 235px;
+  }
+  &__star {
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    background-color: #2d3742;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    padding: 10px;
+    .user_main_block_vip {
+      padding: 0;
+    }
+  }
+  &__curator {
+    padding-left: 20px;
+  }
+}
+.userinfo {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  background-color: #838d98;
+  min-height: 80px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  width: 270px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  color: #fff;
+  padding: 0 5px;
+  &_grey {
+    background-color: #2d3742;
+  }
+  &__icon {
+    flex-basis: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__right {
+    flex-basis: calc(100% - 70px);
+  }
+  &__title {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  &__value {
+    font-size: 16px;
+    font-weight: 600;
+    a {
+      font-weight: 600;
+    }
+  }
+}
+.balancenew_cost_title {
+  span {
+    font-weight: 700;
+    color: #ff9000;
+    font-size: 24px;
+    display: inline-block;
+    margin-left: 5px;
+  }
+}
+.home2link {
+  margin:0 0 30px;
+  width: 100%;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 50px 15px 35px;
+  background-color: #e7f1fd;
+  &__logo {
+    flex-basis: 115px;
+  }
+  &__text {
+    flex-basis: calc(48% - 115px);
+    font-size: 20px;
+    font-weight: 500;
+  }
+  &__form {
+    position: relative;
+    flex-basis: 52%;
+    input {
+      width: 100%;
+      background-color: #fff;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -ms-border-radius: 5px;
+      -o-border-radius: 5px;
+      border: 0;
+      padding: 5px 45px;
+      font-size: 20px;
+      font-weight: 500;
+      height: 55px;
+      outline: none;
+    }
+    button {
+      border: 0;
+      background-color: transparent;
+      z-index: 2;
+      position: absolute;
+      right: 10px;
+      top: 11px;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+}
+.userBlock_sendMessage{
+  margin: 20px 0 0 0;
+}

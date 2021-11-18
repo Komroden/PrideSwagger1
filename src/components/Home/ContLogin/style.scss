@@ -1,0 +1,201 @@
+.log_block {
+  padding: 30px 40px;
+  border-radius: 5px;
+  max-width: 470px;
+  width: 100%;
+  text-align: center;
+  background: rgba(48, 20, 98, 0.86);
+  background: linear-gradient(
+                  90deg,
+                  rgba(48, 20, 98, 0.86) 0%,
+                  rgba(48, 20, 98, 0.86) 0%,
+                  rgba(56, 23, 96, 0.86) 100%
+  );
+  .log_title {
+    margin: 8px 0 28px;
+    font-size: 26px;
+    font-weight: 500;
+  }
+  .log_form {
+    .inputp {
+      width: 100%;
+    }
+  }
+  .reemb_pasw {
+    margin-top: 15px;
+    margin-bottom: 20px;
+    text-align-last: left;
+    font-size: 14px;
+    color: #ada2c3;
+    a {
+      color: #fff;
+      text-decoration: underline;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+  .subm_form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 30px;
+    font-size: 16px;
+  }
+  .or {
+    margin-bottom: 35px;
+    position: relative;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    color: #c6ccd2;
+    text-transform: uppercase;
+    align-items: center;
+    font-weight: 600;
+    &:before {
+      content: "";
+      height: 2px;
+      background: #c6ccd2;
+      width: 43%;
+    }
+    &:after {
+      content: "";
+      height: 2px;
+      background: #c6ccd2;
+      width: 43%;
+    }
+  }
+  .login_vk {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    background: #3b5998;
+    text-transform: uppercase;
+    padding: 10px 0;
+    /*background-image: url(../images/vk.png);
+    background-repeat: no-repeat;
+    background-size: inherit;*/
+    max-width: 285px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    background-position: 5% center;
+    font-weight: 500;
+    img {
+      margin-right: 10px;
+    }
+    &:hover {
+      color: #fec40c;
+    }
+  }
+  .registr {
+    display: flex;
+    justify-content: center;
+    margin-top: 38px;
+    margin-bottom: 0;
+    a {
+      cursor: pointer;
+      display: inline-block;
+      padding-left: 5px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #fec40c;
+    }
+  }
+}
+
+.first_login {
+  .inputp {
+    background: #271156;
+  }
+  .first_left {
+    padding-top: 0;
+  }
+  .log_block {
+    margin-left: 13.5%;
+  }
+  .first_left {
+    padding-bottom: 210px;
+  }
+  .first_right .reg_bottext {
+    bottom: 13%;
+  }
+}
+.inp {
+  display: block;
+  position: relative;
+  .required_fail {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    font-size: 10px;
+    font-weight: 600;
+    color: #e94c51;
+  }
+}
+.check_b {
+  .input_checkbox {
+    display: none;
+  }
+  label {
+    position: relative;
+    display: flex;
+    align-items: center;
+    a {
+      padding: 0 3px;
+    }
+    &:before {
+      color: #fec40c;
+      margin-right: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      content: "";
+      width: 26px;
+      height: 26px;
+      border-radius: 4px;
+      background: #271156;
+      font-family: "FontAwesome";
+      font-size: 14px;
+    }
+  }
+  .input_checkbox:checked + label {
+    &:before {
+      content: "";
+    }
+  }
+}
+.d_flex {
+  display: flex;
+  justify-content: space-between;
+}
+.error_message{
+  font-size: 10px;
+  font-weight: 600;
+  color: #e94c51;
+}
+.error_message{
+  font-size: 10px;
+  font-weight: 600;
+  color: #e94c51;
+}
+.email__wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+}
+.email_drop{
+  width: 60%!important;
+}
+.button_drop{
+  padding: 15px!important;
+  width: 30%!important;
+  font-size:13px!important;
+  margin-right: 0!important;
+  text-transform: none!important;
+
+}

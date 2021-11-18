@@ -1,0 +1,118 @@
+.stastistic {
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 1;
+}
+.stastistic .pride_subtitle {
+  color: #fdb50a;
+}
+.stastistic .static_row {
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-between;
+}
+.stastistic .static_item {
+  flex-basis: 33.3%;
+  background: #3f1978;
+  border: 1px solid #7600ff;
+  margin: 20px 0;
+  padding: 25px;
+}
+.stastistic .static_item.last_paymend {
+  background: #206fef;
+  border-color: transparent;
+  margin: 0;
+  padding-top: 45px;
+}
+.stastistic .static_item.last_paymend .static_item_title {
+  border-color: #fff;
+}
+.stastistic .static_item.last_paymend .stat_sub_tit {
+  color: #fff;
+  background: #206fef;
+}
+.stastistic .static_data {
+  position: relative;
+  padding-top: 20px;
+}
+.stastistic .static_data:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 100px;
+  height: 2px;
+  background: #fff;
+  left: calc(50% - 50px);
+}
+.stastistic .static_data li {
+  display: flex;
+  color: #cecece;
+  font-size: 13px;
+  padding: 15px 0;
+  border-bottom: 1px solid #000;
+}
+.stastistic .left_stat {
+  position: relative;
+  color: #fdb50a;
+}
+.stastistic .left_stat:before {
+  content: "\f017";
+  font-family: "FontAwesome";
+  padding-right: 5px;
+}
+.stastistic .left_user {
+  padding-left: 8px;
+  margin-left: 8px;
+  border-left: 1px solid #cecece;
+  position: relative;
+}
+.stastistic .left_user:before {
+  content: "\f007";
+  font-family: "FontAwesome";
+  padding-right: 5px;
+}
+.stastistic .left_pay {
+  padding-left: 8px;
+  margin-left: 8px;
+  border-left: 1px solid #cecece;
+  position: relative;
+}
+.stastistic .left_pay:before {
+  content: "";
+  width: 13px;
+  height: 13px;
+  background-image: url("../../../images/icon_money.png");
+  background-repeat: no-repeat;
+  padding-right: 18px;
+}
+.stastistic .last_invest .left_stat {
+  color: #cecece;
+}
+.stastistic .left_money {
+  padding-left: 8px;
+  margin-left: 8px;
+  border-left: 1px solid #cecece;
+  position: relative;
+  color: #fdb50a;
+}
+.stastistic .static_item_title {
+  position: relative;
+  text-transform: uppercase;
+  padding: 15px;
+  border: 3px solid #fc5130;
+  margin-bottom: 30px;
+  font-weight: 600;
+  text-align: center;
+}
+.stastistic .stat_sub_tit {
+  position: absolute;
+  bottom: -15px;
+  text-transform: none;
+  font-size: 14px;
+  right: 10px;
+  color: #fc5130;
+  padding: 5px;
+  background: #3f1978;
+}
+
+/*# sourceMappingURL=style.css.map */

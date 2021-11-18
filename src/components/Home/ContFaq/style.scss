@@ -1,0 +1,97 @@
+.alert-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+.alert-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+.alert-exit {
+  opacity: 1;
+}
+.alert-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.faq_tabs {
+  padding-top: 30px;
+  margin-bottom: 200px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  .ins_row_faq {
+    flex-basis: 48.5%;
+  }
+  .faq_tabs_item {
+    flex-basis: 100%;
+    margin-bottom: 10px;
+    background: #3b1567;
+  }
+  .faq_tabs_title {
+    cursor: pointer;
+    padding: 10px 15px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.3s ease-in-out;
+    &:after {
+      transition: all 0.3s ease-in-out;
+      font-weight: 100;
+      content: "+";
+      font-size: 30px;
+      color: #fec40c;
+    }
+    &:hover {
+      color: #fec40c;
+    }
+  }
+  .faq_tabs_body {
+    transition: all 0.3s ease-in-out;
+
+    padding: 10px 15px 20px;
+    line-height: 1.5;
+    color: #ada2c3;
+    font-size: 14px;
+  }
+  .faq_tabs_title.activetab {
+    color: #fec40c;
+    &:after {
+      content: "-";
+    }
+    & + .faq_tabs_body {
+      display: block;
+    }
+  }
+}
+.pagination_p {
+  width: 100%;
+
+  .containerP {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .prev_pag {
+    background: rgba(39, 17, 86, 0.6);
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    font-size: 18px;
+    border-radius: 50%;
+    &:hover {
+      color: rgba(39, 17, 86, 1);
+      background: #fff;
+    }
+    .fa {
+      line-height: 1;
+      font-size: 13px;
+    }
+  }
+}

@@ -1,0 +1,115 @@
+.invest_plan {
+  padding-bottom: 50px;
+  margin-bottom: 45px;
+  position: relative;
+  z-index: 1;
+  background-image: url("../../../images/bg_in.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+.invest_plan .pride_subtitle {
+  color: #fdb50a;
+}
+.invest_plan .invest_plan_flex {
+  margin-top: 80px;
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: space-between;
+}
+.invest_plan .invest_plan_item {
+  flex-basis: 25%;
+  padding: 10px;
+}
+.invest_plan .invest_plan_item span {
+  display: block;
+}
+.invest_plan .invest_plan_item:hover .invest_plan_item_ins {
+  background: #292929;
+  border-color: #000;
+}
+.invest_plan .invest_plan_item:hover .orange_b {
+  background: #000;
+}
+.invest_plan .invest_plan_item:hover .orange_b:before {
+  border-top-color: #000;
+}
+.invest_plan .invest_plan_item:hover li, .invest_plan .invest_plan_item:hover .orange_day {
+  color: #9a9a9a;
+}
+.invest_plan .invest_plan_item_ins {
+  transition: all 0.3s ease-in-out;
+  border: 1px solid #eb5b50;
+  text-align: center;
+  display: block;
+}
+.invest_plan .invest_plan_item_ins .inv_name {
+  font-weight: 500;
+  margin-top: 30px;
+  margin-bottom: 25px;
+  font-size: 18px;
+  text-transform: uppercase;
+}
+.invest_plan .invest_plan_item_ins .orange_b {
+  transition: all 0.3s ease-in-out;
+  background: #eb5b50;
+  padding-top: 20px;
+  margin-bottom: 55px;
+  position: relative;
+  height: 147px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.invest_plan .invest_plan_item_ins .orange_b:before {
+  transition: all 0.3s ease-in-out;
+  position: absolute;
+  bottom: -20px;
+  border-left: 140px solid transparent;
+  border-right: 140px solid transparent;
+  content: "";
+  left: -2px;
+  border-top: 20px solid #eb5b50;
+}
+.invest_plan .invest_plan_item_ins .orange_b .orange_nubmer {
+  font-size: 72px;
+  line-height: 1;
+}
+.invest_plan .invest_plan_item_ins .orange_b .orange_white {
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 5px 15px;
+  color: #eb5b50;
+  background: #fff;
+  display: inline-block;
+  margin-bottom: 5px;
+}
+.invest_plan .invest_plan_item_ins .red_t {
+  color: #eb5b50 !important;
+}
+.invest_plan .invest_plan_item_ins .green_t {
+  color: #04de19 !important;
+}
+.invest_plan .invest_plan_item_ins li {
+  margin-bottom: 18px;
+  font-size: 14px;
+}
+.invest_plan .invest_plan_item_ins .register_btn {
+  font-size: 13px;
+  font-weight: 300;
+  text-transform: uppercase;
+  padding: 14px 25px;
+  background: #eb5b50;
+  border-radius: 3px;
+  margin: 22px 0 40px;
+  display: inline-block;
+}
+.invest_plan .invest_plan_item_ins .center_text {
+  display: block;
+  font-size: 24px;
+  margin: 20px 0;
+}
+
+/*# sourceMappingURL=style.css.map */
