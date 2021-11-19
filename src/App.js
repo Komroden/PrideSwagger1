@@ -38,10 +38,11 @@ import {Vote} from "./pages/Lk/Vote";
 
 
 import {UserData} from "./store/userInfo/actions";
-import {CryptoData} from "./store/crypto/actions";
+
 import {setNewsList} from "./store/news/actions";
-import {UserRegistration} from "./store/auth/actions";
+
 import {Notifications} from "./pages/Lk/Notifications";
+import {useTimerUp} from "./hooks/useTimerUp";
 
 
 
@@ -102,54 +103,30 @@ export function App() {
             mobile: true,
         }).init();
     },[])
-    const[sec,setSec]=useState(0);
-    const[min,setMin]=useState(0);
-    const[pri,setPri]=useState(0);
+
+    const{seconds,minute,price}=useTimerUp()
     const setSecond = useCallback(() => {
-        dispatch(setSeconds(sec))
-    }, [dispatch,sec]);
+        dispatch(setSeconds(seconds))
+    }, [dispatch,seconds]);
     const setMinutes = useCallback(() => {
-        dispatch(setMinute(min))
-    }, [dispatch,min]);
+        dispatch(setMinute(minute))
+    }, [dispatch,minute]);
     const setPrices = useCallback(() => {
-        dispatch(setPrice(pri))
-    }, [dispatch,pri]);
+        dispatch(setPrice(price))
+    }, [dispatch,price]);
 
-    useEffect(() => {
-        if(sec===60){
-            setMin(min+1)
-            setSec(0)
-
-        }else{
-            setTimeout(() => setSec(sec+1) , 1000);
-
-        }
-        setTimeout(() => setPri(pri+25) , 5000);
-    });
 
     useEffect(() => {
         setMinutes()
-    },[min])
+    },[minute])
     useEffect(() => {
         setPrices()
-    },[pri])
+    },[price])
     useEffect(() => {
         setSecond()
-    },[pri])
+    },[seconds])
 
 
-    //crypto
-    // useEffect(()=>{
-    //     fetch('https://api.blockchain.info/stats',{
-    //         method:'GET',
-    //         headers:{
-    //             'accept': 'application/octet-stream'
-    //         }
-    //     })
-    //         .then(res=>res.json())
-    //         .then(body=>console.log(body))
-    //
-    // },[])
 
 
     const setNewses = useCallback(() => {

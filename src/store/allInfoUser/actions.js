@@ -1,8 +1,8 @@
-export const USER_DATA = "USER_INFO::USER_DATA";
-export const USER_DATA_UPDATE = "USER_INFO::USER_DATA_UPDATE";
+export const ALL_USER_DATA = "ALL_USER_INFO::ALL_USER_DATA";
 
-export const UserData = (value) => ({
-    type: USER_DATA,
+
+export const AllUserData = (value) => ({
+    type: ALL_USER_DATA,
     payload: value
 
 

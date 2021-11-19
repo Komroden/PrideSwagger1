@@ -7,19 +7,21 @@ import {LkHomeMain} from "../../../components/Lk/LkHomeMain";
 import {LkHomeRightSlidebar} from "../../../components/Lk/LkHomeMain/LkHomeRightSlidebar";
 import {useDispatch, useSelector} from "react-redux";
 import {setContestsList} from "../../../store/contest/actions";
-
-
-
+import {AllUserData} from "../../../store/allInfoUser/actions";
 
 
 
 export const LkHome = () => {
     const { auth } = useSelector((state) => state);
     const [contest,setContest]= useState([])
+    const [allInfo,setAllInfo]= useState({})
     const dispatch=useDispatch()
     const setContests = useCallback(() => {
         dispatch(setContestsList(contest))
     }, [dispatch,contest]);
+    const setInfo = useCallback(() => {
+        dispatch(AllUserData(allInfo))
+    }, [dispatch,allInfo]);
 
     useEffect(()=>{
         fetch('http://lk.pride.kb-techno.ru/api/Contest/contest-list',{
@@ -39,6 +41,24 @@ export const LkHome = () => {
     useEffect(()=>{
         setContests()
     },[contest])
+    useEffect(()=>{
+        setInfo()
+    },[allInfo])
+    useEffect(()=>{
+        fetch('http://lk.pride.kb-techno.ru/api/Partners/current',{
+            method:'GET',
+            headers:{
+                'Accept': 'application/json',
+                'Authorization':`Bearer ${auth.token}`}
+        })
+            .then((res) => res.json())
+            .then((body)=>{
+                setAllInfo(body)
+            })
+            .catch((e) => {
+                console.log(e.message);
+            });
+    },[auth.token])
 
 
 

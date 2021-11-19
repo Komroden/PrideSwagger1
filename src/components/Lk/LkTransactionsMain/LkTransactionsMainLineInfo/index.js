@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import {CSSTransition} from "react-transition-group";
+import Collapse from '@mui/material/Collapse';
 import './style.scss';
 
-export const LkTransactionsMainLineInfo = ({status,userClass, statusClass}) => {
+export const LkTransactionsMainLineInfo = ({status,date,firstName,lastName,email}) => {
+    const d=new Date(date)
     const [open,setOpen]=useState(false)
     const handleActive =() => {
         setOpen(!open)
@@ -12,16 +13,16 @@ export const LkTransactionsMainLineInfo = ({status,userClass, statusClass}) => {
             <div  onClick={handleActive} className="lineinfo__top">
                 <div className="lineinfo__day">
                     <img src="/images/calendar.png" alt=""/>
-                    <span>23.09.2020</span>
+                    <span>{d.toLocaleDateString()}</span>
                 </div>
                 <div className="lineinfo__time">
                     <img src="/images/clokck.png" alt=""/>
-                    <span>13:45:58</span>
+                    <span>{d.toLocaleTimeString()}</span>
                 </div>
                 <div className="lineinfo__active">
-                    <div className={"lineinfo__activeins "+statusClass}>{status}</div>
+                    <div className={status?"lineinfo__activeins":'lineinfo__activeins lineinfo__activeins_red'}>{status?'Active':'Inactive'}</div>
                 </div>
-                <div className={"lineinfo__user "+ userClass}><img src="/images/user_green.png" alt=""/> Natalia Familia</div>
+                <div className={status?"lineinfo__user":'lineinfo__user lineinfo__user_red'}><img src={status?"/images/user_green.png":"/images/user_red.png"} alt=""/> {firstName+' '+lastName}</div>
                 <div className="lineinfo__details">
                     <div className="lineinfo__detailsitem">
                         <img src="/images/im.png" alt=""/>
@@ -35,27 +36,27 @@ export const LkTransactionsMainLineInfo = ({status,userClass, statusClass}) => {
                 </div>
                 <div className="lineinfo__email">
                     <img src="/images/icon_ma.png" alt=""/>
-                    <a href="#">superuser@gmail.com</a>
+                    <a href={email}>{email}</a>
                 </div>
                 <div className="lineinfo__status">
                     <span></span>
                 </div>
             </div>
-            <CSSTransition  in={open} classNames='alert' timeout={300} unmountOnExit>
+            <Collapse  in={open}  unmountOnExit>
             <div className="lineinfo__body">
                 <div className="lineinfo__top">
                     <div className="lineinfo__day">
                         <img src="/images/calendar.png" alt=""/>
-                        <span>23.09.2020</span>
+                        <span>{d.toLocaleDateString()}</span>
                     </div>
                     <div className="lineinfo__time">
                         <img src="/images/clokck.png" alt=""/>
-                        <span>13:45:58</span>
+                        <span>{d.toLocaleTimeString()}</span>
                     </div>
                     <div className="lineinfo__active">
                         <div className="lineinfo__activeins">Active</div>
                     </div>
-                    <div className="lineinfo__user "><img src="/images/user_green.png" alt=""/> Natalia Familia</div>
+                    <div className="lineinfo__user "><img src="/images/user_green.png" alt=""/> {firstName+' '+lastName}</div>
                     <div className="lineinfo__details">
                         <div className="lineinfo__detailsitem">
                             <img src="/images/im.png" alt=""/>
@@ -305,7 +306,7 @@ export const LkTransactionsMainLineInfo = ({status,userClass, statusClass}) => {
                     </div>
                 </div>
             </div>
-            </CSSTransition>
+            </Collapse>
         </div>
     );
 };

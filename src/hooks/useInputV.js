@@ -23,7 +23,8 @@ export const useInputV = (initialValue,validations) => {
         onBlur,
         onReset,
         isDirty,
-        ...valid
+        ...valid,
+        setDirty
     }
 };
 

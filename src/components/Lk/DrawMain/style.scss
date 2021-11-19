@@ -214,4 +214,23 @@
   height: 20px!important;
 }
 }
+.text__wrapper{
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+.texp_price_modal{
+  margin-bottom: 10px;
+}
+.texp_priceValue_modal{
+  margin-bottom: 10px;
+}
+.texp_button_modal{
+  margin: 0!important;
+}
+.priceModal_noPadding{
+  padding: 20px!important;
+}
 

@@ -14,7 +14,7 @@ export const LkHomeHeader = ({title}) => {
     const openMenu = useCallback(() => {
         dispatch(openLeftMenu())
     }, [dispatch]);
-    const { leftMenu } = useSelector((state) => state);
+    const { leftMenu,allInfoUser } = useSelector((state) => state);
 
 
 
@@ -31,10 +31,10 @@ export const LkHomeHeader = ({title}) => {
             </div>
             <div className="main_content_header_right">
                 <div className="links_header">
-                    <LkHomeHeaderLinks url='/images/l1.png' path={'/newMessage'} />
-                    <LkHomeHeaderLinks url='/images/l2.png' path={'/notifications'}/>
-                    <LkHomeHeaderLinks url='/images/l3.png' color='yeallow_col' />
-                    <LkHomeHeaderLinks url='/images/l4.png' color='dark_col' path={'/guest'}/>
+                    <LkHomeHeaderLinks url='/images/l1.png' path={'/newMessage'} count={allInfoUser.value.messageCount} />
+                    <LkHomeHeaderLinks url='/images/l2.png' path={'/notifications'} count={99}/>
+                    <LkHomeHeaderLinks url='/images/l3.png' color='yeallow_col' count={99} />
+                    <LkHomeHeaderLinks url='/images/l4.png' color='dark_col' path={'/guest'} count={99}/>
                 </div>
                 <LkHeaderUserProfile path={'/transactions'}  logo={'/images/user.png'}/>
             </div>

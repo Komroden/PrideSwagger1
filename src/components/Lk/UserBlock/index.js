@@ -7,7 +7,7 @@ export const UserBlock = () => {
     const handlePushUser=() => {
         push('/user')
     }
-    const { auth,userData } = useSelector((state) => state);
+    const { auth,userData,allInfoUser } = useSelector((state) => state);
     return (
         <div className="user_main_block">
             <div className="user_main_block_logo">
@@ -16,16 +16,15 @@ export const UserBlock = () => {
             <div className="user_main_block_info">
                 <div className="user_main_block_info_top">
                     <div className="user_main_block_years">27 <span>лет</span></div>
-                    <div className="user_main_block_verif">
-                        <img src="/images/verif.png" alt=""/>
-                        <span>Верефикация <br/>пройдена</span>
+                    <div className={allInfoUser.value.isVerified?"user_main_block_verif":"user_main_block_verif no_verif"}>
+                        <img src={allInfoUser.value.isVerified?"/images/verif.png":"/images/noVerif.png"} alt=""/>
+                        <span>Верефикация <br/>{allInfoUser.value.isVerified?'пройдена':'не пройдена'}</span>
                     </div>
-
                 </div>
                 <div className="user_main_block_name">{userData.value.userInfo?userData.value.userInfo.fullName:'User'}</div>
-                <a href={userData.value.email?userData.value.email:'#'} className="user_main_block_info_mail">
+                <a href={allInfoUser.value.email?allInfoUser.value.email:'#'} className="user_main_block_info_mail">
                     <img src="/images/email.png" alt=""/>
-                    <span>{userData.value.email?userData.value.email:'none'}</span>
+                    <span>{allInfoUser.value.email?allInfoUser.value.email:'none'}</span>
                 </a>
             </div>
             <div className="user_main_block_vip">

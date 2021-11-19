@@ -115,4 +115,72 @@
   background: #9f348e;
 }
 
+.drop_area {
+  margin-left: 20px;
+  font-size: 20px;
+  max-width: 500px;
+  width: 80%;
+  height: 20vh;
+  border: 5px dashed black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.drop_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form_sbmOpen {
+  max-width: 145px;
+  height: 35px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  min-width: 145px;
+  border: 0;
+  transition: all 0.3s ease-in-out;
+  color: #fff;
+  background: #36a83d;
+  margin-bottom: 20px;
+}
+.form_sbmOpen:hover {
+  transition: all 0.3s ease-in-out;
+  background: #9f348e;
+}
+
+.add__file {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  flex-direction: row-reverse;
+  margin-bottom: 20px;
+}
+
+.crop_image {
+  flex-direction: column;
+}
+
+.crop_buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.form_sbmOpen_clear {
+  background: #404240;
+}
+
+.css-heg063-MuiTabs-flexContainer {
+  justify-content: center;
+}
+
+.css-1a4cg4j-MuiButtonBase-root-MuiTab-root {
+  text-transform: none !important;
+}
+
 /*# sourceMappingURL=style.css.map */

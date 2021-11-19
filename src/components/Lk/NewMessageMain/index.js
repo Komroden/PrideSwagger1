@@ -16,6 +16,7 @@ export const NewMessageMain = ({title,mode}) => {
             .then(body=>setMessageList(body))
 
     },[])
+
     return (
         <>
             <div className="grey_line"/>

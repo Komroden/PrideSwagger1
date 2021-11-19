@@ -1,8 +1,11 @@
 import React from 'react';
+import Slide from '@mui/material/Slide';
 
 export const LkHomeMainLiderTopItem = ({url,number,isVisible}) => {
+
     return (
-        <div className={isVisible?"lider_top_item hidden ":'lider_top_item visible '} >
+        <Slide direction="left" in={!isVisible} unmountOnExit>
+        <div className="lider_top_item" >
             <a href="#" className="lider_top_item_link">
 									<span className="lider_top_item_img">
 										<img src={url} alt=""/>
@@ -11,6 +14,7 @@ export const LkHomeMainLiderTopItem = ({url,number,isVisible}) => {
                 <span className="number_lin">{number}</span>
             </a>
         </div>
+        </Slide>
     );
 };
 

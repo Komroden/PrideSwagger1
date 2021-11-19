@@ -20,12 +20,11 @@
   position: relative;
 }
 .add_top{
- opacity: 0;
+  cursor: pointer;
   background: #4b4f57;
   color:#fff8e5;
   position: absolute;
-  top:-70px;
-  left:30px;
+  top:-80px;
   width: 80px;
   padding: 15px 0 5px;
   border-radius: 5px;

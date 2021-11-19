@@ -12,6 +12,7 @@ import {cryptoDataReducer} from "./crypto/reducer";
 import {votesReducer} from "./votes/reducer";
 import {newsReducer} from "./news/reducer";
 import {contestsReducer} from "./contest/reducer";
+import {AlluserDataReducer} from "./allInfoUser/reducer";
 
 
 
@@ -29,7 +30,8 @@ const rootReducer = combineReducers({
     cryptoData:cryptoDataReducer,
     votes:votesReducer,
     news:newsReducer,
-    contests:contestsReducer
+    contests:contestsReducer,
+    allInfoUser:AlluserDataReducer
 
 
 

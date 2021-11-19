@@ -7,7 +7,4 @@ export const UserData = (value) => ({
 
 
 });
-// export const UserDataUpDate= () => ({
-//     type: USER_DATA,
-//
-// });
+

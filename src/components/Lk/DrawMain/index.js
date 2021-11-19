@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState} from 'react';
 import {DrawItem} from "./DrawItem";
 import {DrawItemArchive} from "./DrawItemArchive";
 import './style.scss';
@@ -6,8 +6,7 @@ import {Line} from "../MainTitle/GreyLine";
 import {useSelector} from "react-redux";
 
 export const DrawMain = () => {
-    //filter code
-    // .filter(item=>item.status==='active')
+
     const [filter,setFilter]=useState('all');
     const handleFilter=(e)=>{
         setFilter(e.value)
@@ -35,7 +34,7 @@ export const DrawMain = () => {
                     </div>
                 </div>
                 {(filter==='all'||filter==='active')&&contests.value.filter(item=>!item.isParticipant).map((item,index)=>
-                    <DrawItem key={item.id} imgPrice={item.prize} priceAdd={item.participationCost} title={item.caption} desc={item.desc} date={item.finishDate}
+                    <DrawItem key={item.id} imgPrice={item.image} priceAdd={item.participationCost} title={item.caption} desc={item.desc} date={item.finishDate}
                     members={item.participantsCount} startDate={item.startDate}/>
                     )}
 

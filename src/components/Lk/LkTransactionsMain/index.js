@@ -1,12 +1,33 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './style.scss';
 
 
 import {LkTransactionsMainLineInfo} from "./LkTransactionsMainLineInfo";
 import {LkHomeMainBalanceItem} from "../LkHomeMain/LkHomeMainBalanceItem";
 import {UserBlock} from "../UserBlock";
+import {useSelector} from "react-redux";
 
 export const LkTransactionsMain = () => {
+    const { auth } = useSelector((state) => state);
+    const [value,setValue]=useState([])
+    useEffect(()=>{
+        fetch('http://lk.pride.kb-techno.ru/api/Partners/referal-list',{
+            method:'GET',
+            headers:{
+                'Accept': 'application/json',
+                'Authorization':`Bearer ${auth.token}`}
+        })
+            .then((res) => res.json())
+            .then((body)=>{
+                setValue(body)
+                console.log(body)
+            })
+            .catch((e) => {
+                console.log(e.message);
+            });
+    },[])
+
+
 
     return (
         <div>
@@ -33,12 +54,15 @@ export const LkTransactionsMain = () => {
                         <span>Рефералы</span>
                 </div>
             </div>
-            <LkTransactionsMainLineInfo status={'Active'}/>
-            <LkTransactionsMainLineInfo status={'Inactive'} statusClass={'lineinfo__activeins_red'} userClass={'lineinfo__user_red'}/>
-            <LkTransactionsMainLineInfo status={'Active'}/>
-            <LkTransactionsMainLineInfo status={'Inactive'} statusClass={'lineinfo__activeins_red'} userClass={'lineinfo__user_red'}/>
-            <LkTransactionsMainLineInfo status={'Active'}/>
-            <LkTransactionsMainLineInfo status={'Inactive'} statusClass={'lineinfo__activeins_red'} userClass={'lineinfo__user_red'}/>
+            {value.map(item=><LkTransactionsMainLineInfo key={item.id} status={item.isActivated} date={item.creationDate} firstName={item.firstName} lastName={item.lastName} email={item.email} />)}
+
+
+            {/*<LkTransactionsMainLineInfo status={'Active'}/>*/}
+            {/*<LkTransactionsMainLineInfo status={'Inactive'} statusClass={'lineinfo__activeins_red'} userClass={'lineinfo__user_red'}/>*/}
+            {/*<LkTransactionsMainLineInfo status={'Active'}/>*/}
+            {/*<LkTransactionsMainLineInfo status={'Inactive'} statusClass={'lineinfo__activeins_red'} userClass={'lineinfo__user_red'}/>*/}
+            {/*<LkTransactionsMainLineInfo status={'Active'}/>*/}
+            {/*<LkTransactionsMainLineInfo status={'Inactive'} statusClass={'lineinfo__activeins_red'} userClass={'lineinfo__user_red'}/>*/}
         </div>
     );
 };

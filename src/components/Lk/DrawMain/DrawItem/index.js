@@ -1,21 +1,49 @@
-import React, { useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useTimer} from "../../../../hooks/useTimer";
-import Zoom from '@mui/material/Zoom';
+
+import Fade from "@mui/material/Fade";
 
 
 
 
 export const DrawItem = ({imgPrice,priceAdd,title,desc,date,members,startDate}) => {
+    const [pic,setPic]=useState('');
+    // useEffect(()=>{
+    //     fetch(`http://lk.pride.kb-techno.ru/assets/Img/${imgPrice}`,{
+    //         method:'GET',
+    //         headers:{
+    //             'accept': 'application/octet-stream'
+    //         }
+    //     })
+    //         .then(res=>setPic(res.url))
+    //
+    // },[])
     let d =new Date(startDate)
     const [pay,setPay]=useState(false)
     const {hours,seconds,minute}= useTimer(date);
 
     return (
+        <>
+            <Fade  in={pay}>
+                <div className='modal__wrapper'>
+                    <div className='modal__text priceModal_noPadding'>
+                        <div onClick={()=>setPay(false)} className="close_menu_btn close_window">
+                            <span className="before arrow_color"/>
+                            <span className="after arrow_color"/>
+                        </div>
+                        <div className='text__wrapper'>
+                        <div className="balance_sidebar_title texp_price_modal">Стоймость входа</div>
+                            <div className="balance_sidebar_total texp_priceValue_modal">{priceAdd+' руб.'}</div>
+                            <button className="form_sbmOpen texp_button_modal" >Подтвердить</button>
+                        </div>
+                    </div>
+                </div>
+            </Fade>
         <div className="rozgr_item">
             <div className="rozgr_item_left">
                 <div className="rozgr_item_left_row">
                     <div className="rozgr_item_left_img">
-                        <img src={imgPrice} alt=""/>
+                        <img src={pic} alt=""/>
                     </div>
                     <div className="rozgr_item_left_descr">
                         <div className="rozgr_item_left_title">{title}</div>
@@ -49,17 +77,19 @@ export const DrawItem = ({imgPrice,priceAdd,title,desc,date,members,startDate}) 
 
 
             </div>
-                    <Zoom in={pay}>{<div className="balance_sidebar pay_confirm">
-                        <div onClick={()=>setPay(!pay)} className="close_menu_btn modal_pay">
-                            <span className="before modal_pay_height"/>
-                            <span className="after modal_pay_height"/>
-                        </div>
-                        <div className="balance_sidebar_title">Стоймость входа</div>
-                        <div className="balance_sidebar_total">{priceAdd+' руб.'}</div>
-                        <button className="form_sbmOpen" >Подтвердить</button>
-                    </div>}</Zoom>
+
+                    {/*<Zoom in={pay}>{<div className="balance_sidebar pay_confirm">*/}
+                    {/*    <div onClick={()=>setPay(!pay)} className="close_menu_btn modal_pay">*/}
+                    {/*        <span className="before modal_pay_height"/>*/}
+                    {/*        <span className="after modal_pay_height"/>*/}
+                    {/*    </div>*/}
+                    {/*    <div className="balance_sidebar_title">Стоймость входа</div>*/}
+                    {/*    <div className="balance_sidebar_total">{priceAdd+' руб.'}</div>*/}
+                    {/*    <button className="form_sbmOpen" >Подтвердить</button>*/}
+                    {/*</div>}</Zoom>*/}
 
         </div>
+        </>
     );
 };
 

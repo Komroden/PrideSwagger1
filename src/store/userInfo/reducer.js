@@ -1,11 +1,10 @@
-import {USER_DATA,USER_DATA_UPDATE} from './actions'
+import {USER_DATA} from './actions'
 const initialState = {
     value:{
         userInfo:{
             login:''
         }
-    },
-    // isUpdate:false
+    }
 
 }
 
@@ -17,12 +16,6 @@ export const userDataReducer = (state = initialState, action) => {
                 value:action.payload
             }
         }
-        // case USER_DATA_UPDATE: {
-        //     return {
-        //         ...state,
-        //         isUpdate:!state.isUpdate
-        //     }
-        // }
 
         default:
             return state

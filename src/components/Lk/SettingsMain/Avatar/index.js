@@ -69,10 +69,10 @@ export const Avatar = ({open,maxWidth,maxHeight}) => {
     const handlePost =()=>{
 console.log(payload)
         const formData=new FormData()
-        // formData.append('X',payload.X)
-        // formData.append('Y',payload.Y)
-        // formData.append('Width',payload.Width)
-        // formData.append('Height',payload.Height)
+        formData.append('X',payload.X)
+        formData.append('Y',payload.Y)
+        formData.append('Width',payload.Width)
+        formData.append('Height',payload.Height)
         formData.append('avatarImage',uploadUrl)
 
 

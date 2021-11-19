@@ -1,16 +1,16 @@
-import {USER_DATA} from './actions'
+import {ALL_USER_DATA} from './actions'
 const initialState = {
     value:{
-        userInfo:{
-            login:''
-        }
+        email:'',
+        messageCount:0,
+        isVerify:false
     }
 
 }
 
-export const userDataReducer = (state = initialState, action) => {
+export const AlluserDataReducer = (state = initialState, action) => {
     switch (action.type) {
-        case USER_DATA: {
+        case ALL_USER_DATA: {
             return {
                 ...state,
                 value:action.payload

@@ -1,16 +1,12 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import {useInputV} from "../../../../../hooks/useInputV";
-import {useDispatch, useSelector} from "react-redux";
-import { UserDataUpDate} from "../../../../../store/userInfo/actions";
+import { useSelector} from "react-redux";
+
+
 
 
 export const TabMainInfo = () => {
     const {auth} = useSelector((state) => state);
-    // const dispatch = useDispatch();
-    // const setUserData = useCallback(() => {
-    //     dispatch(UserDataUpDate())
-    // }, [dispatch]);
-
     const[value,setValue]=useState({
         firstName:'',
         lastName:'',
@@ -18,13 +14,18 @@ export const TabMainInfo = () => {
         birthDate:'',
         country:'',
         city:'',
+        telegram:'',
+        vkontakte:''
     })
+    const [success,setSuccess]=useState('')
     const firstName=useInputV('')
     const lastName=useInputV('')
     const middleName=useInputV('')
     const birthDate=useInputV('')
     const [country,setCountry]=useState('')
     const city=useInputV('')
+    const telegram=useInputV('')
+    const vkontakte=useInputV('')
     const handlePut=(e)=>{
         e.preventDefault()
         setValue({
@@ -34,6 +35,8 @@ export const TabMainInfo = () => {
             birthDate:birthDate.value,
             country:country,
             city:city.value,
+            telegram:telegram.value,
+            vkontakte:vkontakte.value,
         })
         const payload={
             firstName:value.firstName,
@@ -42,6 +45,9 @@ export const TabMainInfo = () => {
             birthDate:value.birthDate,
             country:value.country,
             city:value.city,
+            telegram:value.telegram,
+            vkontakte:value.vkontakte,
+
         }
 
         fetch('http://lk.pride.kb-techno.ru/api/Profile/update',{
@@ -53,7 +59,7 @@ export const TabMainInfo = () => {
         })
             .then((res) => {
                 if (res.status >= 200 && res.status < 300) {
-                    // setUserData()
+                    setSuccess('Успешно')
                 } else {
                     let error = new Error(res.statusText);
                     error.response = res;
@@ -61,7 +67,6 @@ export const TabMainInfo = () => {
                 }
             })
             .catch(error=>console.log(error))
-
 
     }
     const handleReset=()=>{
@@ -71,6 +76,8 @@ export const TabMainInfo = () => {
         birthDate.onReset()
         setCountry('')
         city.onReset()
+        telegram.onReset()
+        vkontakte.onReset()
     }
     return (
         <form onSubmit={handlePut} onReset={handleReset}>
@@ -112,9 +119,18 @@ export const TabMainInfo = () => {
                     <span className="title_input">Регион</span>
                     <input  onChange={e=>city.onChange(e)} value={city.value} type='text' className="dark_input" />
                 </div>
+                <div className="setting_form_item setting_form_item_for_two">
+                    <span className="title_input">Skype\Telegram</span>
+                    <input  onChange={e=>telegram.onChange(e)} value={telegram.value} type='text' className="dark_input" />
 
 
+                </div>
+                <div className="setting_form_item setting_form_item_for_two">
+                    <span className="title_input">Страница VK.com</span>
+                    <input  onChange={e=>vkontakte.onChange(e)} value={vkontakte.value} type='text' className="dark_input" />
+                </div>
             </div>
+            <p>{success}</p>
 
             <div className="setting_form_bottom">
                 <button type='submit' className="form_sbm">Сохранить</button>

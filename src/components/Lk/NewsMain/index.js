@@ -2,10 +2,12 @@ import React from 'react';
 import './style.scss';
 import {NewsItemLk} from "./NewsItemLk";
 import {useSelector} from "react-redux";
-import {NewsCard} from "../../Home/NewsCard";
+
 
 export const NewsMain = () => {
     const { news } = useSelector((state) => state);
+    //const [count,setCount]=useState(9)
+    // news.value.filter(index=>index>0+count)
     return (
         <>
             <div className="grey_line"/>
@@ -17,19 +19,13 @@ export const NewsMain = () => {
                             голосование
                         </div>
                     </div>
-                    {/*<div className="sidebar_title_bl_right">*/}
-                    {/*    <form>*/}
-                    {/*        <select className="select_filter" name="filter">*/}
-                    {/*            <option selected>Все</option>*/}
-                    {/*            <option value="Первый">Первый</option>*/}
-                    {/*            <option value="Второй">Второй</option>*/}
-                    {/*            <option value="Третий">Третий</option>*/}
-                    {/*        </select>*/}
-                    {/*    </form>*/}
-                    {/*</div>*/}
+
                 </div>
                 <div className="news_row">
                     {news.value.map((item,index)=><NewsItemLk key={index} date={item.publishDate} url={item.image} text={item.objectName}/>)}
+                    {news.value.map((item,index)=><NewsItemLk key={index} date={item.publishDate} url={item.image} text={item.objectName}/>)}
+                    {news.value.map((item,index)=><NewsItemLk key={index} date={item.publishDate} url={item.image} text={item.objectName}/>)}
+
 
                 </div>
                 <a href="#" className="more_news">

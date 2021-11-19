@@ -14,6 +14,7 @@ import Collapse from '@mui/material/Collapse';
 
 
 export const ContLogin = () => {
+
     const { auth } = useSelector((state) => state);
     const[token,setToken]=useState({
         token:null,
@@ -36,11 +37,6 @@ export const ContLogin = () => {
         if(token.token===null) return
             setTokens()
     },[token])
-    // useEffect(() => {
-    //     if(token.token!=null){
-    //         push('/lk')
-    //     }else return
-    // },[])
 
     const {push}=useHistory()
     const handlePushRegister=() => {
@@ -51,6 +47,7 @@ export const ContLogin = () => {
         const payload= {
             loginOrEmail:login.value,
             password:password.value,
+            // login:'Alex123'
         }
         setLoading(true)
         fetch('http://lk.pride.kb-techno.ru/api/Auth/login',{
