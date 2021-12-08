@@ -54,13 +54,16 @@
 }
 
 .messageses {
-  max-width: 610px;
+  display: flex;
+  flex-direction: column-reverse;
   width: 100%;
   min-height: 600px;
   margin-top: 20px;
 }
 
 .message_left_form_navig_row {
+  position: relative;
+  justify-content: space-between;
   border-top: 1px solid #e5e5e5;
   background-color: #fdfdfd;
   display: flex;
@@ -106,6 +109,10 @@
       opacity: 0.7;
     }
   }
+  @media (max-width:1350px) {
+    display: none;
+
+  }
 }
 
 .mes_send {
@@ -135,6 +142,8 @@
 }
 
 .yours_mes {
+  margin-right: 30px;
+  align-items: center;
   justify-content: flex-end;
   margin-left: auto;
   .messageses_details {
@@ -144,6 +153,7 @@
 }
 
 .messageses_details {
+  text-align: center;
   margin-top: 5px;
   flex-basis: 35px;
   display: flex;
@@ -257,4 +267,16 @@
 }
 .main_for_all_pages .main_content_right_sidebar_title_bl_title {
   flex-basis: 100%;
+}
+.emoji {
+  cursor: default;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  background: url('../../../images/emoji.png') no-repeat;
+  &.e1 { background-position: -0 -0; }
+  &.e2 { background-position: -16px -0; }
+  &.e3 { background-position: -32px -0px; }
+
+  // etc.
 }

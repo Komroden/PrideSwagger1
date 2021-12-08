@@ -1,27 +1,33 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './style.scss';
-import {useParams} from "react-router";
- export const ContFullNews = () => {
-const{id}=useParams()
+ export const ContFullNews = ({title,text,url}) => {
+
+
+     const [pic,setPic]=useState('');
+
+     useEffect(()=>{
+         if(url==='') return
+         fetch(`http://lk.pride.kb-techno.ru/assets/Img/${url}`,{
+             method:'GET',
+             headers:{
+                 'accept': 'application/octet-stream'
+             }
+         })
+             .then(res=>setPic(res.url))
+
+     },[url])
     return (
         <div className="main_cont">
             <div className="containerP">
                 <div className="text_ce">
-                    <img src="/images/Banner-1000х560-Skills-puzzle-5-0-compressor.jpg" alt=""/>
+                    <img src={pic} alt=""/>
                 </div>
                 <div className="">
-                    <div className="about_title">Компания Pride - текст title & blockchain</div>
+                    <div className="about_title">{title}</div>
                     <div className="about_descr">
-                        <p>Торговля финансовыми инструментами и (или) криптовалютами сопряжена с высокими рисками,
-                            включая риск потери части или всей суммы инвестиций, поэтому подходит не всем инвесторам.
-                            Цены на криптовалюты чрезвычайно волатильны и могут изменяться под действием внешних
-                            факторов, таких как финансовые новости, законодательные решения или политические события.
-                            Маржинальная торговля приводит к повышению финансовых рисков.</p>
+                        <p dangerouslySetInnerHTML={{__html:
+                            text}}/>
 
-                        <p>Прежде чем принимать решение о совершении сделки с финансовым инструментом или
-                            криптовалютами, вы должны получить полную информацию о рисках и затратах, связанных с
-                            торговлей на финансовых рынках, правильно оценить цели инвестирования, свой опыт и
-                            допустимый уровень риска, а при </p>
                     </div>
                 </div>
             </div>

@@ -1,5 +1,5 @@
 import React, {useCallback} from 'react';
-import {CSSTransition} from "react-transition-group";
+import Grow from '@mui/material/Grow';
 import {useDispatch, useSelector} from "react-redux";
 import {openMessageSms} from "../../../store/messageSms/actions";
 import {useHistory} from "react-router";
@@ -18,7 +18,7 @@ export const MessageSms = () => {
     }
     const { messageSms } = useSelector((state) => state);
     return (
-        <CSSTransition in={messageSms.openMessage} classNames='alert' timeout={300} unmountOnExit>
+        <Grow in={messageSms.openMessage}  unmountOnExit>
             <div className="open_popup">
                 <div className="open_popup_row">
                     <div className="close_popup">
@@ -36,7 +36,7 @@ export const MessageSms = () => {
                     </button>
                 </div>
             </div>
-        </CSSTransition>
+        </Grow>
     );
 };
 

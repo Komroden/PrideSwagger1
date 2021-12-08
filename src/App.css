@@ -88,6 +88,10 @@ footer, header, hgroup, menu, nav, section {
   height: 100%;
 }
 
+a {
+  cursor: pointer;
+}
+
 body * {
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
@@ -1750,10 +1754,6 @@ h1 span, .first_title span {
     padding: 20px 15px !important;
   }
 
-  .user_main_block_logo {
-    margin-right: 15px !important;
-  }
-
   .user_main_block_info {
     max-width: 24% !important;
   }
@@ -1986,21 +1986,20 @@ h1 span, .first_title span {
   }
 
   .balance_cost_item {
-    max-width: 310px !important;
+    max-width: 300px !important;
   }
 
   .hamburger {
     transition: all 0.5s ease-in-out !important;
     position: fixed !important;
-    left: 0px !important;
+    left: 25px !important;
     z-index: 22 !important;
     top: 5px !important;
     background-color: #6424ad !important;
     width: 60px !important;
     height: 50px !important;
     padding: 15px !important;
-    border-top-right-radius: 10px !important;
-    border-bottom-right-radius: 10px !important;
+    border-radius: 10px !important;
   }
   .hamburger.active {
     left: 230px !important;
@@ -2071,9 +2070,6 @@ h1 span, .first_title span {
 .my_statistic .my_statistic_row {
     flex-basis: 48% !important;
   }
-  .my_statistic .my_statistic_item_greem {
-    flex-basis: 100% !important;
-  }
 
   .now_on_site_row .now_on_site_item {
     margin-right: 21px !important;
@@ -2098,6 +2094,17 @@ h1 span, .first_title span {
   }
 }
 @media screen and (max-width: 1110px) {
+  .hamburger {
+    left: 17px !important;
+    width: 40px !important;
+    height: 30px !important;
+    padding: 8px !important;
+  }
+  .hamburger span {
+    height: 2px !important;
+    width: 15px !important;
+  }
+
   .balance_cost_item {
     max-width: 304px !important;
   }
@@ -2189,6 +2196,10 @@ h1 span, .first_title span {
   }
 }
 @media screen and (max-width: 980px) {
+  .user_main_block {
+    flex-wrap: wrap !important;
+  }
+
   .lider_top {
     padding: 0 10px !important;
   }
@@ -2710,7 +2721,7 @@ h1 span, .first_title span {
   .balance_cost_item {
     margin-right: 5px !important;
     margin-left: 5px !important;
-    max-width: 247px !important;
+    max-width: none !important;
     padding: 20px 5px !important;
   }
 

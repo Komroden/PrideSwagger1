@@ -162,6 +162,7 @@
     border-right: 1px solid #cbc7c0;
   }
   .my_statistic_number {
+    text-align: center;
     font-weight: 500;
     font-size: 18px;
     color: #232323;
@@ -201,11 +202,11 @@
 .now_on_site_row {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  margin: 0 -5px;
   .now_on_site_item {
+    margin: 0 5px 12px;
     border-radius: 10px;
     overflow: hidden;
-    margin-bottom: 12px;
     width: 60px;
     height: 60px;
     &:hover {

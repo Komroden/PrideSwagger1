@@ -98,8 +98,8 @@
 
 .us_menu_li {
   display: block;
-  margin-bottom: 49px;
-  a {
+  margin-bottom: 23px;
+  div {
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -271,4 +271,10 @@
   .us_menu_li {
     margin-bottom: 40px;
   }
+}
+.reklama_link{
+  margin-right: 10px;
+}
+.text_li{
+  color: #fff;
 }

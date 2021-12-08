@@ -24,6 +24,7 @@ export const FormSettings = () => {
                 textColor="secondary"
                 indicatorColor="secondary"
                 aria-label="secondary tabs example"
+                centered
             >
                 <Tab value="one" label="Основные" />
                 <Tab value="two" label="Дополнительные" />

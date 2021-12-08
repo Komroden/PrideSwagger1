@@ -1,12 +1,14 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import './style.scss';
 import {useHistory} from "react-router";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {UserRegistration} from "../../../store/auth/actions";
 import {useInput} from "../../../hooks/useInput";
 import {Loader} from "../../../api/Loader";
 import {useInputV} from "../../../hooks/useInputV";
 import Collapse from '@mui/material/Collapse';
+import {Captcha} from "../ContReview/Captcha";
+import Fade from "@mui/material/Fade";
 
 
 
@@ -15,12 +17,19 @@ import Collapse from '@mui/material/Collapse';
 
 export const ContLogin = () => {
 
-    const { auth } = useSelector((state) => state);
+    //captcha
+    const [visible, setVisible] = useState(false);
+    const [success,setSuccess]=useState(true);
+    const openCaptcha = () => {
+        setVisible(!visible);
+    };
+
     const[token,setToken]=useState({
         token:null,
         refresh_token:null
 });
     const [open,setOpen]=useState(false);
+    const [counter,setCounter]=useState(0)
     const loginRecover=useInputV('',{isEmpty:true});
     const login=useInputV('');
     const[password]=useInput('');
@@ -36,10 +45,11 @@ export const ContLogin = () => {
     useEffect(() => {
         if(token.token===null) return
             setTokens()
-    },[token])
+    },[token,setTokens])
 
     const {push}=useHistory()
-    const handlePushRegister=() => {
+    const handlePushRegister=(e) => {
+        e.preventDefault()
         push('/register')
     }
     const handleLogin=(e)=>{
@@ -50,70 +60,101 @@ export const ContLogin = () => {
             // login:'Alex123'
         }
         setLoading(true)
-        fetch('http://lk.pride.kb-techno.ru/api/Auth/login',{
-            method:'POST',
-            body:JSON.stringify(payload),
-            headers: {'Content-Type': 'application/json',
-                'Accept': 'application/json'}
-        })
-            .then((res) => {
-                if (res.status >= 200 && res.status < 300) {
-                    return res.json();
-                }
-                if (res.status === 400 ){
-                    let error = new Error('Неверный логин или пароль');
-                    error.response = res;
-                    throw error
-                }else {
-                    let error = new Error(res.statusText);
-                    error.response = res;
-                    throw error
-                }
+        setCounter(counter+1)
+        if (success){
+            fetch('http://lk.pride.kb-techno.ru/api/Auth/login',{
+                method:'POST',
+                body:JSON.stringify(payload),
+                headers: {'Content-Type': 'application/json',
+                    'Accept': 'application/json'}
             })
-            .then(function(body) {
-                setToken({
-                    token:body.access_token,
-                    refresh_token:body.refresh_token});
-            })
-            .then(()=> setLoading(false))
-            .then(()=> push('/lk'))
-            .catch((e) => {
-                setLoading(false)
-                setError(e.message);
+                .then((res) => {
+                    if (res.status >= 200 && res.status < 300) {
+                        return res.json();
+                    }
+                    if (res.status === 400 ){
+                        let error = new Error('Неверный логин или пароль');
+                        error.response = res;
+                        if(counter>=2){
+                        setSuccess(false)
+                        openCaptcha()
+                        }
+                        throw error
+                    }else {
+                        let error = new Error(res.statusText);
+                        error.response = res;
+                        throw error
+                    }
+                })
+                .then(function(body) {
+                    setToken({
+                        token:body.access_token,
+                        refresh_token:body.refresh_token});
+                })
+                .then(()=> setLoading(false))
+                .then(()=> push('/lk'))
+                .catch((e) => {
+                    setLoading(false)
+                    setError(e.message);
 
-            });
+                });
+        }
+
     }
     const handleOpen=(e)=>{
         e.preventDefault()
         setOpen(!open)
     }
+    // let search = window.location.search;
+    // let params = new URLSearchParams(search);
+    // let foo = params.get('code');
+    // useEffect(()=>{
+    //     if (foo==null) return
+    //     // window.open(`https://oauth.vk.com/access_token?client_id=8008853&client_secret=l7noWLXCzFpZfR258bul&redirect_uri=http://localhost:3000/login&code=${foo}`)
+    //     fetch(`https://oauth.vk.com/access_token?client_id=8008853&client_secret=l7noWLXCzFpZfR258bul&redirect_uri=http://localhost:3000/login&code=${foo}`,{
+    //         method:'GET'
+    //     })
+    //         .then(res=>res.json())
+    //         .then(body=>console.log(body))
+    //     console.log('hello')
+    // },[foo])
+
+
+
+
     const handleDrop=(e)=>{
         e.preventDefault()
-        fetch(`http://lk.pride.kb-techno.ru/api/Auth/recover-password?login=${loginRecover.value}`,{
-            method:'POST',
-            headers: {'Content-Type': 'application/json'}
-        })
-            .then((res) => {
-                if (res.status >= 200 && res.status < 300) {
-                    return res.json();
-                }
-                if (res.status === 400 ){
-                    let error = new Error('Аккаунта не существует');
-                    error.response = res;
-                    throw error
-                }else {
-                    let error = new Error(res.statusText);
-                    error.response = res;
-                    throw error
-                }
+        setCounter(counter+1)
+        if(success){
+            fetch(`http://lk.pride.kb-techno.ru/api/Auth/recover-password?login=${loginRecover.value}`,{
+                method:'POST',
+                headers: {'Content-Type': 'application/json'}
             })
-            .then(function(body) {
-                console.log(body)
-            })
-            .catch((e) => {
-                setError(e.message);
+                .then((res) => {
+                    if (res.status >= 200 && res.status < 300) {
+                        return res.json();
+                    }
+                    if (res.status === 400 ){
+                        let error = new Error('Аккаунта не существует');
+                        error.response = res;
+                        setSuccess(false)
+                        openCaptcha()
+                        throw error
+                    }else {
+                        let error = new Error(res.statusText);
+                        error.response = res;
+                        throw error
+                    }
+                })
+                .then(function(body) {
+                    console.log(body)
+                })
+                .catch((e) => {
+                    setError(e.message);
 
-            });
+                });
+        }
+
     }
     return (
         <div className="firstbl first_login">
@@ -127,14 +168,17 @@ export const ContLogin = () => {
                             <div className="log_form">
                                 <form>
                                     <Loader loading={loading}/>
+                                    <div>
                                         <input type="text" placeholder="Login" className=" inputp" onBlur={e => login.onBlur(e)} onChange={e=>login.onChange(e)} value={login.value}
                                         />
-
+                                    </div>
+                                    <div>
                                         <input type="password" placeholder="Password" className=" inputp" {...password}
                                         />
+                                    </div>
                                     <p className='error_message'>{error}</p>
                                             <div className="reemb_pasw">
-                                                Я не помню свой пароль: <a onClick={handleOpen}>Сбросить пароль</a>
+                                                Я не помню свой пароль: <a href="/" onClick={handleOpen}>Сбросить пароль</a>
                                             </div>
                                     <Collapse in={open}>
                                         <div>
@@ -148,15 +192,20 @@ export const ContLogin = () => {
                                         </div>
                                     </Collapse>
                                             <button onClick={handleLogin} className="subm_form">войти</button>
+                                    <Fade  in={visible}>
+                                        <div>
+                                            <Captcha setSuccess={setSuccess} setVisible={setVisible} visible={visible}/>
+                                        </div>
+                                    </Fade>
                                 </form>
 
                             </div>
                             <div className="or">
                                 OR
                             </div>
-                            <a href="#" className="login_vk">
+                            <a href='https://oauth.vk.com/authorize?client_id=8008853&redirect_uri=http://localhost:3000/login&scope=friends&response_type=code&v=5.131' className="login_vk">
                                 <span><img src="/images/vk.png" alt=""/></span>login WITH Vkontakte</a>
-                            <div className="registr reemb_pasw">У меня нет аккаунта? <a onClick={handlePushRegister}>Регистрация</a></div>
+                            <div className="registr reemb_pasw">У меня нет аккаунта? <a href="/" onClick={handlePushRegister}>Регистрация</a></div>
                     </div>
                 </div>
                 <div className="first_right">

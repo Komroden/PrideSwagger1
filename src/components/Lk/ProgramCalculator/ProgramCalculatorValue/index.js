@@ -2,7 +2,7 @@ import React from 'react';
 
 export const ProgramCalculatorValue = ({name}) => {
     return (
-        <option value=""> {name}</option>
+        <option value={name}> {name}</option>
     );
 };
 

@@ -1,8 +1,8 @@
 import  {useEffect, useState} from 'react';
-import {useSelector} from "react-redux";
+
 
 export const useFetch = (url, options, arg) => {
-    const { auth } = useSelector((state) => state);
+
     const [status, setStatus] = useState({
         loading: false,
         data: undefined,
@@ -25,6 +25,7 @@ export const useFetch = (url, options, arg) => {
         if (url) {
             fetchNow(url, options);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [arg]);
 
     return { ...status, fetchNow };

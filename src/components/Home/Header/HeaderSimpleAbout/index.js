@@ -3,7 +3,8 @@ import {useHistory} from "react-router";
 export const HeaderSimpleAbout = (prop) => {
 
     const {push}=useHistory()
-    const handlePushHome=() => {
+    const handlePushHome=(e) => {
+        e.preventDefault()
         push('/')
     }
     return (
@@ -13,7 +14,7 @@ export const HeaderSimpleAbout = (prop) => {
                     <div className="breadcrumbs">
                         <ul>
                             <li>
-                                <a onClick={handlePushHome}>Главная</a>
+                                <a href={'/'} onClick={handlePushHome}>Главная</a>
                             </li>
                             <li>{prop.bread}</li>
                         </ul>

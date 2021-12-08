@@ -1,9 +1,10 @@
-import React,{useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './style.scss';
-import {CSSTransition} from "react-transition-group";
+import Collapse from '@mui/material/Collapse';
 import {CalcItem} from "./CalcItem";
 import {TypeValueItem} from "./TypeValueItem";
 import {useHistory} from "react-router";
+
 export const Calculator = () => {
     const {push}=useHistory();
     const handleInvest=()=>{
@@ -17,6 +18,13 @@ export const Calculator = () => {
         name:'',
         percent:null
     });
+    const [minValue,setMinValue]=useState(0)
+    useEffect(()=>{
+        if(valueType===''||'BTC')setMinValue(0.1)
+        if(valueType==='ETH') setMinValue(1)
+        if(valueType==='ADA') setMinValue(100)
+    },[valueType])
+
 
 
     return (
@@ -41,14 +49,14 @@ export const Calculator = () => {
                                         <div onClick={()=>setShowPlan(!showPlan)} className="select_item_calc_name ope1">
                                             {plan.name===''?'Выберете план':plan.name}
                                         </div>
-                                        <CSSTransition in={showPlan} classNames='alert' timeout={300} unmountOnExit >
+                                        <Collapse in={showPlan}  unmountOnExit >
                                         <div
                                             className="open_select_categ select_item_calc_body select_item_calc_body1 inputp">
                                             <TypeValueItem openState={setShowPlan} type={'Тарифный план Старт'} id={'categ1'} setValueType={setPlan} percent={5}/>
                                             <TypeValueItem openState={setShowPlan} type={'Тарифный план Выгодный'} id={'categ2'} setValueType={setPlan} percent={10}/>
                                             <TypeValueItem openState={setShowPlan} type={'Тарифный план БИЗНЕС'} id={'categ3'} setValueType={setPlan} percent={15}/>
                                         </div>
-                                        </CSSTransition>
+                                        </Collapse>
                                     </div>
                                 </div>
                                 <div className="select3 sel_money">
@@ -57,19 +65,19 @@ export const Calculator = () => {
                                         <div onClick={()=>setShowCurr(!showCurr)} className="select_item_calc_name ope2">
                                             {valueType===''?'Выберете валюту':valueType}
                                         </div>
-                                        <CSSTransition in={showCurr} classNames='alert' timeout={300} unmountOnExit >
+                                        <Collapse in={showCurr}  unmountOnExit >
                                         <div
                                             className="open_select_categ select_item_calc_body select_item_calc_body2 inputp">
                                             <TypeValueItem openState={setShowCurr} type={'BTC'} id={'mon1'} setValueType={setValueType}/>
-                                            <TypeValueItem openState={setShowCurr} type={'ETC'} id={'mon2'} setValueType={setValueType}/>
-                                            <TypeValueItem openState={setShowCurr} type={'LITE'} id={'mon3'} setValueType={setValueType}/>
+                                            <TypeValueItem openState={setShowCurr} type={'ETH'} id={'mon2'} setValueType={setValueType}/>
+                                            <TypeValueItem openState={setShowCurr} type={'ADA'} id={'mon3'} setValueType={setValueType}/>
                                         </div>
-                                        </CSSTransition>
+                                        </Collapse>
                                     </div>
                                 </div>
                                 <div className="select3 sel_price">
                                     <div className="select_title">Введите сумму</div>
-                                    <input disabled={valueType===''&&plan.name===''} onChange={e => setValue(e.target.value)} placeholder={"1 "+valueType} type="number" className="number_input" step={0.01}/>
+                                    <input disabled={valueType===''&&plan.name===''} onChange={e => setValue(e.target.value)} value={value} placeholder={"1 "+valueType} type="number" className="number_input" step={0.01}/>
                                 </div>
                             </div>
                             <CalcItem type={valueType}  mountProfit={value*(plan.percent+100)/100}/>
@@ -78,13 +86,13 @@ export const Calculator = () => {
                                     <div className="slider">
 
                                         <div className="range">
-                                            <input disabled={valueType===''&&plan.name===''} onChange={e => setValue(e.target.value)} type="range" name="date" id="date1" min="0.1" max="10" step="0.1"
+                                            <input disabled={valueType===''&&plan.name===''} onChange={e => setValue(e.target.value)} type="range" name="date" id="date1" min="0.1" max="10" step="0.01"
                                                     defaultValue={0} required/>
                                             <span className="setyear">{value +' '+ valueType}</span>
                                         </div>
                                         <div className="under">
-                                            <span className="startyear">{0.1 +' '+  valueType}</span>
-                                            <span className="endyear">{10 +' '+  valueType}</span>
+                                            <span className="startyear">{minValue +' '+  valueType}</span>
+                                            <span className="endyear">{minValue*10 +' '+  valueType}</span>
                                         </div>
 
                                     </div>

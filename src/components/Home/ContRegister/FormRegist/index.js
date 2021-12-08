@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {useDispatch} from "react-redux";
 import {UserInfo} from "../../../../store/user/actions";
 
-import {CSSTransition} from "react-transition-group";
+import Fade from '@mui/material/Fade';
 import './style.scss';
 import {useInputV} from "../../../../hooks/useInputV";
 
@@ -51,23 +51,21 @@ export const FormRegist = ({status}) => {
     }
     useEffect(()=>{
         if (!userName.value) return
+        setIsLogin(true)
 
         fetch(`http://lk.pride.kb-techno.ru/api/Auth/is-login-registered?login=${userName.value}`,{
             method:'GET',
             headers: {'Content-Type': 'application/json',
                 'Accept': 'application/json'}
         })
-            .then((res) => {
-                if (res.status >= 200 && res.status < 300) {
-                    return res.json();
+            .then(res =>res.json())
+            .then(body=>{
+                if (body===false) {
+                    return ;
                 }
-                if (res.status === 400 ){
+                if (body===true ){
                     let error = new Error('Логин занят');
-                    error.response = res;
-                    throw error
-                }else {
-                    let error = new Error(res.statusText);
-                    error.response = res;
+                    error.response = body;
                     throw error
                 }
             })
@@ -81,9 +79,9 @@ export const FormRegist = ({status}) => {
 
     useEffect(() => {
         setUser()
-    },[value])
+    },[value,setUser])
     return (
-        <CSSTransition  in={status} classNames='alert' timeout={300} unmountOnExit>
+        <Fade  in={status}  unmountOnExit>
             <div>
             <span className="inp">
 
@@ -144,14 +142,19 @@ export const FormRegist = ({status}) => {
                 <div className="reemb_pasw check_b">
                     <input className="input_checkbox" type="checkbox" id="rad"/>
                     <label htmlFor="rad">
-                        I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy
+                        I agree to the <a href="/">Terms of Service</a> and <a href="/">Privacy
                         Policy</a>
                     </label>
                 </div>
-                <button disabled={!email.inputValid||!userName.inputValid||!name.inputValid||!secondName.inputValid||!phoneNumber.inputValid||!password.inputValid||passwordConfirm.value!==password.value} onClick={handleWriteUserInfo} className="subm_form">Далее</button>
+                <button disabled={!email.inputValid||
+                !userName.inputValid||
+                !name.inputValid||
+                !secondName.inputValid||
+                !password.inputValid||
+                passwordConfirm.value!==password.value} onClick={handleWriteUserInfo} className="subm_form">Далее</button>
 
             </div>
-        </CSSTransition>
+        </Fade>
 
     );
 };

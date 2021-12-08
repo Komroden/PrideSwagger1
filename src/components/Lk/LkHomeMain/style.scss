@@ -20,7 +20,6 @@ $size: 90px;
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
-  justify-content: space-between;
   width: 100%;
   min-height: 131px;
   padding: 0 43px;
@@ -123,6 +122,7 @@ $size: 90px;
   .balance_cost_row {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
   }
 }
 
@@ -130,7 +130,7 @@ $size: 90px;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  max-width: 340px;
+  max-width: 330px;
   width: 100%;
   min-height: 125px;
   margin-bottom: 40px;
@@ -172,8 +172,8 @@ $size: 90px;
 
 .balance_cost_item_top {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
+  justify-content: space-between;
 }
 
 .balance_cost_item_bottom {
@@ -206,7 +206,7 @@ $size: 90px;
 }
 
 .balance_cost_item_left {
-  max-width: 115px;
+  max-width: 100px;
   width: 100%;
   .balance_cost_item_lefttext {
     font-size: 14px;
@@ -498,6 +498,7 @@ $size: 90px;
 }*/
 
 .voice_row {
+  margin-bottom: 20px;
   -webkit-box-shadow: 0px 0px 19px -10px rgba(34, 60, 80, 0.2);
   -moz-box-shadow: 0px 0px 19px -10px rgba(34, 60, 80, 0.2);
   box-shadow: 0px 0px 19px -10px rgba(34, 60, 80, 0.2);
@@ -635,7 +636,7 @@ $size: 90px;
   ul {
     display: flex;
     justify-content: flex-end;
-    a {
+    span,a {
       min-width: 27px;
       height: 27px;
       border-radius: 4px;
@@ -653,7 +654,7 @@ $size: 90px;
       }
     }
     li.active {
-      a {
+      span,a {
         background-color: #ffc80a;
         color: #fff;
       }
@@ -669,11 +670,11 @@ $size: 90px;
   .ppc-progress-fill {
     @include circle($size);
     clip: rect(0,
-            #{$size/2},
+            #{$size},
             $size,
             0);
     background: #12d364;
-    transform: rotate(60deg);
+    transform: rotate(0deg);
   }
   .gt-50 & {
     clip: rect(0,
@@ -753,7 +754,7 @@ $size: 90px;
       border-radius: 50%;
       background-color: rgba(86, 230, 192, 0.5);
     }
-    &.pink_color {
+    &.progressbar1 {
       background: rgb(252, 103, 169);
       background: linear-gradient(90deg, rgba(252, 103, 169, 1) 0%, rgba(250, 134, 108, 1) 100%);
       &:after {
@@ -763,7 +764,7 @@ $size: 90px;
         background-color: rgba(250, 134, 108, 0.5);
       }
     }
-    &.fiolet_color {
+    &.progressbar2 {
       background: rgb(203, 113, 240);
       background: linear-gradient(90deg, rgba(203, 113, 240, 1) 0%, rgba(243, 113, 211, 1) 100%);
       &:after {
@@ -773,7 +774,7 @@ $size: 90px;
         background-color: rgba(243, 113, 211, 0.5);
       }
     }
-    &.blue_color {
+    &.progressbar3 {
       background: rgb(0, 105, 236);
       background: linear-gradient(90deg, rgba(0, 105, 236, 1) 0%, rgba(0, 184, 249, 1) 100%);
       &:after {
@@ -787,6 +788,15 @@ $size: 90px;
 }
 .no_verif{
   span{
-    color: red;
+    color: rgb(92%, 5%, 5%);
   }
+}
+
+.overlay{
+  background-color: rgba(0,0,0,0.7);
+
+}
+.overlay_wrapper{
+  color: black;
+  opacity: 0.2;
 }

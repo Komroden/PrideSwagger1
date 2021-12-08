@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import  {useEffect, useState} from 'react';
 
 export const useValidation = (value,validations) => {
     const [isEmpty,setEmpty]=useState(true);
@@ -25,12 +25,17 @@ useEffect(()=>{
                 regEmail.test(String(value).toLowerCase())? setEmailError(false):setEmailError(true)
             break;
             case 'isPhone':
-                const regPhone= /^\+[7][-\(]?\d{3}\)?-?\d{3}-?\d{2}-?\d{2}$/
+                // eslint-disable-next-line no-useless-escape
+                const regPhone= /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/
                 regPhone.test(value)? setPhoneError(false):setPhoneError(true)
+                break;
+            default :
+                break;
 
         }
     }
-})
+
+},[validations,value])
 
     useEffect(()=>{
         if(isEmpty||minLengthError||maxLengthError||emailError||phoneError){
@@ -38,7 +43,7 @@ useEffect(()=>{
         }else {
             setInputValid(true)
 }
-    },[isEmpty,minLengthError,maxLengthError,emailError])
+    },[isEmpty,minLengthError,maxLengthError,emailError,phoneError])
     return {
         isEmpty,
         minLengthError,

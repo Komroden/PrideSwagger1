@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import {useTimer} from "../../../../hooks/useTimer";
 
 import Fade from "@mui/material/Fade";
@@ -7,7 +7,7 @@ import Fade from "@mui/material/Fade";
 
 
 export const DrawItem = ({imgPrice,priceAdd,title,desc,date,members,startDate}) => {
-    const [pic,setPic]=useState('');
+    const pic=useState('');
     // useEffect(()=>{
     //     fetch(`http://lk.pride.kb-techno.ru/assets/Img/${imgPrice}`,{
     //         method:'GET',

@@ -10,12 +10,13 @@ export const MenuRightLinkItem = ({path,title,linkClassName}) => {
         dispatch(openMenu())
     }, [dispatch]);
     const {push}=useHistory()
-    const handlePush=() => {
+    const handlePush=(e) => {
+        e.preventDefault()
         push(path)
         setName()
     }
     return (
-        <a className={linkClassName?linkClassName:''} onClick={handlePush}>{title}</a>
+        <a href={'/'} className={linkClassName?linkClassName:''} onClick={handlePush}>{title}</a>
     );
 };
 

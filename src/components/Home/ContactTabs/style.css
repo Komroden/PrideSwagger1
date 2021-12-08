@@ -33,7 +33,7 @@
 .tabs li {
   width: 210px;
 }
-.tabs li a {
+.tabs li .countryTabs_link {
   cursor: pointer;
   min-height: 220px;
   display: block;
@@ -41,17 +41,17 @@
   padding: 40px 35px;
   position: relative;
 }
-.tabs li a:hover {
+.tabs li .countryTabs_link:hover {
   background: #c24190;
 }
-.tabs li a:hover:before {
+.tabs li .countryTabs_link:hover:before {
   color: #c24190;
 }
-.tabs li a:hover .tab_detail,
-.tabs li a:hover .tab_name {
+.tabs li .countryTabs_link:hover .tab_detail,
+.tabs li .countryTabs_link:hover .tab_name {
   color: #d79c3e;
 }
-.tabs li a:before {
+.tabs li .countryTabs_link:before {
   transition: all 0.3s ease-in-out;
   content: "\f0d7";
   font-family: "FontAwesome";
@@ -61,14 +61,14 @@
   bottom: -45px;
   left: calc(50% - 17px);
 }
-.tabs li.active a {
+.tabs li.active .countryTabs_link {
   background: #c24190;
 }
-.tabs li.active a:before {
+.tabs li.active .countryTabs_link:before {
   color: #c24190;
 }
-.tabs li.active a .tab_detail,
-.tabs li.active a .tab_name {
+.tabs li.active .countryTabs_link .tab_detail,
+.tabs li.active .countryTabs_link .tab_name {
   color: #d79c3e;
 }
 .tabs .tab_name {

@@ -20,17 +20,17 @@
 }
 
 .lider_top_add {
+  cursor: pointer;
   position: relative;
 }
 
-.add_top {
-  cursor: pointer;
+.add_top_wrapper {
   background: #4b4f57;
   color: #fff8e5;
   position: absolute;
-  top: -80px;
-  width: 80px;
-  padding: 15px 0 5px;
+  top: -120px;
+  width: 130px;
+  padding: 10px;
   border-radius: 5px;
   text-align: center;
   font-size: 14px;
@@ -42,14 +42,24 @@
   left: 115px;
 }
 
-.visible {
-  opacity: 1;
-  transition: opacity 0.8s, transform 1ms;
+.add_top_button {
+  margin-top: 15px;
+  border: 0;
+  transition: all 0.3s ease-in-out;
+  color: #fff;
+  background: #36a83d;
+  transition: all 0.3s ease-in-out;
+  padding: 5px 10px;
+  height: 30px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  cursor: pointer;
 }
-
-.hidden {
-  transition: opacity 0.8s, transform 1ms;
-  opacity: 0;
+.add_top_button:hover {
+  background: #dd2f6e;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -1,25 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import { useHistory} from "react-router";
+import {useImage} from "../../../hooks/useImage";
 
 
-export const NewsCard = ({url,date,text}) => {
-    const [pic,setPic]=useState('');
-
-    useEffect(()=>{
-        fetch(`http://lk.pride.kb-techno.ru/assets/Img/${url}`,{
-            method:'GET',
-            headers:{
-                'accept': 'application/octet-stream'
-            }
-        })
-            .then(res=>setPic(res.url))
-
-    },[])
+export const NewsCard = ({url,date,text,id}) => {
+    const {pic}=useImage(url)
 
     let d= new Date(date)
     const {push}=useHistory()
-    const handlePushFullNews=() => {
-       push(`/full:1`)
+    const handlePushFullNews=(e) => {
+        e.preventDefault()
+       push(`/full${id}`)
     }
     return (
         <div className="news_item">
@@ -30,7 +21,7 @@ export const NewsCard = ({url,date,text}) => {
                     </div>
                 </div>
             </div>
-            <a onClick={handlePushFullNews} className="news_link">полная новость</a>
+            <a href={'/'} onClick={handlePushFullNews} className="news_link">полная новость</a>
         </div>
     );
 };

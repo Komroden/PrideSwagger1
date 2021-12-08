@@ -1,8 +1,11 @@
 import React from 'react';
 import {Line} from "../MainTitle/GreyLine";
-import {VoteItem} from "./VoteItem";
+import {useSelector} from "react-redux";
+import {VoteItem} from "../LkHomeMain/VoteItem";
+
 
 export const VoteMain = () => {
+    const {votes} = useSelector((state) => state);
     return (
         <>
             <Line/>
@@ -14,22 +17,18 @@ export const VoteMain = () => {
                             голосование
                         </div>
                     </div>
-                    <div className="sidebar_title_bl_right">
-                        <form>
-                            <select className="select_filter" name="filter">
-                                <option selected>Все</option>
-                                <option value="Первый">Первый</option>
-                                <option value="Второй">Второй</option>
-                                <option value="Третий">Третий</option>
-                            </select>
-                        </form>
-                    </div>
+                    {/*<div className="sidebar_title_bl_right">*/}
+                    {/*    <form>*/}
+                    {/*        <select className="select_filter" name="filter">*/}
+                    {/*            <option selected>Все</option>*/}
+                    {/*            <option value="Первый">Первый</option>*/}
+                    {/*            <option value="Второй">Второй</option>*/}
+                    {/*            <option value="Третий">Третий</option>*/}
+                    {/*        </select>*/}
+                    {/*    </form>*/}
+                    {/*</div>*/}
                 </div>
-                <div className="vote_row">
-                    <VoteItem percent1={0} percent2={0} percent3={0} percent4={0}/>
-                    <VoteItem percent1={20} percent2={50} percent3={90} percent4={70}/>
-                    <VoteItem percent1={70} percent2={90} percent3={60} percent4={50}/>
-                </div>
+                {votes.value.items.map(item=><VoteItem key={item.id} id={item.id} title={item.question} votesBars={item.answers} all={item.totalVotesCount}/>)}
             </div>
 
         </>

@@ -2,7 +2,7 @@ import React, {useCallback} from 'react';
 import './style.scss'
 import {useDispatch, useSelector} from "react-redux";
 
-import {CSSTransition} from "react-transition-group";
+import Grow from '@mui/material/Grow';
 import {openTimer} from "../../../store/timer/actions";
 export const Message = () => {
     const dispatch = useDispatch();
@@ -11,13 +11,13 @@ export const Message = () => {
     }, [dispatch]);
     const { showMessage } = useSelector((state) => state);
     return (
-        <CSSTransition in={showMessage.showMessage} classNames='alert' timeout={300} unmountOnExit>
+        <Grow in={showMessage.showMessage}  unmountOnExit>
         <div className="open_popup">
             <div className="open_popup_row">
                 <div className="close_popup">
                     <div onClick={setName} className="close_menu_btn">
-                        <span className="before"></span>
-                        <span className="after"></span>
+                        <span className="before"/>
+                        <span className="after"/>
                     </div>
                 </div>
                 <img src="/images/logo_dark.png" alt=""/>
@@ -34,7 +34,7 @@ export const Message = () => {
                     </div>
             </div>
         </div>
-        </CSSTransition>
+        </Grow>
     );
 };
 

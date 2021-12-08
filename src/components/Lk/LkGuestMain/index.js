@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './style.scss';
 
 
@@ -7,11 +7,27 @@ import {LkBalanceItemsMini} from "../BalanceItemsMini";
 import {LkGuestMainGuestItem} from "./LkGuestMainGuestItem";
 import {Line} from "../MainTitle/GreyLine";
 import Fade from '@mui/material/Fade';
+import {useSelector} from "react-redux";
+import {useText} from "../../../hooks/useText";
 
 
 
 export const LkGuestMain = () => {
+    const { auth } = useSelector((state) => state);
     const [openModal,setOpenModal]=useState(false);
+    const [value,setValue]=useState([])
+    const text=useText(value.length,'Человек','Человека','Человек')
+    useEffect(()=>{
+        fetch('http://lk.pride.kb-techno.ru/api/Profile/guest-list',{
+            method:'GET',
+            headers:{
+                'accept': 'application/json',
+                'Authorization':`Bearer ${auth.token}`}
+        })
+            .then(res=>res.json())
+            .then(body=>setValue(body))
+            .catch(error=>console.log(error))
+    },[auth.token])
 
 
     return (
@@ -41,7 +57,7 @@ export const LkGuestMain = () => {
                     <div className="gost_text_center">
                         <span className="bid_t"> Статистика: </span>
                         <span className="norm_text">вами интересовались за неделю <span
-                            className="red_col">500 человек</span></span>
+                            className="red_col">{value.length+' '+text}</span></span>
                     </div>
                     <div className="gost_red_block">
                         <div className="gost_red_block_title">Вы популярны!</div>
@@ -49,20 +65,9 @@ export const LkGuestMain = () => {
                     </div>
                 </div>
                 <div className="gost_row">
-                    <LkGuestMainGuestItem image={'url(/images/u1.png)'} name={'Dmitriy Ivanov'} year={'25 лет'} isOnline={'Online'} setOpenModal={setOpenModal} />
-                    <LkGuestMainGuestItem image={'url(/images/u2.png)'} name={'Dmitriy Ivanov'} year={'25 лет'} isOnline={'Online'} setOpenModal={setOpenModal}/>
-                    <LkGuestMainGuestItem image={'url(/images/u3.png)'} name={'Dmitriy Ivanov'} year={'25 лет'} isOnline={'Online'} setOpenModal={setOpenModal}/>
-                    <LkGuestMainGuestItem image={'url(/images/u4.png)'} name={'Dmitriy Ivanov'} year={'25 лет'} isOnline={'Online'} setOpenModal={setOpenModal}/>
-                    <LkGuestMainGuestItem image={'url(/images/u5.png)'} name={'Dmitriy Ivanov'} year={'25 лет'} isOnline={'Online'} setOpenModal={setOpenModal} />
-                    <LkGuestMainGuestItem image={'url(/images/u6.png)'} name={'Dmitriy Ivanov'} year={'25 лет'} isOnline={'Online'} setOpenModal={setOpenModal}/>
-                    <LkGuestMainGuestItem image={'url(/images/u1.png)'} name={'Dmitriy Ivanov'} year={'25 лет'} isOnline={'Online'} setOpenModal={setOpenModal}/>
-                    <LkGuestMainGuestItem image={'url(/images/u2.png)'} name={'Dmitriy Ivanov'} year={'25 лет'} isOnline={'Online'} setOpenModal={setOpenModal}/>
-                    <LkGuestMainGuestItem image={'url(/images/u3.png)'} name={'Dmitriy Ivanov'} year={'25 лет'} isOnline={'Online'} setOpenModal={setOpenModal}/>
-                    <LkGuestMainGuestItem image={'url(/images/u4.png)'} name={'Dmitriy Ivanov'} year={'25 лет'} isOnline={'Online'} setOpenModal={setOpenModal}/>
-                    <LkGuestMainGuestItem image={'url(/images/u5.png)'} name={'Dmitriy Ivanov'} year={'25 лет'} isOnline={'Online'} setOpenModal={setOpenModal}/>
-                    <LkGuestMainGuestItem image={'url(/images/u6.png)'} name={'Dmitriy Ivanov'} year={'25 лет'} isOnline={'Online'} setOpenModal={setOpenModal}/>
+                    {value.map(item=><LkGuestMainGuestItem key={item.id} id={item.id}  name={item.firstName} setOpenModal={setOpenModal} image={item.image} isOnline={item.isOnline} year={item.yearsOld}/>)}
                 </div>
-                <a href="#" className="more_news open_more_gost">
+                <a href="/" className="more_news open_more_gost">
                     <span>Покать больше гостей</span>
                     <img src="/images/chev.png" alt=""/>
                 </a>

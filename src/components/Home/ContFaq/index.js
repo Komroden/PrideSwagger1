@@ -1,18 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import './style.scss';
 import {HomeFaqItem} from "./HomeFaqItem";
-import {useFetch} from "../../../hooks/useFetch";
+
 
 
 export const ContFaq = () => {
+    const [open,setOpen]=useState(null)
     const [itemsList,setItemsList]=useState({
         items:[]
     })
 
-    const {data}=useFetch('http://lk.pride.kb-techno.ru/api/Main/faq-list?pageNumber=1&pageSize=10',{
-        method:'GET',
-        headers:{'accept':'application/json'}
-    })
     useEffect(()=>{
         fetch('http://lk.pride.kb-techno.ru/api/Main/faq-list?pageNumber=1&pageSize=10',{
             method:'GET',
@@ -28,10 +25,10 @@ export const ContFaq = () => {
             <div className="faq_tabs containerP">
 
                 <div className="ins_row_faq">
-                    {itemsList.items.filter((item,index)=>index<6).map((item,index)=><HomeFaqItem key={index} answer={item.answer} question={item.question}/>)}
+                    {itemsList.items.filter((item,index)=>index<6).map((item,index)=><HomeFaqItem key={index} open={open} setOpen={setOpen} id={index} answer={item.answer} question={item.question} />)}
                 </div>
                 <div className="ins_row_faq">
-                    {itemsList.items.filter((item,index)=>index>=6).map((item,index)=><HomeFaqItem key={index} answer={item.answer} question={item.question}/>)}
+                    {itemsList.items.filter((item,index)=>index>=6).map((item,index)=><HomeFaqItem key={index} open={open} setOpen={setOpen} id={index} answer={item.answer} question={item.question} />)}
                 </div>
             </div>
             {/*<div className="pagination_p">*/}

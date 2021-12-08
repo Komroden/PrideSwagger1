@@ -1,9 +1,25 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ProgramCalculatorValue} from "./ProgramCalculatorValue";
+import Checkbox from '@mui/material/Checkbox';
+import {useDaysOnMounth} from "../../../hooks/useDaysOnMounth";
+import {useCourse} from "../../../hooks/useCourse";
 
-export const ProgramCalculator = ({toFromRange,toBeforeRange,totalPrice,speedPrice}) => {
-    const[price,setPrice]=useState(toFromRange);
+export const ProgramCalculator = ({percent,minValue,toBeforeRange}) => {
+
+    const[price,setPrice]=useState(0);
     const[speed,setSpeed]=useState(1);
+    const[value,setValue]=useState('BTC')
+    const[totalPrice,setTotalPrice]=useState(price);
+    const course=useCourse(value)
+    const days=useDaysOnMounth()
+
+    const before=(toBeforeRange/course).toFixed(toBeforeRange/course<10?4:0)
+    const from =(minValue/course).toFixed(minValue/course<10?4:0)
+
+    useEffect(()=>{
+        if(Math.ceil(totalPrice)>Math.ceil(before))setTotalPrice(before)
+    },[totalPrice,before])
+
     return (
         <div className="blue_block">
             <form>
@@ -11,72 +27,82 @@ export const ProgramCalculator = ({toFromRange,toBeforeRange,totalPrice,speedPri
                     <div className="form_entry_in_program_top">
                         <div className="form_entry_in_program_left">
                             <div className="form_entry_in_program_title">Выберите валюту</div>
-                            <select id="" className="form_entry_in_program_select">
-                                <option value="">Выберите валюту</option>
-                                <ProgramCalculatorValue name={'валюта 1'}/>
-                                <ProgramCalculatorValue name={'валюта 2'}/>
-                                <ProgramCalculatorValue name={'валюта 3'}/>
-                                <ProgramCalculatorValue name={'валюта 4'}/>
+                            <select defaultValue={'BTC'}  className="form_entry_in_program_select" placeholder={'Выберите валюту'} onChange={e=> {
+                                setPrice(0)
+                                setTotalPrice(0)
+                                setValue(e.target.value)
+                            }}>
+                                <ProgramCalculatorValue name={'BTC'}/>
+                                <ProgramCalculatorValue name={'ETH'}/>
+                                <ProgramCalculatorValue name={'ADA'}/>
+                                <ProgramCalculatorValue name={'SOL'}/>
                             </select>
                         </div>
                         <div className="form_entry_in_program_right">
                             <div className="form_entry_in_program_title">
-                                Вход в программу <span>от {toFromRange}  рублей до {toBeforeRange} рублей</span>
+                                Вход в программу <span>от {from} {value} до {before} {value}</span>
                             </div>
                             <div className="form_entry_in_program_right_range">
                                 <div className="form_entry_in_program_right_top_range">
-                                    <input type="text" name="amountInput" min={toFromRange} max={toBeforeRange} value={price}
-
+                                    <input type="text" name="amountInput" min={from} max={before} value={price>10?Math.ceil(price):price} readOnly
                                            />
-                                    <span>Руб.</span>
+                                    <span>{value}</span>
                                 </div>
                                 <div className="form_entry_in_program_right_range_input">
-                                    <input type="range" name="amountRange" min={toFromRange} max={toBeforeRange}
-                                          onChange={event => setPrice(event.target.value)}/>
+                                    <input type="range" name="amountRange" min={from} max={before} step={0.00001}
+                                          onChange={event => {
+                                              setTotalPrice(event.target.value)
+                                              setPrice(event.target.value)
+                                          }} defaultValue={0}/>
                                 </div>
                                 <div className="form_entry_in_program_right_range_bottom">
-                                    <div className="form_entry_in_program_right_range_bottom_left">{toFromRange} Руб.</div>
-                                    <div className="form_entry_in_program_right_range_bottom_right">{toBeforeRange} Руб.
+                                    <div className="form_entry_in_program_right_range_bottom_left">{from} {value}</div>
+                                    <div className="form_entry_in_program_right_range_bottom_right">{before} {value}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="totalprice">
-                        <input type="text" value={totalPrice} className="totalprice_input"/>
-                        <span>Рублей</span>
+                        <input type="number"  autoFocus={true} value={totalPrice>10?Math.ceil(totalPrice):totalPrice} onChange={event => setTotalPrice(event.target.value)}  className="totalprice_input"/>
+                        <span>{value}</span>
                     </div>
                     <div className="form_entry_in_program_center">
                         <div className="form_entry_in_program_center_price">
                             <div className="form_entry_in_program_center_titl">Цена скорости</div>
-                            <div className="form_entry_in_program_center_purple">{speedPrice} Руб.</div>
+                            <div className="form_entry_in_program_center_purple">{(course*totalPrice/100).toFixed(3)} USD</div>
                         </div>
                         <div className="form_entry_in_program_center_all_price">
                             <div className="form_entry_in_program_center_titl">Общая цена</div>
-                            <div className="form_entry_in_program_center_green">{speed*speedPrice} Руб.</div>
+                            <div className="form_entry_in_program_center_green">{((course*totalPrice/100*speed)+(totalPrice*course)).toFixed(3)} USD</div>
                         </div>
                         <div className="form_entry_in_program_center_last">
                             <div className="form_entry_in_program_center_last_title">Ваш заработок в день</div>
-                            <div className="form_entry_in_program_center_last_pr">700.00 Руб.</div>
+                            <div className="form_entry_in_program_center_last_pr">{(course*totalPrice*percent*(1+speed/100)/days).toFixed(3)} USD</div>
                         </div>
                     </div>
                     <div className="form_entry_in_program_bottom">
                         <div className="form_entry_in_program_bottom_range">
                             <div className="form_entry_in_program_bottom_range_top">
-                                <input type="text" name="amountInput1" min="1" max="10" value={speed}
+                                <input type="text" name="amountInput1" min="1" max="5"  value={speed} readOnly
                                        />
                                 <span>х Скорость</span>
                             </div>
                             <div className="form_entry_in_program_bottom_range_center">
-                                <input type="range" name="amountRange1" min="1" max="10"
+                                <input type="range" name="amountRange1" min="1" max="5" defaultValue={'1'}
                                        onChange={event => setSpeed(event.target.value)}/>
                             </div>
                             <div className="form_entry_in_program_bottom_range_bottom">
                                 <div className="form_entry_in_program_bottom_range_bottom_left">Обычная скорость
                                 </div>
-                                <div className="form_entry_in_program_bottom_range_bottom_right">10х скорость</div>
+                                <div className="form_entry_in_program_bottom_range_bottom_right">5х скорость</div>
+                            </div>
+                            <div className="input_strax">
+                            <Checkbox  defaultChecked color="success" />
+                                <label >Страхование вклада</label>
                             </div>
                         </div>
+
                         <div className="form_entry_in_program_bottom_btn">
                             <button>Вход в программу</button>
                         </div>

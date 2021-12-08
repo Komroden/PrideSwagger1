@@ -3,11 +3,12 @@ import {useHistory} from "react-router";
 
 export const InvestPlanItem = ({title, percent,day}) => {
     const{push}=useHistory()
-    const handlePush=() => {
+    const handlePush=(e) => {
+        e.preventDefault()
         push('/register')
     }
     return (
-        <a onClick={handlePush} className="invest_plan_item wow slideInLeft" data-wow-duration="3s">
+        <a href={'/'} onClick={handlePush} className="invest_plan_item wow slideInLeft" data-wow-duration="3s">
             <div className="invest_plan_item_ins">
                 <span className="inv_name">{title}</span>
                 <span className="orange_b">

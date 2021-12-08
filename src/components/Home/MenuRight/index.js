@@ -13,20 +13,22 @@ export const MenuRight = () => {
     const setName = useCallback(() => {
         dispatch(openMenu())
     }, [dispatch]);
-    const { showMenu, userData,auth } = useSelector((state) => state);
+    const { showMenu,auth } = useSelector((state) => state);
 
     const {push}=useHistory()
-    const handlePush = ()=>{
+    const handlePush = (e)=>{
+        e.preventDefault()
         push('/login')
         setName()
     }
-    const handlePushRegistr = ()=>{
+    const handlePushRegistr = (e)=>{
+        e.preventDefault()
         push('/register')
         setName()
     }
 
     return (
-        <Grow in={showMenu.showMenuBurg}>
+        <Grow in={showMenu.showMenuBurg} unmountOnExit>
         <div className="menu_right_open_r closed wow slideInRight">
 
             <div onClick={setName} className="close_menu_btn">
@@ -35,13 +37,13 @@ export const MenuRight = () => {
             </div>
             <LkHeaderUserProfile path={'/transactions'}  logo={'/images/user.png'} textClassName={'userProfileText'} homeClassName={auth.token!=null?'user_profile_rightMenu':'user_profile_rightMenu none'} buttonClassName='user_part_exit_marginTop'/>
             <div className={'menu_link_wrapper'}>
-                <a onClick={handlePush} style={{display:auth.token?'none':'block'}} className='push_link'>Вход</a>
-                <a onClick={handlePushRegistr} style={{display:auth.token?'none':'block'}} className='push_linkRegistr'>Регистрация</a>
+                <a href={'/'} onClick={handlePush} style={{display:auth.token?'none':'block'}} className='push_link'>Вход</a>
+                <a href={'/'} onClick={handlePushRegistr} style={{display:auth.token?'none':'block'}} className='push_linkRegistr'>Регистрация</a>
             </div>
             <ul>
-                <li>
+                {auth.token!==null&&<li>
                     <MenuRightLinkItem path={'/lk'} title={'Кабинет'}/>
-                </li>
+                </li>}
                 <li className="active">
                     <MenuRightLinkItem path={'/'} title={'Главная'}/>
                 </li>

@@ -133,7 +133,7 @@
     margin-right: 0;
     ul {
       justify-content: center;
-      a {
+      span,a {
         font-size: 18px;
         font-weight: 500;
         min-width: 45px;
@@ -144,7 +144,7 @@
         }
       }
       .arrow_li {
-        a {
+        span,a {
           background-color: transparent;
           &:hover {
             background-color: transparent;
@@ -154,7 +154,7 @@
       }
     }
   }
-  .voice_pagination ul li.active a {
+  .voice_pagination ul li.active span,a {
     background-color: #ea4989;
   }
 }

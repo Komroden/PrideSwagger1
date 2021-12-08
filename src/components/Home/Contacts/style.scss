@@ -48,7 +48,7 @@
   margin-right: auto;
   form {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: space-between;
   }
   .inputp {
@@ -58,4 +58,8 @@
     flex-basis: 100%;
     min-height: 185px;
   }
+}
+.form_cont_wrap{
+  flex-wrap: wrap!important;
+  flex-direction: row!important;
 }

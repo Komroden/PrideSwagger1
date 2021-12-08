@@ -1,0 +1,40 @@
+.main_cont {
+  margin-bottom: 110px;
+}
+.main_cont p {
+  color: #ada2c3;
+  line-height: 1.5;
+  margin-bottom: 25px;
+}
+.main_cont .about_title {
+  font-weight: 700;
+  font-size: 36px;
+  text-transform: uppercase;
+  margin-bottom: 50px;
+}
+.main_cont .d_flex_right {
+  max-width: 47%;
+  width: 100%;
+}
+.main_cont .d_flex_left {
+  max-width: 44%;
+  margin-top: 20px;
+  width: 100%;
+}
+.main_cont .d_flex_about {
+  padding-bottom: 15px;
+  margin-top: 65px;
+}
+.main_cont .d_flex_about .d_flex_right {
+  margin-top: 50px;
+}
+.main_cont .about_text {
+  margin-top: 55px;
+}
+
+.d_flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+/*# sourceMappingURL=style.css.map */

@@ -7,7 +7,10 @@ import {useSelector} from "react-redux";
 export const NewsMain = () => {
     const { news } = useSelector((state) => state);
     //const [count,setCount]=useState(9)
-    // news.value.filter(index=>index>0+count)
+    const handleAddNews=e=>{
+        e.preventDefault()
+        // news.value.filter(index=>index>0+count)
+    }
     return (
         <>
             <div className="grey_line"/>
@@ -21,14 +24,15 @@ export const NewsMain = () => {
                     </div>
 
                 </div>
+
                 <div className="news_row">
-                    {news.value.map((item,index)=><NewsItemLk key={index} date={item.publishDate} url={item.image} text={item.objectName}/>)}
-                    {news.value.map((item,index)=><NewsItemLk key={index} date={item.publishDate} url={item.image} text={item.objectName}/>)}
-                    {news.value.map((item,index)=><NewsItemLk key={index} date={item.publishDate} url={item.image} text={item.objectName}/>)}
+                    {news.value.map((item)=><NewsItemLk id={item.id} key={item.id} date={item.publishDate} url={item.image} text={item.objectName}/>)}
+                    {news.value.map((item)=><NewsItemLk id={item.id} key={item.id} date={item.publishDate} url={item.image} text={item.objectName}/>)}
+                    {news.value.map((item)=><NewsItemLk id={item.id} key={item.id} date={item.publishDate} url={item.image} text={item.objectName}/>)}
 
 
                 </div>
-                <a href="#" className="more_news">
+                <a href="/" onClick={handleAddNews} className="more_news">
                     <span>Еще новости</span>
                     <img src="/images/chevr_pink.png" alt=""/>
                 </a>
@@ -40,7 +44,8 @@ export const NewsMain = () => {
                             <iframe style={{width: '100%'}} height="225" src="https://www.youtube.com/embed/ozq5pqdekuE"
                                     frameBorder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowFullScreen/>
+                                    allowFullScreen
+                                    title={'CBS'}/>
 
                         <div className="youtube_item_text">Токены CBS - что будет дальше. Заголовок видео!</div>
                     </div>
@@ -49,7 +54,8 @@ export const NewsMain = () => {
                             <iframe style={{width: '100%'}} height="225" src="https://www.youtube.com/embed/xD5EDTKFig4"
                                     frameBorder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowFullScreen/>
+                                    allowFullScreen
+                                    title={'Where'}/>
 
                         <div className="youtube_item_text">Где найти деньги на свой стартапв гараже!</div>
                     </div>
@@ -58,13 +64,14 @@ export const NewsMain = () => {
                             <iframe style={{width: '100%'}} height="225" src="https://www.youtube.com/embed/XReHfoqiDf0"
                                     frameBorder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowFullScreen/>
+                                    allowFullScreen
+                                    title={'CBS1'}/>
 
                         <div className="youtube_item_text">Токены CBS - что будет дальше. Заголовок видео!</div>
                     </div>
                 </div>
                 <div className="open_more_youtube">
-                    <a href="" className="open_more_youtube_link">
+                    <a href="/" className="open_more_youtube_link">
                         <span>наш youtube канал </span>
                         <img src="images/yuotube.png" alt=""/>
                     </a>

@@ -1,8 +1,14 @@
 import React from 'react';
+import {useHistory} from "react-router";
 
 export const LkHomeRightSlidebarNewsItem = ({img,title,value}) => {
+	const {push}=useHistory()
+	const handlePush=(e)=>{
+		e.preventDefault()
+		push('/draw')
+	}
     return (
-        <a href="#" className="right_news_item">
+        <a  href="/" onClick={handlePush} className="right_news_item">
 								<span className="right_news_item_img">
 									<img src={img} alt=""/>
 								</span>

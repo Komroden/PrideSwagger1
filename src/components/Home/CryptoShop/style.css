@@ -174,4 +174,23 @@
   font-size: 380px;
 }
 
+.hidden_text {
+  z-index: 10;
+  opacity: 1 !important;
+  display: block !important;
+  font-size: 22px;
+  position: absolute;
+  margin: auto;
+  top: 45%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  height: inherit;
+}
+
+.hidden__none {
+  display: none;
+}
+
 /*# sourceMappingURL=style.css.map */

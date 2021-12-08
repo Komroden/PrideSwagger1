@@ -1,9 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './style.scss'
 
 import 'react-slide-captcha/dist/styles.css';
 import {useInputV} from "../../../hooks/useInputV";
+import {Captcha} from "../ContReview/Captcha";
+import Fade from "@mui/material/Fade";
 export const Contacts = ({title,isSocial}) => {
+    const [visible, setVisible] = useState(false);
+    const [success,setSuccess]=useState(false);
 
 
     const email=useInputV('',{isEmpty:true});
@@ -11,6 +15,10 @@ export const Contacts = ({title,isSocial}) => {
     const subject=useInputV('',{isEmpty:true});
     const phone_number=useInputV('',{isEmpty:true});
     const message=useInputV('');
+    const openCaptcha = (e) => {
+        e.preventDefault()
+        setVisible(!visible);
+    };
 
     const handlePost=(e)=>{
         e.preventDefault()
@@ -57,8 +65,8 @@ export const Contacts = ({title,isSocial}) => {
                     <span>info@pride.com</span>
                     </a>
                     </div>}
-                <div className="form_cont">
-                    <form onSubmit={handlePost}>
+                <div className="form_cont ">
+                    <form className={'form_cont_wrap'}>
                         <input type="text" placeholder="Name" className="inputp" onBlur={e => name.onBlur(e)} onChange={e=>name.onChange(e)} value={name.value}/>
                         {/*{(name.isDirty && name.isEmpty) && <span className='inp'><span className="required_fail required_fail_contact"> Обязательное поле</span></span>}*/}
                             <input type="text" placeholder="Email Address" className="inputp" onBlur={e => email.onBlur(e)} onChange={e=>email.onChange(e)} value={email.value}/>
@@ -71,7 +79,12 @@ export const Contacts = ({title,isSocial}) => {
                         {/*{(subject.isDirty && subject.isEmpty) && <span className='inp'><span className="required_fail"> Обязательное поле</span></span>}*/}
                                         <textarea placeholder="Message" className="inputp" onBlur={e => message.onBlur(e)} onChange={e=>message.onChange(e)} value={message.value}/>
                         {/*{(message.isDirty && message.isEmpty) && <span className='inp'><span className="required_fail"> Обязательное поле</span></span>}*/}
-                                        <button disabled={!email.inputValid||!name.inputValid||!phone_number.inputValid||!subject.inputValid} className="subm_form" type='submit'>Отправить сообщение</button>
+                                        <button disabled={!email.inputValid||!name.inputValid||!phone_number.inputValid||!subject.inputValid} onClick={success?handlePost:openCaptcha}  className="subm_form" type='submit'>Отправить сообщение</button>
+                        <Fade  in={visible}>
+                            <div>
+                                <Captcha setSuccess={setSuccess} setVisible={setVisible} visible={visible}/>
+                            </div>
+                        </Fade>
                     </form>
                 </div>
             </div>

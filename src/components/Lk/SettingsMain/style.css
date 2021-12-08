@@ -9,7 +9,7 @@
   margin-bottom: 50px;
 }
 .setting_form_item select {
-  background-image: url("../../../images/select1.png");
+  background-image: url("../../../images/ar.png");
   background-repeat: no-repeat;
   background-position: 93% center;
 }
@@ -44,7 +44,7 @@
 }
 
 .violet_box {
-  margin-bottom: 70px;
+  margin-bottom: 40px;
   border-radius: 10px;
   padding: 20px 55px 30px 10px;
   background-color: #c6aee1;
@@ -66,6 +66,7 @@
   flex-basis: 73%;
 }
 .violet_box_row .give_code {
+  border: none;
   background: #f01901;
   flex-basis: 25%;
   display: flex;
@@ -116,15 +117,19 @@
 }
 
 .drop_area {
-  margin-left: 20px;
-  font-size: 20px;
+  margin: auto;
+  font-size: 25px;
   max-width: 500px;
   width: 80%;
   height: 20vh;
-  border: 5px dashed black;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+@media (max-width: 768px) {
+  .drop_area {
+    display: none;
+  }
 }
 
 .drop_wrapper {
@@ -160,6 +165,11 @@
   flex-direction: row-reverse;
   margin-bottom: 20px;
 }
+@media (max-width: 768px) {
+  .add__file {
+    justify-content: center;
+  }
+}
 
 .crop_image {
   flex-direction: column;
@@ -175,12 +185,18 @@
   background: #404240;
 }
 
-.css-heg063-MuiTabs-flexContainer {
-  justify-content: center;
+.css-sghohy-MuiButtonBase-root-MuiButton-root {
+  text-transform: none !important;
 }
 
-.css-1a4cg4j-MuiButtonBase-root-MuiTab-root {
-  text-transform: none !important;
+.input_margin {
+  margin-bottom: 40px;
+}
+
+@media (max-width: 1300px) {
+  .us_menu_li_hiddenMobile {
+    display: none !important;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

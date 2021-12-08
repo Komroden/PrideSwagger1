@@ -24,10 +24,6 @@ import {NewMessage} from "./pages/Lk/NewMessage";
 import {News} from "./pages/Lk/News";
 import {Refill} from "./pages/Lk/Refill";
 import {ProgramMaxi} from "./pages/Lk/ProgramMaxi";
-import {Program15} from "./pages/Lk/Program15";
-import {ProgramMatrix} from "./pages/Lk/ProgramMatrix";
-import {ProgramAuto} from "./pages/Lk/ProgramAuto";
-import {ProgramTechnique} from "./pages/Lk/ProgramTechnique";
 import {Draw} from "./pages/Lk/Draw";
 import {Settings} from "./pages/Lk/Settings";
 import {PrivateRoute} from "./hocs/PrivateRoute";
@@ -43,32 +39,48 @@ import {setNewsList} from "./store/news/actions";
 
 import {Notifications} from "./pages/Lk/Notifications";
 import {useTimerUp} from "./hooks/useTimerUp";
+import {ProgramMaxiThree} from "./pages/Lk/ProgramMaxiThree";
+import {ProgramMaxiTwo} from "./pages/Lk/ProgramMaxiTwo";
+import {ChatList} from "./pages/Lk/ChatList";
+import {Structure} from "./pages/Lk/Structure";
+import {CryptoData} from "./store/crypto/actions";
+
+
+
 
 
 
 
 export function App() {
-    const { showMessage,timerDown,auth,userData } = useSelector((state) => state);
+    const { auth } = useSelector((state) => state);
     const dispatch = useDispatch();
     const[news,setNews]=useState([])
     const[value,setValue]=useState({
 
             userInfo:
-                    {login:''}
+                    {login:''},
+        partnerInfo:{
+            fullName:'',
+            id:null
+        }
                 })
     const setUserData = useCallback(() => {
         dispatch(UserData(value))
     }, [dispatch,value]);
     useEffect(() => {
         setUserData()
-    },[value])
+    },[value,setUserData])
 
     useEffect(()=>{
         if (!auth.token){
             setValue({
 
                 userInfo:
-                    {login:''}
+                    {login:''},
+                partnerInfo:{
+                    fullName:'',
+                    id:null
+                }
             })
             return
         }
@@ -97,6 +109,7 @@ export function App() {
     },[auth.token])
 
 
+
     useEffect(()=>{
         new WOW.WOW({
             live:false,
@@ -118,13 +131,36 @@ export function App() {
 
     useEffect(() => {
         setMinutes()
-    },[minute])
+    },[minute,setMinutes])
     useEffect(() => {
         setPrices()
-    },[price])
+    },[price,setPrices])
     useEffect(() => {
         setSecond()
-    },[seconds])
+    },[seconds,setSecond])
+    // 07.12
+    const[crypto,setCrypto]=useState([])
+    const setCryptoData = useCallback(() => {
+        dispatch(CryptoData(crypto))
+    }, [dispatch,crypto]);
+    useEffect(()=>{
+        fetch('http://lk.pride.kb-techno.ru/api/Main/currency-rates',{
+            method:'GET',
+            headers:{'Content-Type': 'application/json',
+                'Accept': 'application/json'}
+        })
+            .then((res) => res.json())
+            .then((body)=>setCrypto(body)
+            )
+            .catch((e) => {
+                console.log(e.message);
+            });
+
+    },[])
+    useEffect(()=>{
+        if(!crypto) return
+        setCryptoData()
+    },[setCryptoData,crypto])
 
 
 
@@ -149,7 +185,8 @@ export function App() {
     },[])
     useEffect(()=>{
         setNewses()
-    },[news])
+    },[news,setNewses])
+
 
   return(
 <div>
@@ -181,10 +218,13 @@ export function App() {
         <Route  path='/register'>
             <Registration/>
         </Route>
+        <PrivateRoute auth={auth}  path='/structure'>
+            <Structure/>
+        </PrivateRoute>
         <PrivateRoute auth={auth} path='/lk'>
             <LkHome/>
         </PrivateRoute>
-        <PrivateRoute auth={auth} path='/user'>
+        <PrivateRoute auth={auth} path='/user:id'>
            <LkUser/>
         </PrivateRoute>
         <PrivateRoute auth={auth} path='/transactions'>
@@ -199,7 +239,10 @@ export function App() {
         <PrivateRoute auth={auth} path='/history'>
            <History/>
         </PrivateRoute>
-        <PrivateRoute auth={auth} path='/messages'>
+        <PrivateRoute auth={auth} path='/chats'>
+            <ChatList/>
+        </PrivateRoute>
+        <PrivateRoute auth={auth} path='/messages:id/:name'>
            <Messages/>
         </PrivateRoute>
         <PrivateRoute auth={auth} path='/notifications'>
@@ -217,18 +260,24 @@ export function App() {
         <PrivateRoute auth={auth} path='/programMaxi'>
           <ProgramMaxi/>
         </PrivateRoute>
-        <PrivateRoute auth={auth} path='/program15'>
-           <Program15/>
+        <PrivateRoute auth={auth} path='/programMaxi2'>
+            <ProgramMaxiTwo/>
         </PrivateRoute>
-        <PrivateRoute auth={auth} path='/programMatrix'>
-          <ProgramMatrix/>
+        <PrivateRoute auth={auth} path='/programMaxi3'>
+            <ProgramMaxiThree/>
         </PrivateRoute>
-        <PrivateRoute auth={auth} path='/programAuto'>
-            <ProgramAuto/>
-        </PrivateRoute>
-        <PrivateRoute auth={auth} path='/technique'>
-            <ProgramTechnique/>
-        </PrivateRoute>
+        {/*<PrivateRoute auth={auth} path='/program15'>*/}
+        {/*   <Program15/>*/}
+        {/*</PrivateRoute>*/}
+        {/*<PrivateRoute auth={auth} path='/programMatrix'>*/}
+        {/*  <ProgramMatrix/>*/}
+        {/*</PrivateRoute>*/}
+        {/*<PrivateRoute auth={auth} path='/programAuto'>*/}
+        {/*    <ProgramAuto/>*/}
+        {/*</PrivateRoute>*/}
+        {/*<PrivateRoute auth={auth} path='/technique'>*/}
+        {/*    <ProgramTechnique/>*/}
+        {/*</PrivateRoute>*/}
         <PrivateRoute auth={auth} path='/draw'>
             <Draw/>
         </PrivateRoute>
@@ -247,6 +296,7 @@ export function App() {
         <PrivateRoute auth={auth} path='/vote'>
             <Vote/>
         </PrivateRoute>
+
     </Switch>
 
 </div>

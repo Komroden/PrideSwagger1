@@ -7,14 +7,17 @@ import {LkHomeMain} from "../../../components/Lk/LkHomeMain";
 import {LkHomeRightSlidebar} from "../../../components/Lk/LkHomeMain/LkHomeRightSlidebar";
 import {useDispatch, useSelector} from "react-redux";
 import {setContestsList} from "../../../store/contest/actions";
-import {AllUserData} from "../../../store/allInfoUser/actions";
+import {AllUserData, UserAvatar} from "../../../store/allInfoUser";
 
 
 
 export const LkHome = () => {
     const { auth } = useSelector((state) => state);
     const [contest,setContest]= useState([])
-    const [allInfo,setAllInfo]= useState({})
+    const [allInfo,setAllInfo]= useState({
+            balance:0
+    })
+    const [pic,setPic]=useState('')
     const dispatch=useDispatch()
     const setContests = useCallback(() => {
         dispatch(setContestsList(contest))
@@ -22,6 +25,9 @@ export const LkHome = () => {
     const setInfo = useCallback(() => {
         dispatch(AllUserData(allInfo))
     }, [dispatch,allInfo]);
+    const setAvatar = useCallback(() => {
+        dispatch(UserAvatar(pic))
+    }, [dispatch,pic]);
 
     useEffect(()=>{
         fetch('http://lk.pride.kb-techno.ru/api/Contest/contest-list',{
@@ -40,10 +46,14 @@ export const LkHome = () => {
     },[auth.token])
     useEffect(()=>{
         setContests()
-    },[contest])
+    },[setContests,contest])
     useEffect(()=>{
         setInfo()
-    },[allInfo])
+    },[setInfo,allInfo])
+    useEffect(()=>{
+        if (pic==='') return
+        setAvatar()
+    },[setAvatar,pic])
     useEffect(()=>{
         fetch('http://lk.pride.kb-techno.ru/api/Partners/current',{
             method:'GET',
@@ -59,6 +69,19 @@ export const LkHome = () => {
                 console.log(e.message);
             });
     },[auth.token])
+    useEffect(()=>{
+        if (!allInfo.image) return
+        fetch(`http://lk.pride.kb-techno.ru/assets/Img/${allInfo.image}`,{
+            method:'GET',
+            headers:{
+                'accept': 'application/octet-stream',
+                'Authorization':`Bearer ${auth.token}`}
+
+        })
+            .then(res=>setPic(res.url))
+
+    },[auth.token,allInfo])
+
 
 
 

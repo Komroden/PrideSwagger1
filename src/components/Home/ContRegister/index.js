@@ -1,40 +1,33 @@
 import React, {useCallback, useState,useEffect} from 'react';
 import {useHistory} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
-import {UserRegistration} from "../../../store/auth/actions";
 import {FormRegist} from "./FormRegist";
 import {SmsVerify} from "./SmsVerify";
-import {CSSTransition} from "react-transition-group";
 import {Loader} from "../../../api/Loader";
 import './style.scss';
+import { UserInfoCode} from "../../../store/user/actions";
 
-// const saveJSON = (key,data)=>
-//     sessionStorage.setItem(key,JSON.stringify(data));
+
 export const ContRegister = () => {
     const {push}=useHistory()
-    const handlePushLogin=() => {
+    const handlePushLogin=(e) => {
+        e.preventDefault()
         push('/login')
     }
     const { userInfo } = useSelector((state) => state);
-    const[token,setToken]=useState({
-        token:null,
-        refresh_token:null
-    });
-    const dispatch = useDispatch();
 
+    const dispatch = useDispatch();
+    const[value,setValue]=useState('')
     const[error,setError]=useState();
     const[loading,setLoading]=useState(false);
     const[status,setStatus]=useState(false)
-    const setTokens = useCallback(() => {
-        dispatch(UserRegistration(token))
-    }, [dispatch,token]);
-
-
-
+    const setUser = useCallback(() => {
+        dispatch(UserInfoCode(value))
+    }, [dispatch,value]);
     useEffect(() => {
-        setTokens()
-        // saveJSON('keySwagger',token)
-    },[token])
+        setUser()
+    },[value,setUser])
+
     useEffect(() => {
         setStatus(false)
     },[])
@@ -44,41 +37,26 @@ export const ContRegister = () => {
     }
 const handlePost=(e)=> {
 e.preventDefault()
-    const payload= {
-        firstName:userInfo.value.firstName,
-        middleName:userInfo.value.middleName,
-        lastName:userInfo.value.lastName,
-        inviterId:0,
-        inviterName: "John",
-        email:userInfo.value.email,
-        phoneNumber:userInfo.value.phoneNumber,
-        login:userInfo.value.login,
-        password:userInfo.value.password,
-        confirmPassword:userInfo.value.confirmPassword,
-        code: "test",
-        without2FA: true
-    }
     setLoading(true)
-
-    fetch('http://lk.pride.kb-techno.ru/api/Auth/register',{
+    fetch(`http://lk.pride.kb-techno.ru/api/Confirm/send-sms-confirmation-code?phoneNumber=${userInfo.value.phoneNumber}&action=register`,{
         method:'POST',
-        body:JSON.stringify(payload),
         headers: {'Content-Type': 'application/json'}
     })
         .then((res) => {
-            if (res.status >= 200 && res.status < 300) {
-                return res.json();
-            } else {
+            if (res.status === 204 ) {
+                return '';
+            }
+            if(res.status === 200){
+                return res.json()
+            }
+                else {
                 let error = new Error(res.statusText);
                 error.response = res;
                 throw error
             }
         })
         .then(function(body) {
-            console.log(body)
-        setToken({
-            token:body.access_token,
-            refresh_token:body.refresh_token});
+            setValue(body);
     })
         .then(()=> setLoading(false))
         .then(()=> setStatus(true))
@@ -104,12 +82,10 @@ e.preventDefault()
                                 <form onSubmit={handlePost}>
                                     <Loader loading={loading}/>
                                     <FormRegist status={!status}/>
-                                    <CSSTransition  in={status} classNames='alert' timeout={300} unmountOnExit>
-                                        <SmsVerify />
-                                    </CSSTransition>
+                                    <SmsVerify status={status} />
                                 </form>
                             </div>
-                            <div className="registr reemb_pasw" style={{display:status?'none':'block'}}>У меня есть аккаунт! <a onClick={handlePushLogin}>Вход в кабинет</a>
+                            <div className="registr reemb_pasw" style={{display:status?'none':'block'}}>У меня есть аккаунт! <a href='/' onClick={handlePushLogin}>Вход в кабинет</a>
                             </div>
                         <pre>{JSON.stringify(error, null, 2)}</pre>
                     </div>

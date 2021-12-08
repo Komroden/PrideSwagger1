@@ -28,7 +28,7 @@ export const ContAllNews = () => {
     return (
         <div className="main_cont">
             <div className="news_row containerP new_news_row">
-                {news.value.map((item,index)=><NewsCard key={index} date={item.publishDate} url={item.image} text={item.objectName}/>)}
+                {currentItem.map((item,index)=><NewsCard key={index} date={item.publishDate} url={item.image} text={item.objectName}/>)}
 
             </div>
             <div className="pagination_p">
@@ -36,7 +36,7 @@ export const ContAllNews = () => {
                     <li onClick={prevPage} className="prev_pag ">
                         <i className="fa fa-arrow-left" aria-hidden="true"/>
                     </li>
-                    <Pagination itemsPerPage={itemOnPage} totalItems={27} paginate={paginate}/>
+                    <Pagination itemsPerPage={itemOnPage} totalItems={27} paginate={paginate} className={"prev_pag "}/>
                     <li onClick={nextPage} className="prev_pag ">
                         <i className="fa fa-arrow-right" aria-hidden="true"/>
                     </li>

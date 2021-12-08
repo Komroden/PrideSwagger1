@@ -1,12 +1,10 @@
 import React from 'react';
 import './style.scss';
-import {useHistory} from "react-router";
+
 import {InvestPlanItem} from "./investPlanItem";
 export const InvestPlan = () => {
-    const{push}=useHistory()
-    const handlePush=() => {
-        push('/register')
-    }
+
+
     return (
         <div className="invest_plan">
             <div className="containerP wow slideInUp" data-wow-duration="2s">

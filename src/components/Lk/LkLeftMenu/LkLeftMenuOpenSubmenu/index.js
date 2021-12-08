@@ -10,14 +10,15 @@ export const LkLeftMenuOpenSubmenu = ({title,path}) => {
     const openMenu = useCallback(() => {
         dispatch(openLeftMenu())
     }, [dispatch]);
-    const handlePush=() => {
+    const handlePush=(e) => {
+        e.preventDefault()
         push(path)
         openMenu()
     }
 
     return (
         <li>
-            <a onClick={handlePush} >{title}</a>
+            <a href={'/'} onClick={handlePush} >{title}</a>
         </li>
     );
 };

@@ -8,17 +8,18 @@ import Collapse from '@mui/material/Collapse';
 export const LkLeftMenuOpenThree = ({icon, title,subtitle1,subtitle2,subtitle3,path1,path2,path3}) => {
     const[open,setOpen]=useState(false)
 
-    const handleOpen=()=>{
+    const handleOpen=(e)=>{
+        e.preventDefault()
         setOpen(!open)
 
     }
     return (
-        <li  className="us_menu_li has_child_li">
-            <a>
+        <li onClick={handleOpen} className="us_menu_li has_child_li">
+            <div  >
                 <img src={icon} alt=""/>
                 <span className="text_li">{title}</span>
-            </a>
-            <span onClick={handleOpen} className="open_child">
+            </div>
+            <span  className="open_child">
                 <img src="/images/chevr.png" alt=""/>
             </span>
             <Collapse  in={open}>

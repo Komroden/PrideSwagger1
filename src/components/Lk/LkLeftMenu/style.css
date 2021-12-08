@@ -93,9 +93,9 @@
 /*-------------------------content------------------------*/
 .us_menu_li {
   display: block;
-  margin-bottom: 49px;
+  margin-bottom: 23px;
 }
-.us_menu_li a {
+.us_menu_li div {
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -103,10 +103,10 @@
   font-size: 18px;
   font-weight: 700;
 }
-.us_menu_li a:hover {
+.us_menu_li div:hover {
   color: #dd2f6e;
 }
-.us_menu_li a img {
+.us_menu_li div img {
   margin-right: 20px;
   display: inline-block;
 }
@@ -257,6 +257,14 @@
 
 .advert .us_menu_li {
   margin-bottom: 40px;
+}
+
+.reklama_link {
+  margin-right: 10px;
+}
+
+.text_li {
+  color: #fff;
 }
 
 /*# sourceMappingURL=style.css.map */

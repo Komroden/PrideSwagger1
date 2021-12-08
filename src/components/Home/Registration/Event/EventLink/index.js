@@ -3,11 +3,12 @@ import {useHistory} from "react-router";
 
 export const EventLink = ({path,classes,title}) => {
     const {push}=useHistory()
-    const handlePush=()=>{
+    const handlePush=(e)=>{
+        e.preventDefault()
         push(path)
     }
     return (
-        <a onClick={handlePush} className={classes}>{title}</a>
+        <a href={'/'} onClick={handlePush} className={classes}>{title}</a>
     );
 };
 

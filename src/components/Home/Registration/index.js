@@ -11,10 +11,12 @@ export const Registration = () => {
     const {push}=useHistory()
 
 
-    const handlePushAllNews=() => {
+    const handlePushAllNews=(e) => {
+        e.preventDefault()
         push('/allNews')
     }
-    const handlePushRegist=() => {
+    const handlePushRegist=(e) => {
+        e.preventDefault()
         push('/register')
     }
 
@@ -71,7 +73,7 @@ export const Registration = () => {
                                 </div>
                             </div>
                         </div>
-                        <a onClick={handlePushRegist} className="invest_btn">Регистрация</a>
+                        <a href={'/'} onClick={handlePushRegist} className="invest_btn">Регистрация</a>
                     </div>
                 </div>
             </div>
@@ -90,14 +92,16 @@ export const Registration = () => {
                            className="popup-youtube video_item wow slideInUp" data-wow-duration="2s">
 	  							<iframe height="250" src="https://www.youtube.com/embed/ozq5pqdekuE"
                                         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                        allowFullScreen/>
+                                        allowFullScreen
+                                        title={'Tokens'}/>
                             <span className="vider_title_you">Токены CBS - что будет дальше. Заголовок видео!</span>
                         </span>
                         <div
                            className="popup-youtube video_item wow slideInUp" data-wow-duration="3s">
                             <iframe height="250" src="https://www.youtube.com/embed/xD5EDTKFig4"
                                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                    allowFullScreen/>
+                                    allowFullScreen
+                                    title={'Where'}/>
                             <span className="vider_title_you">Где найти деньги на свой стартапв гараже!</span>
                         </div>
                         <span
@@ -105,13 +109,14 @@ export const Registration = () => {
 
 	  							<iframe height="250" src="https://www.youtube.com/embed/XReHfoqiDf0"
                                         allow="accelerometer; autoplay; gyroscope; picture-in-picture"
-                                        allowFullScreen/>
+                                        allowFullScreen
+                                        title={'CBS'}/>
 
                             <span className="vider_title_you">Токены CBS - что будет дальше. Заголовок видео!</span>
                         </span>
 
                     </div>
-                    <a href="#" className="invest_btn wow slideInUp" data-wow-duration="2s">наш youtube канал <img
+                    <a href="/" className="invest_btn wow slideInUp" data-wow-duration="2s">наш youtube канал <img
                         src="/images/you_icon.png" alt=""/></a>
                 </div>
             </div>
@@ -127,8 +132,8 @@ export const Registration = () => {
 
                         <div className="news_slider">
                             <Slider ref={slider} {...settings}>
-                                {news.value.map((item,index)=><NewsCard key={index} date={item.publishDate} url={item.image} text={item.objectName}/>)}
-                                {news.value.map((item,index)=><NewsCard key={index} date={item.publishDate} url={item.image} text={item.objectName}/>)}
+                                {news.value.map((item)=><NewsCard key={item.id} date={item.publishDate} url={item.image} text={item.objectName} id={item.id}/>)}
+                                {news.value.map((item)=><NewsCard key={item.id} date={item.publishDate} url={item.image} text={item.objectName} id={item.id}/>)}
                             {/*<NewsCard url={'url(/images/newsimg.jpg)'}/>*/}
                             {/*<NewsCard url={'url(/images/newsimg2.png)'}/>*/}
                             {/*<NewsCard url={'url(/images/newsimg3.png)'}/>*/}
@@ -145,7 +150,7 @@ export const Registration = () => {
                             <div className="right_slide" onClick={() => slider?.current?.slickNext()}>
 
                             </div>
-                            <a onClick={handlePushAllNews} className="all_news">все новости</a>
+                            <a href={'/'} onClick={handlePushAllNews} className="all_news">все новости</a>
 
                         </div>
                     </div>

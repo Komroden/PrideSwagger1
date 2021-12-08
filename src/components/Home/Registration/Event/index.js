@@ -66,7 +66,7 @@ export const Event = () => {
                 </div>
                 <div className="show_descr">
                 </div>
-                <a href="#" className="open_prize">принять участие в конкурсе</a>
+                <a href="/" className="open_prize">принять участие в конкурсе</a>
                 <div className="sow_foot">Количество участников: <span>{show.participantsCount}</span></div>
             </div>
         </>

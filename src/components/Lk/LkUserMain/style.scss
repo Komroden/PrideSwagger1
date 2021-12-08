@@ -55,6 +55,7 @@
     flex-direction: column;
     margin-top: 15px;
     text-align: center;
+    align-items: center;
     a {
       color: #ff9100;
       font-size: 16px;
@@ -127,6 +128,7 @@
   color: #fff;
   padding: 0 5px;
   &_grey {
+    max-height: 80px;
     background-color: #2d3742;
   }
   &__icon {
@@ -214,4 +216,27 @@
 }
 .userBlock_sendMessage{
   margin: 20px 0 0 0;
+}
+.your__profile{
+  color: rgb(13%, 93%, 18%);
+}
+.message_send_user{
+  position: relative;
+  justify-content: space-between;
+  border-top: 1px solid #e5e5e5;
+  background-color: #fdfdfd;
+  display: flex;
+  border-radius: 10px;
+  padding: 10px;
+}
+.mes_send_user{
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
+.mes_emoji_user{
+  margin: 0!important;
+}
+.mes_text_user{
+  margin-right: 14px!important;
 }

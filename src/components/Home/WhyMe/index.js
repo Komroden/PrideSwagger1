@@ -60,7 +60,7 @@ export const WhyMe = () => {
                         <div className="flex_why_item wow slideInUp" data-wow-duration="2s">
                             <div className="flex_why_item_left">
                                 <div className="flex_why_item_title">Поддержка</div>
-                                <div className="flex_why_item_descr">Круглосуточная поддержка 27\7 в любых месенжерах
+                                <div className="flex_why_item_descr"> Круглосуточная поддержка 24/7 в любых месенжерах
                                 </div>
                             </div>
                             <div className="flex_why_item_right">

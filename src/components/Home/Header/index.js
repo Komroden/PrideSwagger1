@@ -14,10 +14,12 @@ export const Header = (props) => {
 
     const { userData,auth } = useSelector((state) => state);
     const {push}=useHistory()
-    const handlePushHome=() => {
+    const handlePushHome=(e) => {
+        e.preventDefault()
         push('/')
     }
-    const handlePushLk=() => {
+    const handlePushLk=(e) => {
+        e.preventDefault()
         push('/lk')
     }
     const dispatch = useDispatch();
@@ -32,10 +34,12 @@ export const Header = (props) => {
     const handleLogout =()=>{
         if(auth.token==null) return
         setLogout()
-        sessionStorage.clear()
+        setShowName(false)
     };
-    const handlePushLogin=()=>{
-        push('/login')
+    const handlePushLogin=(e)=>{
+        e.preventDefault()
+
+        push('/lk')
     }
     return (
 
@@ -43,7 +47,7 @@ export const Header = (props) => {
 
                 <div className="first_containerP">
                     <div className="header_left">
-                        <a onClick={handlePushHome} className="logo">
+                        <a href={'/'} onClick={handlePushHome} className="logo">
                             <img src='/images/logo.png' className='logoImage' alt='pride'/>
                         </a>
                         <div className="menu">
@@ -78,19 +82,19 @@ export const Header = (props) => {
                     <div className="header_right">
                         <div className="hello_open_row">
                             <div className="hello_open">
-                                <span className="hello_bas">Привет:</span>
-                                <div onClick={()=>setShowName(!showName)} className="open_name_info">
-                                    <div className="hello_name">{userData.value.userInfo.login?userData.value.userInfo.login:'User'}</div>
-                                    <div className="btn_open_name"/>
+                                {auth.token!==null&&<span className="hello_bas">Привет :</span>}
+                                <div onClick={() => auth.token!==null?setShowName(!showName):setShowName(false)} className="open_name_info">
+                                    <div className="hello_name" onClick={auth.token!==null?()=>{}:handlePushLogin}>{userData.value.userInfo.login ? userData.value.userInfo.login : 'ВХОД В КАБИНЕТ'}</div>
+                                    {auth.token!==null&&<div className="btn_open_name"/>}
                                 </div>
-                            </div>
-                            <Fade in={showName} >
-                            <div className="name_row_open">
-                                <a onClick={handlePushLk}>В КАБИНЕТ</a>
-                                <a onClick={auth.token!==null?handleLogout:handlePushLogin}>{auth.token!==null?'Выход':'Вход'}</a>
-                            </div>
-                            </Fade>
-                        </div>
+                                </div>
+                                    <Fade in={showName} >
+                                    <div className="name_row_open">
+                                    <a href={'/'} onClick={handlePushLk}>В КАБИНЕТ</a>
+                                    <a href={'/'} onClick={auth.token!==null?handleLogout:handlePushLogin}>{auth.token!==null?'Выход':'Вход'}</a>
+                                    </div>
+                                    </Fade>
+                                    </div>
                         <div className="languag">
                             <div onClick={()=>setShowLang(!showLang)} className="lang_btn btn_for_open_lang">RU</div>
                             <Fade in={showLang} >

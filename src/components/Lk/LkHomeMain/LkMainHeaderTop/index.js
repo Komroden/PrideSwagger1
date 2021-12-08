@@ -1,73 +1,128 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {LkHomeMainLiderTopItem} from "../LkHomeMainLiderTopItem";
 import Slide from '@mui/material/Slide';
+import Fade from '@mui/material/Fade';
 import './style.scss';
+import {useSelector} from "react-redux";
+import Alert from "@mui/material/Alert";
+
 
 
 
 export const LkMainHeaderTop = () => {
+    const { auth,allInfoUser } = useSelector((state) => state);
     const[open,setOpen]=useState(false);
-    const[isvirify,setIsVerify]=useState(false)
-    const items=[
-        <LkHomeMainLiderTopItem  url='/images/user1.png' number='#1'  />,
-        <LkHomeMainLiderTopItem url='/images/user2.png' number='#2'  />,
-        <LkHomeMainLiderTopItem url='/images/user3.png' number='#3'  />,
-        <LkHomeMainLiderTopItem url='/images/user4.png' number='#4'  />,
-        <LkHomeMainLiderTopItem url='/images/user5.png' number='#5'  />,
-        <LkHomeMainLiderTopItem url='/images/user6.png' number='#6'  />,
-    ]
+    const[error,setError]=useState('')
+    const[items,setItems]=useState({
+        topListUsers:[]
+    })
+    const[openError,setOpenError]=useState(false)
 
-    const [itemsInTop,setItemsInTop]=useState(items.slice(0, 7))
     const handleClick = () => {
-        if(isvirify===true) return
-        setOpen(!open)
+        if(items.topListUsers[0].id===allInfoUser.value.id) return;
 
-        setItemsInTop(items)
+        setOpen(!open)
+        if(items.length>=6){
+            items.topListUsers.pop()
+        }
 
     };
     const containerRef =useRef(null)
     const handleVerify=()=>{
-        setIsVerify(true)
-    }
+        if(items.topListUsers[0].id===allInfoUser.value.id) return
+        setError('')
+        fetch('http://lk.pride.kb-techno.ru/api/Main/pay-for-top',{
+            method:'POST',
+            headers:{
+                'Accept': 'application/json',
+                'Authorization':`Bearer ${auth.token}`},
+            body:''
+        })
+            .then(res=> {
+                if (res.status === 422) {
+                    let error = new Error('Недостаточно средств');
+                    error.response = res;
+                    throw error
+                }
+                res.json()
+                setError('')
+            })
+            .then(body=> {
+                if(items.topListUsers[0].id!==allInfoUser.value.id){
+                    items.topListUsers.unshift({id:allInfoUser.value.id,image:allInfoUser.value.image})
+                }
+                console.log(body)
+            })
+            .catch(error=> {
+                console.log(error)
+                setError('Недостаточно средств')
+                setOpenError(true)
+            })
+        setOpen(false)
 
+    }
+    const handlePush=(e)=>{
+        e.preventDefault()
+
+    }
+    useEffect(()=>{
+        fetch('http://lk.pride.kb-techno.ru/api/Main/top-list',{
+            method:'GET',
+            headers:{
+                'Accept': 'application/json',
+                'Authorization':`Bearer ${auth.token}`}
+        })
+            .then((res) => res.json())
+            .then((body)=>{
+                console.log(body)
+                setItems(body)
+            })
+            .catch((e) => {
+                console.log(e.message);
+            });
+    },[auth.token])
 
     return (
+        <>
         <div className="lider_top" >
             <div className="lider_top_title">
                 лидеры <br/>
                 ваш топ
             </div>
             <div onClick={handleClick}  className="lider_top_add">
-                <a ref={containerRef}>
+                <Fade direction="right" in={open} timeout={1000} unmountOnExit>
+                    <div className='add_top_wrapper'>
+                <span  className='add_top'  >{'Войти в топ? цена: '+items.price+' руб.'}</span>
+                    <button onClick={handleVerify} className='add_top_button'>Да</button>
+                    </div>
+                </Fade>
+                <span ref={containerRef}>
                     <span  className="dark_plus">+</span>
-
-                </a>
+                </span>
             </div>
-            <Slide direction="right" in={open} container={containerRef.current} unmountOnExit>
+
+            <Slide direction="right" in={open} container={containerRef.current} timeout={1000} unmountOnExit mountOnEnter>
                 <div className="lider_top_item" >
-                    <span  className={isvirify?'add_top hidden':'add_top visible'} onClick={handleVerify} >Добавить себя</span>
-                    <a href="#" className="lider_top_item_link">
-									<span className="lider_top_item_img">
-										<img src='/images/user.png' alt=""/>
+
+                    <a href="/" onClick={handlePush} className="lider_top_item_link">
+									<span className="lider_top_item_img overlay">
+										<img className='overlay_wrapper' src={allInfoUser.avatar} alt=""/>
 									</span>
-                        <span className="green_lin"/>
-                        <span className="number_lin">#1</span>
+                        <span className="green_lin "/>
+                        <span className="number_lin ">#1</span>
                     </a>
                 </div>
             </Slide>
-            {itemsInTop.map(item=>item)}
-            <Slide direction="left" in={!open}  unmountOnExit>
-                <div className="lider_top_item" >
-                    <a href="#" className="lider_top_item_link">
-									<span className="lider_top_item_img">
-										<img src='/images/user7.png' alt=""/>
-									</span>
-                        <span className="green_lin"/>
-                        <span className="number_lin">#7</span>
-                    </a>
-                </div>
-            </Slide>
+            {items.topListUsers.filter((ite,index)=>index<=6).map((item,index)=><LkHomeMainLiderTopItem key={item.id} id={item.id} url={item.image}  number={index+1}/>)}
+
         </div>
+            <Fade in={openError} unmountOnExit>
+                <div>
+                    <Alert severity='error' sx={{marginBottom:'30px'}}>{error}</Alert>
+                </div>
+            </Fade>
+            </>
+
     );
 };
 

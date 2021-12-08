@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './style.css';
 import { OrgChartComponent } from './OrgChart';
 import * as d3 from 'd3';
 
@@ -7,10 +6,13 @@ import * as d3 from 'd3';
 
 
 
-export const Structure = props => {
+export const StructureMain = props => {
 
 
     const [data, setData] = useState(null);
+    const handlePush=()=>{
+
+    }
 
 
 
@@ -25,13 +27,14 @@ export const Structure = props => {
         });
     }, []);
     return (
-        <div>
+
 
             <OrgChartComponent
                 setClick={click => ( click)}
+                onNedeClick={handlePush}
                 data={data}
             />
-        </div>
+
     );
 };
 

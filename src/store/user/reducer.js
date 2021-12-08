@@ -1,6 +1,11 @@
-import { USER_INFO  } from './actions'
+import { USER_INFO,USER_INFO_CODE  } from './actions'
 const initialState = {
-    value:{}
+    value:{
+        phoneNumber:'',
+
+    },
+    code:''
+
 
 }
 
@@ -10,6 +15,12 @@ export const userInfoReducer = (state = initialState, action) => {
             return {
                 ...state,
                 value:action.payload
+            }
+        }
+        case USER_INFO_CODE: {
+            return {
+                ...state,
+                code:action.payload
             }
         }
 

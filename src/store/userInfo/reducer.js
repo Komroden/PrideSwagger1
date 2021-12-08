@@ -3,6 +3,10 @@ const initialState = {
     value:{
         userInfo:{
             login:''
+        },
+        partnerInfo:{
+            fullName:'',
+            id:null
         }
     }
 

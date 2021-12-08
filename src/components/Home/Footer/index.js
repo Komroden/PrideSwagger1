@@ -10,19 +10,24 @@ export const Footer = () => {
         dispatch(openMenu())
     }, [dispatch]);
     const {push}=useHistory()
-    const handlePushHome=() => {
+    const handlePushHome=(e) => {
+        e.preventDefault()
         push('/')
     }
-    const handlePushAbout=() => {
+    const handlePushAbout=(e) => {
+        e.preventDefault()
         push('/about')
     }
-    const handlePushAllNews=() => {
+    const handlePushAllNews=(e) => {
+        e.preventDefault()
         push('/allNews')
     }
-    const handlePushRev=() => {
+    const handlePushRev=(e) => {
+        e.preventDefault()
         push('/review')
     }
-    const handlePushCont=() => {
+    const handlePushCont=(e) => {
+        e.preventDefault()
         push('/contact')
     }
     return (
@@ -43,13 +48,10 @@ export const Footer = () => {
                         <div className="clasic_footer_nav">
                             <ul>
                                 <li>
-                                    <a onClick={handlePushHome}>Главная</a>
+                                    <a href="/" onClick={handlePushHome}>Главная</a>
                                 </li>
                                 <li>
-                                    <a onClick={handlePushAbout}>О нас</a>
-                                </li>
-                                <li>
-                                    <a href="/">Как начать</a>
+                                    <a href="/" onClick={handlePushAbout}>О нас</a>
                                 </li>
                                 <li>
                                     <a href="/">Инвестиции</a>
@@ -62,16 +64,16 @@ export const Footer = () => {
                         <div className="clasic_footer_nav">
                             <ul>
                                 <li>
-                                    <a onClick={handlePushRev}>Отзывы</a>
+                                    <a href="/" onClick={handlePushRev}>Отзывы</a>
                                 </li>
                                 <li>
-                                    <a onClick={handlePushAllNews}>Новости</a>
+                                    <a href="/" onClick={handlePushAllNews}>Новости</a>
                                 </li>
                                 <li>
-                                    <a onClick={setName} >Меню</a>
+                                    <a href="/" onClick={setName} >Меню</a>
                                 </li>
                                 <li>
-                                    <a onClick={handlePushCont} >Контакты</a>
+                                    <a href="/" onClick={handlePushCont} >Контакты</a>
                                 </li>
                             </ul>
                         </div>
@@ -102,25 +104,25 @@ export const Footer = () => {
                     <div className="under_footer_right">
                         <ul>
                             <li>
-                                <a href="#" className="fb"/>
+                                <a href="/" className="fb"> </a>
                             </li>
                             {/* <li>*/}
                             {/*    <a href="#" class="m"></a>*/}
                             {/*</li> */}
                             <li>
-                                <a href="#" className="telegram"/>
+                                <a href="/" className="telegram"> </a>
                             </li>
                             <li>
-                                <a href="#" className="btc"/>
+                                <a href="/" className="btc"> </a>
                             </li>
                             <li>
-                                <a href="#" className="tw"/>
+                                <a href="/" className="tw"> </a>
                             </li>
                             <li>
-                                <a href="#" className="inst"/>
+                                <a href="/" className="inst"> </a>
                             </li>
                             <li>
-                                <a href="#" className="gith"/>
+                                <a href="/" className="gith"> </a>
                             </li>
 
                         </ul>

@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import ReactCrop from "react-image-crop";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import 'react-image-crop/dist/ReactCrop.css'
 import {UploadButtons} from "./UploadButtons";
+import {UserAvatar} from "../../../../store/allInfoUser";
 
 
 export const Avatar = ({open,maxWidth,maxHeight}) => {
@@ -22,6 +23,8 @@ export const Avatar = ({open,maxWidth,maxHeight}) => {
     const [url,setUrl]=useState('')
     const [uploadUrl,setUploadUrl]=useState('')
     const [drag,setDrag]=useState(false);
+    const [newAvatarUrl,setNewAvatarUrl]=useState('')
+    const [pic,setPic]=useState('')
     const dragStartHandler=(e)=>{
         e.preventDefault()
         setDrag(true)
@@ -34,6 +37,7 @@ export const Avatar = ({open,maxWidth,maxHeight}) => {
         e.preventDefault()
         let files = [...e.dataTransfer.files]
         const file=files[0]
+        setUploadUrl(file)
         let reader = new FileReader()
         reader.addEventListener('load',()=>{
             setUrl(reader.result)
@@ -44,11 +48,11 @@ export const Avatar = ({open,maxWidth,maxHeight}) => {
     }
     const onAddImage=(e)=>{
         const file =e.target.files[0]
-        setUploadUrl(file)
+        setUploadUrl((file))
         let reader = new FileReader()
         reader.addEventListener('load',()=>{
-            console.log(reader.result)
             setUrl(reader.result)
+
         },false)
         reader.readAsDataURL(file)
 
@@ -58,44 +62,64 @@ export const Avatar = ({open,maxWidth,maxHeight}) => {
     }
     const handleOnCropComplete=(crop)=>{
         setPayload({
-            X:crop.x,
-            Y:crop.y,
+            X:Math.round(crop.x),
+            Y:Math.round(crop.y),
             Width:crop.width,
             Height:crop.height,
             avatarImage:url,
         })
 
     }
+
+
     const handlePost =()=>{
-console.log(payload)
+
         const formData=new FormData()
         formData.append('X',payload.X)
         formData.append('Y',payload.Y)
         formData.append('Width',payload.Width)
         formData.append('Height',payload.Height)
-        formData.append('avatarImage',uploadUrl)
+        formData.append('avatarImage',uploadUrl )
 
 
-        fetch('http://lk.pride.kb-techno.ru/api/Profile/crop-avatar', {
+        fetch('http://lk.pride.kb-techno.ru/api/Profile/crop-avatar',  {
             method: 'POST',
             body: formData,
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'multipart/form-data',
                 'Authorization': `Bearer ${auth.token}`
             }
         })
-            .then((res) => {
-                console.log(res)
-            })
-            .then((body)=>{
-                console.log(body)
-            })
+            .then((res) => res.text())
+            .then((PromiseResult) => setNewAvatarUrl(PromiseResult))
+
             .catch((e) => {
                 console.log(e.message);
             })
 
     }
+    // avatar reload
+    const dispatch=useDispatch()
+    const setAvatar = useCallback(() => {
+        dispatch(UserAvatar(pic))
+    }, [dispatch,pic]);
+    useEffect(()=>{
+        if (pic==='') return
+        setAvatar()
+    },[setAvatar,pic])
+    useEffect(()=>{
+        if (newAvatarUrl==='') return
+        fetch(`http://lk.pride.kb-techno.ru${newAvatarUrl}`,{
+            method:'GET',
+            headers:{
+                'accept': 'application/octet-stream',
+                'Authorization':`Bearer ${auth.token}`}
+
+        })
+            .then(res=>setPic(res.url))
+
+    },[auth.token,newAvatarUrl])
+
     const handleClear=()=>{
         setUrl('')
     }

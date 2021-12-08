@@ -1,14 +1,10 @@
 import {VOTES} from './actions'
 const initialState = {
     value:{
-        post:[{
+        items:[{
+            id:0,
             question:'',
-            answers:[{
-                name:'',
-                value: '',
-            }],
-            all_answers:[],
-            all:[]
+            answers:[]
         }]
     }
 

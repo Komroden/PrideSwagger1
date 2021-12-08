@@ -2,7 +2,7 @@
   background-image: url("../../../images/icon_bg_user.png");
   background-position: bottom left;
   background-repeat: no-repeat;
-  padding: 60px 40px 90px !important;
+  padding: 60px 40px 30px !important;
   display: block;
 }
 .userblockplus__botright {
@@ -49,8 +49,11 @@
   width: 100%;
 }
 .userblockplus__photolink {
+  display: flex;
+  flex-direction: column;
   margin-top: 15px;
   text-align: center;
+  align-items: center;
 }
 .userblockplus__photolink a {
   color: #ff9100;
@@ -124,6 +127,7 @@
   padding: 0 5px;
 }
 .userinfo_grey {
+  max-height: 80px;
   background-color: #2d3742;
 }
 .userinfo__icon {
@@ -156,8 +160,7 @@
 }
 
 .home2link {
-  margin-top: 30px;
-  margin-bottom: 150px;
+  margin: 0 0 30px;
   width: 100%;
   border-radius: 10px;
   -webkit-border-radius: 10px;
@@ -208,6 +211,38 @@
 }
 .home2link__form button:hover {
   opacity: 0.7;
+}
+
+.userBlock_sendMessage {
+  margin: 20px 0 0 0;
+}
+
+.your__profile {
+  color: #21ed2e;
+}
+
+.message_send_user {
+  position: relative;
+  justify-content: space-between;
+  border-top: 1px solid #e5e5e5;
+  background-color: #fdfdfd;
+  display: flex;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.mes_send_user {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
+
+.mes_emoji_user {
+  margin: 0 !important;
+}
+
+.mes_text_user {
+  margin-right: 14px !important;
 }
 
 /*# sourceMappingURL=style.css.map */

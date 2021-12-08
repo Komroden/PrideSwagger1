@@ -10,11 +10,11 @@ export const ProgramMaxi = () => {
         <div className='bodyLk full_content bg_fullcontent'>
             <LkLeftMenu/>
             <div className='main_content'>
-                <LkHomeHeader title={'Программа Макси Трейд'}/>
+                <LkHomeHeader title={'Программа Макси Трейд 1'}/>
                 <div className='main_content_row'>
                     <div className="main_content_central">
                         <LkBalanceItemsMini/>
-                        <ProgramMaxiMain/>
+                        <ProgramMaxiMain title={'Макси Трейд 1'} percent={1.05} minValue={100} maxValue={999}/>
                     </div>
                     <LkHomeRightSlidebar/>
                 </div>

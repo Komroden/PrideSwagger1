@@ -1,19 +1,32 @@
 import React, {useEffect, useState} from 'react';
+import {SendMessage} from "../../LkUserMain/SendMessage";
 
-export const NewMessage = ({name,text,date,mode}) => {
+
+export const NewMessage = ({name,text,date,mode,id,setDeleteMessage}) => {
     const [dateWrite, setDateWrite]=useState('')
+    const[open,setOpen]=useState(false)
     const dateMessage= new Date(date);
     const dateString=new Date(date).toLocaleDateString();
     useEffect(()=>{
         const dateNow = new Date();
         const interval= dateNow-dateMessage
-        console.log(interval)
         if(interval<3600000){
             setDateWrite(Math.floor((interval % (60 * 60 * 1000)) / (1000 * 60))+' мин')
         }if(interval>3600000) {
             setDateWrite(dateString)
         }
-    },[])
+
+    },[])// eslint-disable-line react-hooks/exhaustive-deps
+
+
+    const handlePush=(e) => {
+        e.preventDefault()
+        setOpen(!open)
+    }
+    const handleDelete=(e) => {
+        e.preventDefault()
+        setDeleteMessage(id)
+    }
 
     return (
         <div className="messages_line">
@@ -22,11 +35,13 @@ export const NewMessage = ({name,text,date,mode}) => {
             <div className="messages_line_active active"/>
             <div className="messages_line_time">{dateWrite}</div>
             <div className="messages_line_answer">
-                {mode&&<a href="#" className="answer_l">Ответить</a>}
+                {mode&&<a href="/" onClick={handlePush}  className="answer_l">Ответить</a>}
             </div>
+
             <div className="messages_line_remove">
-                <a href="#" className="red_remove_btn">Удалить</a>
+                <a href="/" onClick={handleDelete} className="red_remove_btn">Удалить</a>
             </div>
+            <SendMessage id={id} status={open}/>
         </div>
     );
 };
