@@ -15,7 +15,7 @@ export const DrawItem = ({imgPrice,priceAdd,title,desc,date,members,startDate}) 
     //             'accept': 'application/octet-stream'
     //         }
     //     })
-    //         .then(res=>setPic(res.url))
+    //         .then(res=>console.log(res.url))
     //
     // },[])
     let d =new Date(startDate)

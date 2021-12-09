@@ -30,46 +30,56 @@ export const MessagesMain = () => {
     })
     const {id,name}=useParams();
     useEffect(()=>{
-        fetch(`http://lk.pride.kb-techno.ru/api/Chat/messages?chatRoomId=${id}`,{
-            method:'GET',
-            headers:{
-                'accept': 'application/json',
-                'Authorization':`Bearer ${auth.token}`}
-        })
-            .then(res=>res.json())
-            .then(body=>setMessages(body))
+        if(auth.token) {
+            fetch(`http://lk.pride.kb-techno.ru/api/Chat/messages?chatRoomId=${id}`, {
+                method: 'GET',
+                headers: {
+                    'accept': 'application/json',
+                    'Authorization': `Bearer ${auth.token}`
+                }
+            })
+                .then(res => res.json())
+                .then(body => setMessages(body))
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[auth.token,send])
     useEffect(()=>{
         if (messages.id===0) return
-        fetch(`http://lk.pride.kb-techno.ru/api/Profile/view-profile/${name}`,{
-            method:'GET',
-            headers:{
-                'accept': 'application/json',
-                'Authorization':`Bearer ${auth.token}`}
-        })
-            .then(res=>res.json())
-            .then(body=> {
-                setValue(body)
-                if(!body.image) return
-                fetch(`http://lk.pride.kb-techno.ru/assets/Img/${body.image}`,{
-                    method:'GET',
-                    headers:{
-                        'accept': 'application/octet-stream'
-                    }})
-                    .then(res=>setPic(res.url))
+        if(auth.token) {
+            fetch(`http://lk.pride.kb-techno.ru/api/Profile/view-profile/${name}`, {
+                method: 'GET',
+                headers: {
+                    'accept': 'application/json',
+                    'Authorization': `Bearer ${auth.token}`
+                }
             })
-            .catch(error=>console.log(error))
+                .then(res => res.json())
+                .then(body => {
+                    setValue(body)
+                    if (!body.image) return
+                    fetch(`http://lk.pride.kb-techno.ru/assets/Img/${body.image}`, {
+                        method: 'GET',
+                        headers: {
+                            'accept': 'application/octet-stream'
+                        }
+                    })
+                        .then(res => setPic(res.url))
+                })
+                .catch(error => console.log(error))
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[auth.token,messages.id])
     useEffect(()=>{
-        fetch(`http://lk.pride.kb-techno.ru/api/Chat/read-chatroom/${id}`,{
-            method:'PUT',
-            headers:{
-                'accept': 'application/json',
-                'Authorization':`Bearer ${auth.token}`}
-        })
-            .then(res=>res.text())
+        if(auth.token) {
+            fetch(`http://lk.pride.kb-techno.ru/api/Chat/read-chatroom/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'accept': 'application/json',
+                    'Authorization': `Bearer ${auth.token}`
+                }
+            })
+                .then(res => res.text())
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[auth.token,send])
 

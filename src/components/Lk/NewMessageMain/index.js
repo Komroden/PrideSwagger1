@@ -7,13 +7,17 @@ export const NewMessageMain = ({title,mode}) => {
     const [messageList,setMessageList]=useState({items:[]})
     const [deleteMessage,setDeleteMessage]=useState(0)
     useEffect(()=>{
-        fetch('http://lk.pride.kb-techno.ru/api/Chat/chatrooms',{
-            method:'GET',
-                headers:{'accept':'application/json',
-                    'Authorization':`Bearer ${auth.token}`}
-        })
-            .then(res=>res.json())
-            .then(body=>setMessageList(body))
+        if(auth.token) {
+            fetch('http://lk.pride.kb-techno.ru/api/Chat/chatrooms', {
+                method: 'GET',
+                headers: {
+                    'accept': 'application/json',
+                    'Authorization': `Bearer ${auth.token}`
+                }
+            })
+                .then(res => res.json())
+                .then(body => setMessageList(body))
+        }
 
     },[auth.token])
 

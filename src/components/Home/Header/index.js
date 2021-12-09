@@ -31,8 +31,10 @@ export const Header = (props) => {
     }, [dispatch]);
     const [showName,setShowName]=useState(false);
     const [showLang,setShowLang]=useState(false);
-    const handleLogout =()=>{
+    const handleLogout =(e)=>{
+        e.preventDefault()
         if(auth.token==null) return
+        sessionStorage.clear()
         setLogout()
         setShowName(false)
     };

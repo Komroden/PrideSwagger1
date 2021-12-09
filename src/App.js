@@ -44,16 +44,32 @@ import {ProgramMaxiTwo} from "./pages/Lk/ProgramMaxiTwo";
 import {ChatList} from "./pages/Lk/ChatList";
 import {Structure} from "./pages/Lk/Structure";
 import {CryptoData} from "./store/crypto/actions";
+import {UserRegistration} from "./store/auth/actions";
+import {setContestsList} from "./store/contest/actions";
+import {AllUserData, UserAvatar} from "./store/allInfoUser";
+import {Votes} from "./store/votes/actions";
 
 
 
 
-
+const loadJSON=key=>
+    JSON.parse(sessionStorage.getItem(key));
 
 
 export function App() {
     const { auth } = useSelector((state) => state);
     const dispatch = useDispatch();
+
+    const setTokens = useCallback(() => {
+        dispatch(UserRegistration(loadJSON('keySwagger')))
+    }, [dispatch]);//auth.token
+
+    useEffect(()=>{
+        if(loadJSON('keySwagger')){
+            setTokens()
+        }
+    },[setTokens,auth.token])
+
     const[news,setNews]=useState([])
     const[value,setValue]=useState({
 
@@ -186,6 +202,108 @@ export function App() {
     useEffect(()=>{
         setNewses()
     },[news,setNewses])
+
+
+
+    // from Home AllInfo
+    const [contest,setContest]= useState([])
+    const [allInfo,setAllInfo]= useState({
+        balance:0
+    })
+    const [pic,setPic]=useState('')
+    const setContests = useCallback(() => {
+        dispatch(setContestsList(contest))
+    }, [dispatch,contest]);
+    const setInfo = useCallback(() => {
+        dispatch(AllUserData(allInfo))
+    }, [dispatch,allInfo]);
+    const setAvatar = useCallback(() => {
+        dispatch(UserAvatar(pic))
+    }, [dispatch,pic]);
+
+    useEffect(()=>{
+        if(auth.token){
+        fetch('http://lk.pride.kb-techno.ru/api/Contest/contest-list',{
+            method:'GET',
+            headers:{
+                'Accept': 'application/json',
+                'Authorization':`Bearer ${auth.token}`}
+        })
+            .then((res) => res.json())
+            .then((body)=>{
+                setContest(body)
+            })
+            .catch((e) => {
+                console.log(e.message);
+            });
+        }
+    },[auth.token])
+    useEffect(()=>{
+        setContests()
+    },[setContests,contest])
+    useEffect(()=>{
+        setInfo()
+    },[setInfo,allInfo])
+    useEffect(()=>{
+        if (pic==='') return
+        setAvatar()
+    },[setAvatar,pic])
+    useEffect(()=>{
+        if(auth.token) {
+            fetch('http://lk.pride.kb-techno.ru/api/Partners/current', {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${auth.token}`
+                }
+            })
+                .then((res) => res.json())
+                .then((body) => {
+                    setAllInfo(body)
+                })
+                .catch((e) => {
+                    console.log(e.message);
+                });
+        }
+    },[auth.token])
+    useEffect(()=>{
+        if(auth.token) {
+            if (!allInfo.image) return
+            fetch(`http://lk.pride.kb-techno.ru/assets/Img/${allInfo.image}`, {
+                method: 'GET',
+                headers: {
+                    'accept': 'application/octet-stream',
+                    'Authorization': `Bearer ${auth.token}`
+                }
+
+            })
+                .then(res => setPic(res.url))
+        }
+    },[auth.token,allInfo])
+
+    // votes
+
+    const [voteList,setVoteList]=useState({items:[]});
+    const setVote = useCallback(() => {
+        dispatch(Votes(voteList))
+    }, [dispatch,voteList]);
+    useEffect(()=>{
+        setVote()
+    },[setVote,voteList])
+
+    useEffect(()=>{
+        if(auth.token) {
+            fetch('http://lk.pride.kb-techno.ru/api/Poll/poll-list', {
+                method: 'GET',
+                headers: {
+                    'accept': 'application/json',
+                    'Authorization': `Bearer ${auth.token}`
+                }
+            })
+                .then(res => res.json())
+                .then(body => setVoteList(body))
+        }
+    },[auth.token])
 
 
   return(

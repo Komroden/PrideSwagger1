@@ -25,6 +25,12 @@ export const Calculator = () => {
         if(valueType==='ADA') setMinValue(100)
     },[valueType])
 
+    useEffect(()=>{
+        if(value>minValue*10){
+            setValue(minValue*10)
+        }
+    },[value,minValue])
+
 
 
     return (

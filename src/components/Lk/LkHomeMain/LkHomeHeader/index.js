@@ -32,8 +32,8 @@ export const LkHomeHeader = ({title}) => {
             <div className="main_content_header_right">
                 <div className="links_header">
                     <LkHomeHeaderLinks url='/images/l1.png' path={'/newMessage'} count={allInfoUser.value.messagesCount} />
-                    <LkHomeHeaderLinks url='/images/l2.png' path={'/notifications'} count={99}/>
-                    <LkHomeHeaderLinks url='/images/l3.png' color='yeallow_col' path={'/draw'} count={99} />
+                    <LkHomeHeaderLinks url='/images/l2.png' path={'/notifications'} count={0}/>
+                    <LkHomeHeaderLinks url='/images/l3.png' color='yeallow_col' path={'/draw'} count={0} />
                     <LkHomeHeaderLinks url='/images/l4.png' color='dark_col' path={'/guest'} count={allInfoUser.value.visitorsCount}/>
                 </div>
                 <LkHeaderUserProfile path={'/transactions'}  />

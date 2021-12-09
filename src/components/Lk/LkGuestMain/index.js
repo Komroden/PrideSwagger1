@@ -18,15 +18,18 @@ export const LkGuestMain = () => {
     const [value,setValue]=useState([])
     const text=useText(value.length,'Человек','Человека','Человек')
     useEffect(()=>{
-        fetch('http://lk.pride.kb-techno.ru/api/Profile/guest-list',{
-            method:'GET',
-            headers:{
-                'accept': 'application/json',
-                'Authorization':`Bearer ${auth.token}`}
-        })
-            .then(res=>res.json())
-            .then(body=>setValue(body))
-            .catch(error=>console.log(error))
+        if(auth.token) {
+            fetch('http://lk.pride.kb-techno.ru/api/Profile/guest-list', {
+                method: 'GET',
+                headers: {
+                    'accept': 'application/json',
+                    'Authorization': `Bearer ${auth.token}`
+                }
+            })
+                .then(res => res.json())
+                .then(body => setValue(body))
+                .catch(error => console.log(error))
+        }
     },[auth.token])
 
 

@@ -12,7 +12,8 @@ import Fade from "@mui/material/Fade";
 
 
 
-
+const saveJSON = (key,data)=>
+    sessionStorage.setItem(key,JSON.stringify(data));
 
 
 export const ContLogin = () => {
@@ -45,6 +46,7 @@ export const ContLogin = () => {
     useEffect(() => {
         if(token.token===null) return
             setTokens()
+        saveJSON('keySwagger',token)
     },[token,setTokens])
 
     const {push}=useHistory()

@@ -29,11 +29,11 @@ export const StructureMain = props => {
     return (
 
 
-            <OrgChartComponent
-                setClick={click => ( click)}
-                onNedeClick={handlePush}
-                data={data}
-            />
+        <OrgChartComponent
+            setClick={click => ( click)}
+            onNedeClick={handlePush}
+            data={data}
+        />
 
     );
 };

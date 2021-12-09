@@ -15,14 +15,17 @@ export const LkHistoryMain = () => {
     })
     const filtredArray=totalItems.items.filter(item=>item.processingStatus===filter||filter==='all')
     useEffect(()=>{
-        fetch('http://lk.pride.kb-techno.ru/api/Finance/list?AccountType=3',{
-            method:'GET',
-            headers:{
-                'accept': 'application/json',
-                'Authorization':`Bearer ${auth.token}`}
-        })
-            .then(res=>res.json())
-            .then(body=>setTotalItems(body))
+        if(auth.token) {
+            fetch('http://lk.pride.kb-techno.ru/api/Finance/list?AccountType=3', {
+                method: 'GET',
+                headers: {
+                    'accept': 'application/json',
+                    'Authorization': `Bearer ${auth.token}`
+                }
+            })
+                .then(res => res.json())
+                .then(body => setTotalItems(body))
+        }
     },[auth.token])
 
     // pagination

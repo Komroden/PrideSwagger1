@@ -16,6 +16,7 @@ export const OrgChartComponent = (props, ref) => {
 
   // We need to manipulate DOM
   useLayoutEffect(() => {
+      if(!props.data) return
     if (props.data && d3Container.current) {
       if (!chart) {
         // eslint-disable-next-line react-hooks/exhaustive-deps

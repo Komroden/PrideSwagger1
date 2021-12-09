@@ -17,14 +17,17 @@ export const ChatsMain = () => {
         items:[]
     })
     useEffect(()=>{
-        fetch('http://lk.pride.kb-techno.ru/api/Chat/chatrooms',{
-            method:'GET',
-            headers:{
-                'accept': 'application/json',
-                'Authorization':`Bearer ${auth.token}`}
-        })
-            .then(res=>res.json())
-            .then(body=>setChatrooms(body))
+        if(auth.token) {
+            fetch('http://lk.pride.kb-techno.ru/api/Chat/chatrooms', {
+                method: 'GET',
+                headers: {
+                    'accept': 'application/json',
+                    'Authorization': `Bearer ${auth.token}`
+                }
+            })
+                .then(res => res.json())
+                .then(body => setChatrooms(body))
+        }
     },[auth.token,refresh])
     const handleOpen=({id,name})=>{
         push(`/messages${id}/${name}`)
@@ -58,7 +61,7 @@ export const ChatsMain = () => {
                                     </IconButton>
                                 }
                             >
-                                <p style={{marginBottom:'0'}} >{item.recipientName+' : '+item.lastMessageText}</p>
+                                <div style={{marginBottom:'0'}} >{item.recipientName+' : '+item.lastMessageText}</div>
                                 <IconButton onClick={()=>handleOpen({id:item.id,name:item.recipientId})}>
                                     <CommentIcon  />
                                 </IconButton>

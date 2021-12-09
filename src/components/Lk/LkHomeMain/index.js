@@ -1,57 +1,46 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import './style.scss';
 
 
 import {LkHomeMainBalanceItem} from "./LkHomeMainBalanceItem";
 import {LkHomeMainDetailItem} from "./LkHomeMainDetailItem";
 import {UserBlock} from "../UserBlock";
-import {useDispatch, useSelector} from "react-redux";
-import {Votes} from "../../../store/votes/actions";
+import { useSelector} from "react-redux";
 import {VoteItem} from "./VoteItem";
 
 
 export const LkHomeMain = () => {
-    const {auth,allInfoUser} = useSelector((state) => state);
-    const [voteList,setVoteList]=useState({items:[]});
+    const {auth,allInfoUser,votes} = useSelector((state) => state);
     const [outputList,setOutputList]=useState({items:[]})
     const [inputList,setInputList]=useState({items:[]})
-    const dispatch=useDispatch()
-    const setVote = useCallback(() => {
-        dispatch(Votes(voteList))
-    }, [dispatch,voteList]);
+
     useEffect(()=>{
-        setVote()
-    },[setVote,voteList])
-    useEffect(()=>{
-        fetch('http://lk.pride.kb-techno.ru/api/Finance/list?AccountType=3&TransferDirection=0',{
-            method:'GET',
-            headers:{
-                'accept': 'application/json',
-                'Authorization':`Bearer ${auth.token}`}
-        })
-            .then(res=>res.json())
-            .then(body=>setOutputList(body))
+        if(auth.token) {
+            fetch('http://lk.pride.kb-techno.ru/api/Finance/list?AccountType=3&TransferDirection=0', {
+                method: 'GET',
+                headers: {
+                    'accept': 'application/json',
+                    'Authorization': `Bearer ${auth.token}`
+                }
+            })
+                .then(res => res.json())
+                .then(body => setOutputList(body))
+        }
     },[auth.token])
     useEffect(()=>{
-        fetch('http://lk.pride.kb-techno.ru/api/Finance/list?AccountType=3&TransferDirection=1',{
-            method:'GET',
-            headers:{
-                'accept': 'application/json',
-                'Authorization':`Bearer ${auth.token}`}
-        })
-            .then(res=>res.json())
-            .then(body=>setInputList(body))
+        if(auth.token) {
+            fetch('http://lk.pride.kb-techno.ru/api/Finance/list?AccountType=3&TransferDirection=1', {
+                method: 'GET',
+                headers: {
+                    'accept': 'application/json',
+                    'Authorization': `Bearer ${auth.token}`
+                }
+            })
+                .then(res => res.json())
+                .then(body => setInputList(body))
+        }
     },[auth.token])
-    useEffect(()=>{
-        fetch('http://lk.pride.kb-techno.ru/api/Poll/poll-list',{
-            method:'GET',
-            headers:{
-                'accept': 'application/json',
-                'Authorization':`Bearer ${auth.token}`}
-        })
-            .then(res=>res.json())
-            .then(body=>setVoteList(body))
-    },[auth.token])
+
     // console.log(voteList)
     return (
         <>
@@ -113,7 +102,7 @@ export const LkHomeMain = () => {
                         <span>Голосование</span>
                 </div>
 
-                {voteList.items.filter((item,index)=>index===0).map(item=><VoteItem key={item.id} id={item.id} title={item.question} votesBars={item.answers} all={item.totalVotesCount}/>)}
+                {votes.value.items.filter((item,index)=>index===0).map(item=><VoteItem key={item.id} id={item.id} title={item.question} votesBars={item.answers} all={item.totalVotesCount}/>)}
             </div>
         </>
     );

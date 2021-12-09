@@ -25,36 +25,42 @@ export const LkHomeRightSlidebar = () => {
 
     // online user list
     useEffect(()=>{
-        fetch('http://lk.pride.kb-techno.ru/api/Main/online-user-list',{
-            method:'GET',
-            headers:{
-                'Accept': 'application/json',
-                'Authorization':`Bearer ${auth.token}`}
-        })
-            .then((res) => res.json())
-            .then((body)=>{
-                setUsers(body)
+        if(auth.token) {
+            fetch('http://lk.pride.kb-techno.ru/api/Main/online-user-list', {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${auth.token}`
+                }
             })
-            .catch((e) => {
-                console.log(e.message);
-            });
+                .then((res) => res.json())
+                .then((body) => {
+                    setUsers(body)
+                })
+                .catch((e) => {
+                    console.log(e.message);
+                });
+        }
     },[auth.token])
 
     // referal-stat
     useEffect(()=>{
-        fetch('http://lk.pride.kb-techno.ru/api/Partners/referal-stat',{
-            method:'GET',
-            headers:{
-                'Accept': 'application/json',
-                'Authorization':`Bearer ${auth.token}`}
-        })
-            .then((res) => res.json())
-            .then((body)=>{
-                setStatistic(body)
+        if(auth.token) {
+            fetch('http://lk.pride.kb-techno.ru/api/Partners/referal-stat', {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${auth.token}`
+                }
             })
-            .catch((e) => {
-                console.log(e.message);
-            });
+                .then((res) => res.json())
+                .then((body) => {
+                    setStatistic(body)
+                })
+                .catch((e) => {
+                    console.log(e.message);
+                });
+        }
     },[auth.token])
 
 

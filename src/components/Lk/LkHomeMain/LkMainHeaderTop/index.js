@@ -51,7 +51,6 @@ export const LkMainHeaderTop = () => {
                 if(items.topListUsers[0].id!==allInfoUser.value.id){
                     items.topListUsers.unshift({id:allInfoUser.value.id,image:allInfoUser.value.image})
                 }
-                console.log(body)
             })
             .catch(error=> {
                 console.log(error)
@@ -66,20 +65,22 @@ export const LkMainHeaderTop = () => {
 
     }
     useEffect(()=>{
-        fetch('http://lk.pride.kb-techno.ru/api/Main/top-list',{
-            method:'GET',
-            headers:{
-                'Accept': 'application/json',
-                'Authorization':`Bearer ${auth.token}`}
-        })
-            .then((res) => res.json())
-            .then((body)=>{
-                console.log(body)
-                setItems(body)
+        if(auth.token) {
+            fetch('http://lk.pride.kb-techno.ru/api/Main/top-list', {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${auth.token}`
+                }
             })
-            .catch((e) => {
-                console.log(e.message);
-            });
+                .then((res) => res.json())
+                .then((body) => {
+                    setItems(body)
+                })
+                .catch((e) => {
+                    console.log(e.message);
+                });
+        }
     },[auth.token])
 
     return (
