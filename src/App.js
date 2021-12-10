@@ -31,12 +31,8 @@ import {Offer} from "./pages/Lk/Offer";
 import {OfferImg} from "./pages/Lk/OfferImg";
 import {Output} from "./pages/Lk/Output";
 import {Vote} from "./pages/Lk/Vote";
-
-
 import {UserData} from "./store/userInfo/actions";
-
 import {setNewsList} from "./store/news/actions";
-
 import {Notifications} from "./pages/Lk/Notifications";
 import {useTimerUp} from "./hooks/useTimerUp";
 import {ProgramMaxiThree} from "./pages/Lk/ProgramMaxiThree";

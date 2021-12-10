@@ -1,16 +1,34 @@
 import React from 'react';
+import {useSelector} from "react-redux";
 
 
-export const VoteItem = ({title,votesBars,all}) => {
+export const VoteItem = ({title,votesBars,all,isVotesUser}) => {
+    const {auth} = useSelector((state) => state);
+
+    const handleSubmit=(id)=>{
+        if(auth.token) {
+            fetch(`http://lk.pride.kb-techno.ru/api/Poll/vote/${id}`, {
+                method: 'POST',
+                headers: {
+                    'accept': 'application/octet-stream',
+                    'Authorization': `Bearer ${auth.token}`
+                },
+                body:''
+            })
+                .then(res => res.text())
+                .catch(error=>console.log(error))
+
+        }
+    }
 
     return (
         <div className="voice_row">
             <div className="voice_left">
                 <div className="voice_title">{title}</div>
                 <ul>
-                    {votesBars.map((item,index)=> <li key={item.id}   >
-                        <div className="voice_numb_li">{index+1}</div>
-                        <div className="voice_text_li">{item.answer}
+                    {votesBars.map((item,index)=> <li className={item.selectedByUser?'active_votes_li':''}  onClick={()=>!isVotesUser?handleSubmit(item.id):()=>{}} key={item.id}   >
+                        <div className={item.selectedByUser?"voice_numb_li active_votes_number":'voice_numb_li'}>{index+1}</div>
+                        <div className={item.selectedByUser?"voice_text_li active_votes_text":'voice_text_li'}>{item.answer}
                         </div>
                     </li>)}
 
@@ -21,7 +39,7 @@ export const VoteItem = ({title,votesBars,all}) => {
                     <div key={item.id} className="voice_right_item">
                         <div className="voice_right_top">
                             <div className="voice_right_title">{item.answer}</div>
-                            <div className="voice_right_percent">{(item.votesCount/all)*100}%</div>
+                            <div className="voice_right_percent">{Math.floor((item.votesCount/all)*100)}%</div>
                         </div>
                         <div className="voice_right_line">
                             <div className={"progressbar progressbar" +index.toString()} style={{width: `${(item.votesCount/all)*100}%`}}/>

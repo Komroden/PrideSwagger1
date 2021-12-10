@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 
 import './style.scss';
 
@@ -30,7 +30,7 @@ export const LkHistoryMain = () => {
 
     // pagination
     const [currentPage,setCurrentPage]=useState(1);
-    const [itemOnPage]=useState(24);
+    const [itemOnPage]=useState(12);
     const lastItemIndex = currentPage * itemOnPage
     const firstItemIndex = lastItemIndex-itemOnPage
     const currentItem = filtredArray.slice(firstItemIndex,lastItemIndex)
@@ -54,6 +54,9 @@ export const LkHistoryMain = () => {
         }
         setCurrentPage(prev => prev - 1)
     };
+
+    useLayoutEffect (() => {
+        window.scrollTo ( 0 , 0 ); }, [currentPage]);
 
 
 

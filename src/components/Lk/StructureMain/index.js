@@ -6,18 +6,16 @@ import * as d3 from 'd3';
 
 
 
+
 export const StructureMain = props => {
 
 
-    const [data, setData] = useState(null);
+
+
+    const [data, setData] = useState([]);
     const handlePush=()=>{
 
     }
-
-
-
-
-
 
     useEffect(() => {
         d3.csv(

@@ -2725,6 +2725,10 @@ h1 span, .first_title span {
     padding: 20px 5px !important;
   }
 
+  .balance_cost_item_top {
+    justify-content: space-around !important;
+  }
+
   .totalprice_input {
     font-size: 40px !important;
     max-width: 240px !important;
@@ -2753,6 +2757,7 @@ h1 span, .first_title span {
   }
 
   .balance_cost_item_bottom {
+    justify-content: flex-end !important;
     padding-right: 5% !important;
   }
 

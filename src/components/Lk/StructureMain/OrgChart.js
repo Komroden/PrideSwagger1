@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef} from 'react';
 import { OrgChart } from 'd3-org-chart';
 import * as d3 from 'd3';
 import './style1.scss';
@@ -15,7 +15,8 @@ export const OrgChartComponent = (props, ref) => {
   props.setClick(addNode);
 
   // We need to manipulate DOM
-  useLayoutEffect(() => {
+    useLayoutEffect(() => {
+
       if(!props.data) return
     if (props.data && d3Container.current) {
       if (!chart) {

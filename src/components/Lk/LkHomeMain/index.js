@@ -41,7 +41,7 @@ export const LkHomeMain = () => {
         }
     },[auth.token])
 
-    // console.log(voteList)
+
     return (
         <>
             <div className="balance_cost">
@@ -102,7 +102,7 @@ export const LkHomeMain = () => {
                         <span>Голосование</span>
                 </div>
 
-                {votes.value.items.filter((item,index)=>index===0).map(item=><VoteItem key={item.id} id={item.id} title={item.question} votesBars={item.answers} all={item.totalVotesCount}/>)}
+                {votes.value.items.filter((item,index)=>index===0).map(item=><VoteItem key={item.id} id={item.id} title={item.question} votesBars={item.answers} all={item.totalVotesCount} isVotesUser={item.votedByUser}/>)}
             </div>
         </>
     );

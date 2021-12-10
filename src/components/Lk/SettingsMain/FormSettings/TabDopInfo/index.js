@@ -22,7 +22,7 @@ export const TabDopInfo = () => {
     const email = useInputV('', {isEmpty: true, isEmail: true});
     const[codePhone,setCodePhone]=useState('')
     const[codeEmail,setCodeEmail]=useState('')
-    const money = useInputV('')
+
     const handlePut = (e) => {
         e.preventDefault()
         setCounter(counter+1)
@@ -97,44 +97,7 @@ export const TabDopInfo = () => {
                     console.log(error)
                 });
         }
-        if (money.value&&success) {
-            const payload={
-                id:'0',
-                objectName:'CryptoWallet',
-                cryptoWallet:money.value,
-                cryptoCurrency:'10',
-                networkType:'string',
-                code:codePhone,
-            }
-            fetch('http://lk.pride.kb-techno.ru/api/Profile/requisites/add-crypto-wallet', {
-                method: 'POST',
-                body: JSON.stringify(payload),
-                headers: {
-                    'accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${auth.token}`
-                }
-            })
-                .then((res) => {
-                    if (res.status >= 200 && res.status < 300) {
-                        handleSuccess('Успешно')
-                    }
-                    if (res.status===400){
-                        let error = new Error(res.statusText);
-                        error.response = res;
-                        handleSuccess('Неверный код')
-                        if(counter>=2){
-                            setSuccess(false)
-                            openCaptcha()
-                        }
-                        throw error
-                    }
-                })
 
-                .catch((error) => {
-                    console.log(error)
-                });
-        }
 
     }
 
@@ -142,7 +105,6 @@ export const TabDopInfo = () => {
     const handleReset=()=>{
 
         phoneNumber.onReset()
-        money.onReset()
         email.onReset()
         email.setDirty(false)
         phoneNumber.setDirty(false)
@@ -161,7 +123,7 @@ export const TabDopInfo = () => {
             <div className="setting_form_row">
             <div className="setting_form_item setting_form_item_for_two" >
                 <span className="title_input">Телефон</span>
-                <input disabled={!email.emailError||money.value!==''}  type='text' className="dark_input" onBlur={e => phoneNumber.onBlur(e)} onChange={e=>phoneNumber.onChange(e)} value={phoneNumber.value}  />
+                <input disabled={!email.emailError}  type='text' className="dark_input" onBlur={e => phoneNumber.onBlur(e)} onChange={e=>phoneNumber.onChange(e)} value={phoneNumber.value}  />
                 {(phoneNumber.isDirty && phoneNumber.phoneError) && <span className="error_message"> Неверный формат</span>}
                 <CodeInput mode={!phoneNumber.phoneError} url={'http://lk.pride.kb-techno.ru/api/Confirm/send-email-authorization-code?action=email'} setCode={setCodeEmail} title={'из почты'} margin={true} />
 
@@ -169,17 +131,12 @@ export const TabDopInfo = () => {
             </div>
                 <div className="setting_form_item setting_form_item_for_two" >
                     <span className="title_input">Почта</span>
-                    <input disabled={!phoneNumber.phoneError||money.value!==''}  type='text' className="dark_input" onBlur={e => email.onBlur(e)} onChange={e=>email.onChange(e)} value={email.value}  />
+                    <input disabled={!phoneNumber.phoneError}  type='text' className="dark_input" onBlur={e => email.onBlur(e)} onChange={e=>email.onChange(e)} value={email.value}  />
                     {(email.isDirty && email.emailError) && <span className="error_message"> Неверный формат</span>}
                     <CodeInput mode={!phoneNumber.phoneError} url={`http://lk.pride.kb-techno.ru/api/Confirm/send-sms-confirmation-code?phoneNumber=${phoneNumber.value}&action=phone`} setCode={setCodePhone} title={'из смс нового телефона'} margin={true}  />
                     <CodeInput mode={!email.emailError} setCode={setCodePhone} url={'http://lk.pride.kb-techno.ru/api/Confirm/send-authorization-code?action=password'} title={'из смс'} margin={true} />
                 </div>
 
-                <div className="setting_form_item">
-                    <span className="title_input">Кошелек Криптовалют</span>
-                    <input disabled={!email.emailError||!phoneNumber.phoneError} onChange={e=>money.onChange(e)} value={money.value} type='text' className="dark_input" />
-                    <CodeInput mode={money.value!==''} setCode={setCodePhone} url={'http://lk.pride.kb-techno.ru/api/Confirm/send-authorization-code?action=password'} title={'из смс'} margin={true} />
-                </div>
             </div>
             <Fade in={openModal} unmountOnExit>
                 <div>

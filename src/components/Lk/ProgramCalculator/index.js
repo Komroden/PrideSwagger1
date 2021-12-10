@@ -70,15 +70,15 @@ export const ProgramCalculator = ({percent,minValue,toBeforeRange}) => {
                     <div className="form_entry_in_program_center">
                         <div className="form_entry_in_program_center_price">
                             <div className="form_entry_in_program_center_titl">Цена скорости</div>
-                            <div className="form_entry_in_program_center_purple">{(course*totalPrice/100).toFixed(3)} USD</div>
+                            <div className="form_entry_in_program_center_purple">{(course*totalPrice*0.5/100).toFixed(3)} USD</div>
                         </div>
                         <div className="form_entry_in_program_center_all_price">
                             <div className="form_entry_in_program_center_titl">Общая цена</div>
-                            <div className="form_entry_in_program_center_green">{((course*totalPrice/100*speed)+(totalPrice*course)).toFixed(3)} USD</div>
+                            <div className="form_entry_in_program_center_green">{((course*totalPrice*0.5/100*speed)+(totalPrice*course)).toFixed(3)} USD</div>
                         </div>
                         <div className="form_entry_in_program_center_last">
                             <div className="form_entry_in_program_center_last_title">Ваш заработок в день</div>
-                            <div className="form_entry_in_program_center_last_pr">{(course*totalPrice*percent*(1+speed/100)/days).toFixed(3)} USD</div>
+                            <div className="form_entry_in_program_center_last_pr">{((course*totalPrice*percent*(1+speed/100)/days)-(course*totalPrice*(1+speed/100)/days)).toFixed(3)} USD</div>
                         </div>
                     </div>
                     <div className="form_entry_in_program_bottom">

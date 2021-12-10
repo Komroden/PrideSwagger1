@@ -4,6 +4,7 @@ import {TabContext,TabPanel} from '@mui/lab';
 import {TabMainInfo} from "./TabMainInfo";
 import {TabDopInfo} from "./TabDopInfo";
 import {TabBaseInfo} from "./TabBaseInfo";
+import {TabCryptoWalets} from "./TabCryptoWallets";
 
 
 export const FormSettings = () => {
@@ -23,16 +24,19 @@ export const FormSettings = () => {
                 onChange={handleChange}
                 textColor="secondary"
                 indicatorColor="secondary"
+                variant="scrollable"
+                scrollButtons="auto"
                 aria-label="secondary tabs example"
-                centered
             >
                 <Tab value="one" label="Основные" />
                 <Tab value="two" label="Дополнительные" />
                 <Tab value="three" label="Смена пароля" />
+                <Tab value="four" label="Платежная информация" />
             </Tabs>
             <TabPanel value={'one'}><TabMainInfo/></TabPanel>
             <TabPanel value={'two'}><TabDopInfo/></TabPanel>
             <TabPanel value={'three'}><TabBaseInfo/></TabPanel>
+            <TabPanel value={'four'}><TabCryptoWalets/></TabPanel>
 
 
 
