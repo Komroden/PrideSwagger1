@@ -1,4 +1,5 @@
 .svg_container {
+  height: 1vh;
   display: inline-block;
   position: relative;
   width: 100%;

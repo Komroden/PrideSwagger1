@@ -20,18 +20,20 @@ export const FormSettings = () => {
         <TabContext value={valueTab}>
 
             <Tabs
+                className={'tabs_container'}
                 value={valueTab}
                 onChange={handleChange}
                 textColor="secondary"
                 indicatorColor="secondary"
-                variant="scrollable"
-                scrollButtons="auto"
-                aria-label="secondary tabs example"
+                scrollButtons={true}
+                variant={'scrollable'}
+                allowScrollButtonsMobile
+                aria-label="scrollable auto tabs example"
             >
-                <Tab value="one" label="Основные" />
-                <Tab value="two" label="Дополнительные" />
-                <Tab value="three" label="Смена пароля" />
-                <Tab value="four" label="Платежная информация" />
+                <Tab wrapped value="one" label="Основные" />
+                <Tab wrapped value="two" label="Дополнительные" />
+                <Tab wrapped value="three" label="Смена пароля" />
+                <Tab wrapped value="four" label="Платежная информация" />
             </Tabs>
             <TabPanel value={'one'}><TabMainInfo/></TabPanel>
             <TabPanel value={'two'}><TabDopInfo/></TabPanel>

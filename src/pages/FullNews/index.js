@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {Header} from "../../components/Home/Header";
 import {HeaderSimpleAbout} from "../../components/Home/Header/HeaderSimpleAbout";
 import {Footer} from "../../components/Home/Footer";
@@ -9,6 +9,8 @@ import {Message} from "../../components/Home/Message";
 import {useParams} from "react-router";
 
 export const FullNews = () => {
+    useLayoutEffect (() => {
+        window.scrollTo ( 0 , 0 ); }, []);
     const [value,setValue]=useState({
         objectName:'',
         text:'',

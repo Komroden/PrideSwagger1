@@ -125,11 +125,15 @@
     transition: all 0.3s ease-in-out;
     background-color: #4b4f57;
     border-radius: 50%;
-    height: 40px;
-    width: 40px;
+    height: 30px;
+    width: 30px;
     border: 0;
     &:hover {
       background-color: #e0466c;
+    }
+    @media screen and (max-width: 460px){
+      height: 25px;
+      width: 25px;
     }
   }
 }
@@ -280,3 +284,9 @@
 
   // etc.
 }
+
+.message_image_send{
+  width: 15px;
+  height: 15px;
+}
+

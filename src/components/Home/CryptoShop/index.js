@@ -34,6 +34,7 @@ export const CryptoShop = () => {
                         price={item.price.toFixed(1)} volume24={item.volume24hUsd.toFixed(0)} supply={item.circulatingSupply.toFixed(1)}
                         change={item.percentChange24h.toFixed(3)}/>)}
 
+
                         </tbody>
                     </table>
                 </div>

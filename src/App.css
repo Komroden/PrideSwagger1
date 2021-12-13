@@ -269,6 +269,11 @@ h1 span, .first_title span {
   text-transform: uppercase;
 }
 
+@media screen and (min-width: 1920px) {
+  .main_content {
+    max-width: none !important;
+  }
+}
 @media screen and (max-width: 1900px) {
   .firstbl .text_bg {
     font-size: 235px;
@@ -552,7 +557,7 @@ h1 span, .first_title span {
   }
 
   .tabs .tab_detail:before {
-    display: none !important;
+    font-size: 20px !important;
   }
 
   .tabs .tab_city {
@@ -1142,8 +1147,9 @@ h1 span, .first_title span {
     min-height: 0 !important;
   }
 
-  .tabs .tab_detail {
-    display: none !important;
+  .countryTabs_link {
+    min-height: initial !important;
+    padding: 20px !important;
   }
 
   .header_simple .simple_right {
@@ -2274,7 +2280,7 @@ h1 span, .first_title span {
   }
 
   .user_main_block_verif span {
-    font-size: 12px !important;
+    font-size: 14px !important;
   }
 
   .user_main_block_percent {
@@ -3459,10 +3465,6 @@ h1 span, .first_title span {
     margin-top: -3px !important;
   }
 
-  .user_main_block {
-    margin-top: 0 !important;
-  }
-
   .links_header_item:first-child,
 .links_header_item:nth-child(2) {
     display: none !important;
@@ -3788,7 +3790,7 @@ h1 span, .first_title span {
 
   .message_left_form_navig_row {
     flex-wrap: wrap !important;
-    justify-content: space-between !important;
+    justify-content: flex-end !important;
   }
 
   .mes_text {

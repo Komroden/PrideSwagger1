@@ -1,21 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import './style.scss';
+import {useImage} from "../../../hooks/useImage";
  export const ContFullNews = ({title,text,url}) => {
 
-
-     const [pic,setPic]=useState('');
-
-     useEffect(()=>{
-         if(url==='') return
-         fetch(`http://lk.pride.kb-techno.ru/assets/Img/${url}`,{
-             method:'GET',
-             headers:{
-                 'accept': 'application/octet-stream'
-             }
-         })
-             .then(res=>setPic(res.url))
-
-     },[url])
+     const {pic}=useImage(url)
     return (
         <div className="main_cont">
             <div className="containerP">

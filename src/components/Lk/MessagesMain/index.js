@@ -149,8 +149,8 @@ export const MessagesMain = () => {
 
                                     </div>
                                     <div className="mes_send">
-                                        <button onClick={handleSend}>
-                                            <img src="/images/send_mes.png" alt=""/>
+                                        <button  onClick={handleSend}>
+                                            <img className='message_image_send' src="/images/send_mes.png" alt=""/>
                                         </button>
                                     </div>
                                 </div>

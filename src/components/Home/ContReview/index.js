@@ -3,7 +3,9 @@ import './style.scss';
 import {ReviewItem} from "./ReviewItem";
 import {Pagination} from "./Pagination";
 import {ReviewForm} from "./ReviewForm";
+import {useSelector} from "react-redux";
 export const ContReview = () => {
+	const { auth } = useSelector((state) => state);
 	const [review,setReview]=useState({items:[]});
 	const [currentPage,setCurrentPage]=useState(1);
 	const [itemOnPage]=useState(9);
@@ -59,7 +61,7 @@ export const ContReview = () => {
 					</li>
 				</ul>
 			</div>}
-			<ReviewForm/>
+			{auth.token&&<ReviewForm/>}
         </div>
     );
 };

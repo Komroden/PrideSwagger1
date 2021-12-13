@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useLayoutEffect} from 'react';
 
 import {Footer} from "../../components/Home/Footer";
 import {HeaderSimpleAbout} from "../../components/Home/Header/HeaderSimpleAbout";
@@ -9,6 +9,8 @@ import {Timer} from "../../components/Home/Timer";
 import {Message} from "../../components/Home/Message";
 
 export const About = () => {
+    useLayoutEffect (() => {
+        window.scrollTo ( 0 , 0 ); }, []);
     return (
 
             <div className="simple_page_standart bodyHome">

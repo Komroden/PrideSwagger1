@@ -1,10 +1,12 @@
-import React, { useLayoutEffect, useRef} from 'react';
+import React, {useLayoutEffect, useRef} from 'react';
 import { OrgChart } from 'd3-org-chart';
 import * as d3 from 'd3';
 import './style1.scss';
 
 
+
 export const OrgChartComponent = (props, ref) => {
+
   const d3Container = useRef(null);
   let chart = null;
 
@@ -100,10 +102,7 @@ align-items: center; width: 20px; height: 20px;margin: 5px 0 0 10px;"/> `)
   }, [props.data, d3Container.current]);
 
   return (
-
-      <div className={'svg_container'} ref={d3Container} />
-
-
-  );
+      <div className={'svg_container'} ref={d3Container}/>
+  )
 };
 

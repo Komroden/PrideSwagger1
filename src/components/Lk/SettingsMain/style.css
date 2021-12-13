@@ -199,4 +199,52 @@
   }
 }
 
+.requisiters_wallets_wrapper {
+  flex-direction: row;
+  display: flex;
+  flex-basis: 100%;
+  margin-bottom: 20px;
+  justify-content: space-between;
+}
+@media screen and (max-width: 760px) {
+  .requisiters_wallets_wrapper {
+    flex-direction: column;
+  }
+}
+
+.wallets_name {
+  width: 25%;
+}
+@media screen and (max-width: 760px) {
+  .wallets_name {
+    margin-bottom: 20px !important;
+    width: 100%;
+  }
+}
+
+.wallets_value {
+  width: 50%;
+}
+@media screen and (max-width: 760px) {
+  .wallets_value {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 760px) {
+  .tabs_container {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 740px) {
+  .tabs_container {
+    width: 400px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .tabs_container {
+    width: 300px;
+  }
+}
+
 /*# sourceMappingURL=style.css.map */

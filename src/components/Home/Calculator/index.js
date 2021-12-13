@@ -92,7 +92,7 @@ export const Calculator = () => {
                                     <div className="slider">
 
                                         <div className="range">
-                                            <input disabled={valueType===''&&plan.name===''} onChange={e => setValue(e.target.value)} type="range" name="date" id="date1" min="0.1" max="10" step="0.01"
+                                            <input disabled={valueType===''&&plan.name===''} onChange={e => setValue(e.target.value)} type="range" name="date" id="date1" min={minValue} max={minValue*10} step="0.01"
                                                     defaultValue={0} required/>
                                             <span className="setyear">{value +' '+ valueType}</span>
                                         </div>

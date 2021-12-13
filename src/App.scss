@@ -259,6 +259,11 @@ h1, .first_title{
     text-transform: uppercase;
   }
 }
+@media screen and (min-width: 1920px) {
+  .main_content{
+    max-width: none!important;
+  }
+}
 @media screen and (max-width: 1900px) {
   .firstbl .text_bg {
     font-size: 235px;
@@ -486,7 +491,7 @@ h1, .first_title{
     min-height: 160px!important;
   }
   .tabs .tab_detail:before {
-    display: none!important;
+    font-size: 20px!important;
   }
   .tabs .tab_city {
     font-size: 17px!important;
@@ -964,8 +969,9 @@ h1, .first_title{
   .tabs li a {
     min-height: 0!important;
   }
-  .tabs .tab_detail {
-    display: none!important;
+  .countryTabs_link{
+    min-height: initial!important;
+    padding:20px!important;
   }
   .header_simple .simple_right {
     display: none!important;
@@ -1879,7 +1885,7 @@ h1, .first_title{
     max-width: 34%!important;
   }
   .user_main_block_verif span {
-    font-size: 12px!important;
+    font-size: 14px!important;
   }
   .user_main_block_percent {
     display: flex!important;
@@ -2720,7 +2726,11 @@ h1, .first_title{
   .lineinfo__email {
     flex-basis: calc(100% - 40px)!important;
   }
+
 }
+
+
+
 
 @media screen and ( max-width: 460px) {
   .links_header_item:nth-child(2) {
@@ -2832,9 +2842,9 @@ h1, .first_title{
     text-align: right!important;
     margin-top: -3px!important;
   }
-  .user_main_block {
-    margin-top: 0!important;
-  }
+  //.user_main_block {
+  //  margin-top: 0!important;
+  //}
   .links_header_item:first-child,
   .links_header_item:nth-child(2) {
     display: none!important;
@@ -3095,7 +3105,7 @@ h1, .first_title{
   }
   .message_left_form_navig_row {
     flex-wrap: wrap!important;
-    justify-content: space-between!important;
+    justify-content: flex-end!important;
   }
   .mes_text {
     width: 100%!important;

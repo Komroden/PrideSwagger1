@@ -2,22 +2,13 @@ import React, { useState} from 'react';
 import {useTimer} from "../../../../hooks/useTimer";
 
 import Fade from "@mui/material/Fade";
+import {useImage} from "../../../../hooks/useImage";
 
 
 
 
 export const DrawItem = ({imgPrice,priceAdd,title,desc,date,members,startDate}) => {
-    const pic=useState('');
-    // useEffect(()=>{
-    //     fetch(`http://lk.pride.kb-techno.ru/assets/Img/${imgPrice}`,{
-    //         method:'GET',
-    //         headers:{
-    //             'accept': 'application/octet-stream'
-    //         }
-    //     })
-    //         .then(res=>console.log(res.url))
-    //
-    // },[])
+    const {pic}=useImage(imgPrice,'/images/prize.png')
     let d =new Date(startDate)
     const [pay,setPay]=useState(false)
     const {hours,seconds,minute}= useTimer(date);

@@ -248,6 +248,9 @@
   text-align: center;
   color: #898ea0;
   white-space: nowrap;
+  @media screen and ( max-width: 460px){
+    left: 44%;
+  }
 }
 .range {
   position: relative;

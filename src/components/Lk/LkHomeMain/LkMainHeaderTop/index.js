@@ -14,7 +14,9 @@ export const LkMainHeaderTop = () => {
     const[open,setOpen]=useState(false);
     const[error,setError]=useState('')
     const[items,setItems]=useState({
-        topListUsers:[]
+        topListUsers:[
+            {id: 0}
+        ]
     })
     const[openError,setOpenError]=useState(false)
 
@@ -90,7 +92,7 @@ export const LkMainHeaderTop = () => {
                 лидеры <br/>
                 ваш топ
             </div>
-            <div onClick={handleClick}  className="lider_top_add">
+            <div style={{display:items.topListUsers[0].id===allInfoUser.value.id?'none':'block'}} onClick={handleClick}  className="lider_top_add">
                 <Fade direction="right" in={open} timeout={1000} unmountOnExit>
                     <div className='add_top_wrapper'>
                 <span  className='add_top'  >{'Войти в топ? цена: '+items.price+' руб.'}</span>

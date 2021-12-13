@@ -48,6 +48,7 @@ import {Votes} from "./store/votes/actions";
 
 
 
+
 const loadJSON=key=>
     JSON.parse(sessionStorage.getItem(key));
 
@@ -59,6 +60,11 @@ export function App() {
     const setTokens = useCallback(() => {
         dispatch(UserRegistration(loadJSON('keySwagger')))
     }, [dispatch]);//auth.token
+
+    // useEffect(()=>{
+    //     const header = useToken(token.token)
+    //     console.log(header)
+    // })
 
     useEffect(()=>{
         if(loadJSON('keySwagger')){
@@ -335,7 +341,7 @@ export function App() {
         <PrivateRoute auth={auth}  path='/structure'>
             <Structure/>
         </PrivateRoute>
-        <PrivateRoute auth={auth} path='/lk'>
+        <PrivateRoute auth={auth}  path='/lk'>
             <LkHome/>
         </PrivateRoute>
         <PrivateRoute auth={auth} path='/user:id'>
@@ -401,7 +407,7 @@ export function App() {
         <PrivateRoute auth={auth} path='/offer'>
             <Offer/>
         </PrivateRoute>
-        <Route  path='/offerImg'>
+        <Route  path='/lkNews:id'>
             <OfferImg/>
         </Route>
         <PrivateRoute auth={auth} path='/output'>

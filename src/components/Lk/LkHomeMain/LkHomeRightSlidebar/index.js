@@ -80,7 +80,7 @@ export const LkHomeRightSlidebar = () => {
                     </div>
                 </div>
                 {contests.value.map((item)=>
-                  <LkHomeRightSlidebarNewsItem key={item.id} img={item.desc} value={item.participationCost} title={item.caption}  />)}
+                  <LkHomeRightSlidebarNewsItem key={item.id} img={item.image} value={item.participationCost} title={item.caption}  />)}
                 <a href={'/'} onClick={handlePush} className="right_news_row_viewmore">
                     <span>View more</span>
                     <img src="/images/chevr_pink.png" alt=""/>

@@ -13,8 +13,8 @@ export const ProgramCalculator = ({percent,minValue,toBeforeRange}) => {
     const course=useCourse(value)
     const days=useDaysOnMounth()
 
-    const before=(toBeforeRange/course).toFixed(toBeforeRange/course<10?4:0)
-    const from =(minValue/course).toFixed(minValue/course<10?4:0)
+    const before=((toBeforeRange/course)*0.995).toFixed(toBeforeRange/course<10?4:0)
+    const from =((minValue/course)*0.995).toFixed(minValue/course<10?4:0)
 
     useEffect(()=>{
         if(Math.ceil(totalPrice)>Math.ceil(before))setTotalPrice(before)
@@ -36,11 +36,12 @@ export const ProgramCalculator = ({percent,minValue,toBeforeRange}) => {
                                 <ProgramCalculatorValue name={'ETH'}/>
                                 <ProgramCalculatorValue name={'ADA'}/>
                                 <ProgramCalculatorValue name={'SOL'}/>
+                                <ProgramCalculatorValue name={'CurrenyPriceInfoT'}/>
                             </select>
                         </div>
                         <div className="form_entry_in_program_right">
                             <div className="form_entry_in_program_title">
-                                Вход в программу <span>от {from} {value} до {before} {value}</span>
+                                Вход в программу <span>от {from} {value==='CurrenyPriceInfoT'?'USDT':value} до {before} {value==='CurrenyPriceInfoT'?'USDT':value}</span>
                             </div>
                             <div className="form_entry_in_program_right_range">
                                 <div className="form_entry_in_program_right_top_range">
@@ -56,8 +57,8 @@ export const ProgramCalculator = ({percent,minValue,toBeforeRange}) => {
                                           }} defaultValue={0}/>
                                 </div>
                                 <div className="form_entry_in_program_right_range_bottom">
-                                    <div className="form_entry_in_program_right_range_bottom_left">{from} {value}</div>
-                                    <div className="form_entry_in_program_right_range_bottom_right">{before} {value}
+                                    <div className="form_entry_in_program_right_range_bottom_left">{from} {value==='CurrenyPriceInfoT'?'USDT':value}</div>
+                                    <div className="form_entry_in_program_right_range_bottom_right">{before} {value==='CurrenyPriceInfoT'?'USDT':value}
                                     </div>
                                 </div>
                             </div>
@@ -65,7 +66,7 @@ export const ProgramCalculator = ({percent,minValue,toBeforeRange}) => {
                     </div>
                     <div className="totalprice">
                         <input type="number"  autoFocus={true} value={totalPrice>10?Math.ceil(totalPrice):totalPrice} onChange={event => setTotalPrice(event.target.value)}  className="totalprice_input"/>
-                        <span>{value}</span>
+                        <span>{value==='CurrenyPriceInfoT'?'USDT':value}</span>
                     </div>
                     <div className="form_entry_in_program_center">
                         <div className="form_entry_in_program_center_price">
@@ -74,11 +75,11 @@ export const ProgramCalculator = ({percent,minValue,toBeforeRange}) => {
                         </div>
                         <div className="form_entry_in_program_center_all_price">
                             <div className="form_entry_in_program_center_titl">Общая цена</div>
-                            <div className="form_entry_in_program_center_green">{((course*totalPrice*0.5/100*speed)+(totalPrice*course)).toFixed(3)} USD</div>
+                            <div className="form_entry_in_program_center_green">{((course*totalPrice*0.5/100*(speed))+(totalPrice*course)).toFixed(3)} USD</div>
                         </div>
                         <div className="form_entry_in_program_center_last">
                             <div className="form_entry_in_program_center_last_title">Ваш заработок в день</div>
-                            <div className="form_entry_in_program_center_last_pr">{((course*totalPrice*percent*(1+speed/100)/days)-(course*totalPrice*(1+speed/100)/days)).toFixed(3)} USD</div>
+                            <div className="form_entry_in_program_center_last_pr">{((course*totalPrice*percent*(1+(speed)/100)/days)-(course*totalPrice*(1+(speed)/100)/days)).toFixed(3)} USD</div>
                         </div>
                     </div>
                     <div className="form_entry_in_program_bottom">

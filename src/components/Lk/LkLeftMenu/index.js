@@ -17,7 +17,7 @@ export const LkLeftMenu = () => {
     const {push}=useHistory()
     const handlePushSettings=(e) => {
         e.preventDefault()
-        push('settings')
+        push('/settings')
         openMenu()
     }
     const handlePushHome=(e) => {

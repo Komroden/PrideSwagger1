@@ -26,9 +26,9 @@ export const VoteItem = ({title,votesBars,all,isVotesUser}) => {
             <div className="voice_left">
                 <div className="voice_title">{title}</div>
                 <ul>
-                    {votesBars.map((item,index)=> <li className={item.selectedByUser?'active_votes_li':''}  onClick={()=>!isVotesUser?handleSubmit(item.id):()=>{}} key={item.id}   >
-                        <div className={item.selectedByUser?"voice_numb_li active_votes_number":'voice_numb_li'}>{index+1}</div>
-                        <div className={item.selectedByUser?"voice_text_li active_votes_text":'voice_text_li'}>{item.answer}
+                    {votesBars.map((item,index)=> <li style={{pointerEvents:isVotesUser?'none':''}} className={item.selectedByUser&&isVotesUser?'active_votes_li':''}  onClick={()=>!isVotesUser?handleSubmit(item.id):()=>{}} key={item.id}   >
+                        <div style={{pointerEvents:isVotesUser?'none':''}} className={item.selectedByUser&&isVotesUser?"voice_numb_li active_votes_number":'voice_numb_li'}>{index+1}</div>
+                        <div style={{pointerEvents:isVotesUser?'none':''}} className={item.selectedByUser&&isVotesUser?"voice_text_li active_votes_text":'voice_text_li'}>{item.answer}
                         </div>
                     </li>)}
 

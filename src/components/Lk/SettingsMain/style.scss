@@ -187,3 +187,39 @@
     display: none!important;
   }
 }
+.requisiters_wallets_wrapper{
+  flex-direction: row;
+  display: flex;
+  flex-basis: 100%;
+  margin-bottom: 20px;
+  justify-content: space-between;
+  @media screen and ( max-width: 760px){
+      flex-direction: column;
+  }
+}
+.wallets_name{
+  width: 25%;
+  @media screen and ( max-width: 760px){
+    margin-bottom: 20px!important;
+    width: 100%;
+  }
+}
+.wallets_value{
+  width: 50%;
+  @media screen and ( max-width: 760px){
+    width: 100%;
+  }
+}
+.tabs_container{
+
+  @media screen and ( min-width: 760px){
+    width: 100%;
+  }
+  @media screen and ( max-width: 740px){
+    width: 400px;
+  }
+  @media screen and ( max-width: 480px){
+    width: 300px;
+  }
+
+}

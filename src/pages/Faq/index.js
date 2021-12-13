@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useLayoutEffect} from 'react';
 import {Header} from "../../components/Home/Header";
 import {HeaderSimpleFaq} from "../../components/Home/Header/HeaderSimpleFaq";
 import {ContFaq} from "../../components/Home/ContFaq";
@@ -9,6 +9,8 @@ import {Message} from "../../components/Home/Message";
 
 
 export const Faq = () => {
+    useLayoutEffect (() => {
+        window.scrollTo ( 0 , 0 ); }, []);
     return (
         <div className="simple_page_standart bodyHome">
             <Header activeFaq={'active'}/>
