@@ -22,13 +22,12 @@ export const CryptoShop = () => {
                     <table className="table_cripto">
                         <tbody style={{opacity:cryptoData.value?'1':'0.3'}}>
                         <tr className="header_table">
-                            <TableHeaders text={'Coin Name'} className={'name_t'}/>
-                            <TableHeaders text={'Market Cap'} className={'market_t'}/>
-                            <TableHeaders text={'Price'} className={'price_t'}/>
-                            <TableHeaders text={'Volume (24hr)'} className={'volume_t'}/>
-                            <TableHeaders text={'Supply'} className={'supply_t'}/>
-                            <TableHeaders text={'Change'} className={'change_t'}/>
-                            <TableHeaders text={'Actions'} className={'actions_t'}/>
+                            <TableHeaders text={'Криптовалюта'} className={'name_t'}/>
+                            <TableHeaders text={'Капитализация'} className={'market_t'}/>
+                            <TableHeaders text={'Цена'} className={'price_t'}/>
+                            <TableHeaders text={'Объем торгов (24hr)'} className={'volume_t'}/>
+                            <TableHeaders text={'Количество'} className={'supply_t'}/>
+                            <TableHeaders text={'Изменение'} className={'change_t'}/>
                         </tr>
                         {cryptoData.value.map(item=><CryptoItem key={item.rank} name={item.name} image={item.icon} market={item.marketCapUsd.toFixed(0)}
                         price={item.price.toFixed(1)} volume24={item.volume24hUsd.toFixed(0)} supply={item.circulatingSupply.toFixed(1)}

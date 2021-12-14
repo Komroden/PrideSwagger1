@@ -18,7 +18,8 @@ export const ProgramCalculator = ({percent,minValue,toBeforeRange}) => {
 
     useEffect(()=>{
         if(Math.ceil(totalPrice)>Math.ceil(before))setTotalPrice(before)
-    },[totalPrice,before])
+        if(Math.ceil(totalPrice)<Math.ceil(from))setTotalPrice(from)
+    },[totalPrice,before,from])
 
     return (
         <div className="blue_block">
@@ -65,7 +66,7 @@ export const ProgramCalculator = ({percent,minValue,toBeforeRange}) => {
                         </div>
                     </div>
                     <div className="totalprice">
-                        <input type="number"  autoFocus={true} value={totalPrice>10?Math.ceil(totalPrice):totalPrice} onChange={event => setTotalPrice(event.target.value)}  className="totalprice_input"/>
+                        <input type="text"  autoFocus={true} value={totalPrice>10?Math.ceil(totalPrice):totalPrice} onChange={event => setTotalPrice(event.target.value)}  className="totalprice_input"/>
                         <span>{value==='CurrenyPriceInfoT'?'USDT':value}</span>
                     </div>
                     <div className="form_entry_in_program_center">

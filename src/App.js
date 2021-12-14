@@ -44,6 +44,7 @@ import {UserRegistration} from "./store/auth/actions";
 import {setContestsList} from "./store/contest/actions";
 import {AllUserData, UserAvatar} from "./store/allInfoUser";
 import {Votes} from "./store/votes/actions";
+import {useToken} from "./hooks/useToken";
 
 
 
@@ -60,11 +61,34 @@ export function App() {
     const setTokens = useCallback(() => {
         dispatch(UserRegistration(loadJSON('keySwagger')))
     }, [dispatch]);//auth.token
+    const header = useToken(auth.token)
+    useEffect(()=>{
 
-    // useEffect(()=>{
-    //     const header = useToken(token.token)
-    //     console.log(header)
-    // })
+        if (header<100){
+            const payload={
+                token:{
+                    access_token:auth.token,
+                    refresh_token:auth.refresh_token
+                }
+            }
+            fetch('http://lk.pride.kb-techno.ru/api/Auth/refresh-token',{
+                method:'POST',
+                headers:{'Content-Type': 'application/json',
+                    'Accept': 'application/json'},
+                    body:JSON.stringify(payload)
+            })
+                .then((res) => res.json())
+                .then((body)=>{
+                    console.log(body)
+                })
+
+                .catch((e) => {
+                    console.log(e.message);
+                });
+        }
+
+        console.log(header)
+    },[auth,header])
 
     useEffect(()=>{
         if(loadJSON('keySwagger')){

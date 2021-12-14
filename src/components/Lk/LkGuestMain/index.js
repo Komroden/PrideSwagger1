@@ -78,10 +78,10 @@ export const LkGuestMain = () => {
                 <div className="gost_row">
                     {value.map(item=><LkGuestMainGuestItem key={item.id} id={item.id}  name={item.firstName} setOpenModal={setOpenModal} image={item.image} isOnline={item.isOnline} year={item.yearsOld}/>)}
                 </div>
-                <a href="/" className="more_news open_more_gost">
+                {value.length>15&&<a href="/" className="more_news open_more_gost">
                     <span>Покать больше гостей</span>
                     <img src="/images/chev.png" alt=""/>
-                </a>
+                </a>}
             </div>
 
         </div>

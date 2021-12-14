@@ -61,7 +61,7 @@ export const ChatsMain = () => {
                                     </IconButton>
                                 }
                             >
-                                <div style={{marginBottom:'0'}} >{item.recipientName+' : '+item.lastMessageText}</div>
+                                <div  onClick={()=>handleOpen({id:item.id,name:item.recipientId})} style={{marginBottom:'0',cursor:'pointer'}} >{item.recipientName+' : '+item.lastMessageText}</div>
                                 <IconButton onClick={()=>handleOpen({id:item.id,name:item.recipientId})}>
                                     <CommentIcon  />
                                 </IconButton>

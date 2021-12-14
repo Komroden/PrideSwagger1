@@ -96,7 +96,10 @@ export const MessagesMain = () => {
                 'accept': 'application/octet-stream',
                 'Content-Type': 'application/json'}
         })
-            .then(()=>setSend(!send))
+            .then(()=> {
+                setMessage('')
+                setSend(!send)
+            })
 
 
     }
@@ -149,9 +152,10 @@ export const MessagesMain = () => {
 
                                     </div>
                                     <div className="mes_send">
-                                        <button  onClick={handleSend}>
-                                            <img className='message_image_send' src="/images/send_mes.png" alt=""/>
-                                        </button>
+                                        <a href="/" onClick={handleSend} className="technical_help mes_send_button">Отправить</a>
+                                        {/*<button  onClick={handleSend}>*/}
+                                        {/*    <img className='message_image_send' src="/images/send_mes.png" alt=""/>*/}
+                                        {/*</button>*/}
                                     </div>
                                 </div>
                             </form>

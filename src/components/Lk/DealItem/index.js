@@ -1,17 +1,34 @@
-import React, { useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 
 import {useTimerDeal} from "../../../hooks/useTimerDeal";
+import {ModalConfirm} from "./modalConfirm";
+
 
 
 export const DealItem = ({numberDeal,minValue,percent}) => {
     const[speed,setSpeed]=useState(1);
-
+    const [open,setOpen]=useState(false)
+    const [success,setSuccess]=useState(false)
     const {day,hours,minute,seconds,price}=useTimerDeal(minValue, 3, speed)
+    const handleCancel=(e)=>{
+        e.preventDefault()
+        setOpen(true)
+    }
+    useEffect(()=>{
+        if(success){
+            setSuccess(false)
+            // какая-то функция
+            console.log('Отправлено')
+        }
+
+    },[success])
 
 
     return (
-        <div className="deal_item">
+        <div  className="deal_item">
+            <ModalConfirm open={open} setOpen={setOpen} setSuccess={setSuccess}/>
+
             <div className="deal_top">Сделка #{numberDeal}</div>
             <div className="deal_top_row">
                 <div className="deal_top_row_left">
@@ -64,7 +81,7 @@ export const DealItem = ({numberDeal,minValue,percent}) => {
                     + {1*speed} USD
                     <span>Оплатить</span>
                 </a>
-                <a href="/" className="deal_item_cansel_btn">Разорвать <br/> сделку</a>
+                <a href="/" onClick={handleCancel} className="deal_item_cansel_btn">Разорвать <br/> сделку</a>
             </div>
         </div>
     );

@@ -8,8 +8,10 @@ export const useToken = (token) => {
         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
     let payload=JSON.parse(jsonPayload);
+    const date = new Date (payload.exp)
+    const date1= Date.now()
 
-    return (payload.exp-payload.nbf)
+    return (date.toLocaleTimeString())
 
 };
 

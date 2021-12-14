@@ -75,26 +75,26 @@ export const LkHomeMain = () => {
                 </div>
             </div>
             <div className="detail_cost">
-                <div className="earned">
+                {inputList.items.length!==0&&<div className="earned">
                     <div className="detail_cost_title">
                         <img src="/images/earned.png" alt=""/>
-                            <span>Внесено</span>
+                        <span>Внесено</span>
                     </div>
                     <div className="detail_cost_row">
-                        {inputList.items.filter((item,index)=>index<5).map((item,index)=> <LkHomeMainDetailItem
-                            key={item.id} index={index}  currency='Bitcoin' value={item.creditSum} course={1} />)}
+                        {inputList.items.filter((item, index) => index < 5).map((item, index) => <LkHomeMainDetailItem
+                            key={item.id} index={index} currency='Bitcoin' value={item.creditSum} course={1}/>)}
                     </div>
-                </div>
-                <div className="withdrawn">
+                </div>}
+                {outputList.items.length!==0&&<div className="withdrawn">
                     <div className="detail_cost_title">
                         <img src="/images/withdraft.png" alt=""/>
-                            <span>Выведено</span>
+                        <span>Выведено</span>
                     </div>
                     <div className="detail_cost_row">
-                        {outputList.items.filter((item,index)=>index<5).map((item,index)=> <LkHomeMainDetailItem
-                            key={item.id} index={index}  currency='Bitcoin' value={item.debetSum} course={1} />)}
+                        {outputList.items.filter((item, index) => index < 5).map((item, index) => <LkHomeMainDetailItem
+                            key={item.id} index={index} currency='Bitcoin' value={item.debetSum} course={1}/>)}
                     </div>
-                </div>
+                </div>}
             </div>
             <div className="voice">
                 <div className="detail_cost_title">

@@ -237,4 +237,28 @@
   padding: 20px !important;
 }
 
+.text_vozvrat {
+  color: #3d3d3d;
+  font-size: 20px;
+  text-align: center;
+}
+
+.deal_item_buttonGroup {
+  margin-top: 15px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.deal_button_notConfirm {
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  background: #e01616 !important;
+}
+.deal_button_notConfirm:hover {
+  transition: all 0.3s ease-in-out;
+  background: #878787 !important;
+}
+
 /*# sourceMappingURL=style.css.map */

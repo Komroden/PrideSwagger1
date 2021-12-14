@@ -12,7 +12,7 @@
   color: #fff !important;
   font-weight: 600;
   height: 45px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   min-width: 150px;
   -webkit-box-shadow: 0px 0px 9px -2px rgba(34, 60, 80, 0.2);
   -moz-box-shadow: 0px 0px 9px -2px rgba(34, 60, 80, 0.2);
@@ -115,6 +115,16 @@
   }
 }
 
+.mes_send {
+  display: flex;
+  align-items: flex-end;
+}
+@media screen and (max-width: 460px) {
+  .mes_send {
+    width: 100%;
+    justify-content: center;
+  }
+}
 .mes_send button {
   margin-top: -9px;
   outline: none;
@@ -295,6 +305,17 @@
 .message_image_send {
   width: 15px;
   height: 15px;
+}
+
+.mes_send_button {
+  background: linear-gradient(180deg, #23e3b7 21%, #21f548 100%, #00d4ff 100%) !important;
+  min-width: 110px !important;
+  transition: all 0.3ms ease-in-out;
+  margin-bottom: 0 !important;
+}
+.mes_send_button:hover {
+  background: linear-gradient(180deg, #7c0082 21%, #f521b0 100%, #00d4ff 100%) !important;
+  transition: all 0.3ms ease-in-out;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -62,7 +62,7 @@ export const LkLeftMenu = () => {
                         path1={'/lkNews'} path3={'/draw'} path2={'/vote'} path4={'/chats'} path5={'/guest'}/>
                         <LkLeftMenuOpenThree title={'Финансы'} icon={'/images/icon_m2.png'}
                                             subtitle1={'Пополнить счет'} subtitle2={'Вывод средств'} subtitle3={'История операций'}
-                         path1={'/refill'} path3={'/history'}/>
+                         path1={'/refill'} path2={'/output'} path3={'/history'}/>
                         <LkLeftMenuOpenThree title={'Прогораммы'} icon={'/images/icon_m2.png'}
                                              subtitle1={'Программа  Макси 1'} subtitle2={'Программа  Макси 2'} subtitle3={'Программа  Макси 3'}
                                              path1={'/programMaxi'} path2={'/programMaxi2'} path3={'/programMaxi3'} />

@@ -30,7 +30,7 @@ export const SendMessage = ({id,status,modifyWrap,modifyEmoji}) => {
     }
     return (
         <Fade in={status} unmountOnExit>
-        <div className={modifyWrap?"message_send_user "+modifyWrap:"message_send_user "}>
+        <div  className={modifyWrap?"message_send_user "+modifyWrap:"message_send_user "}>
             {/*<div className="mes_file">*/}
             {/*    <label>*/}
             {/*        <input type="file"/>*/}
@@ -51,7 +51,7 @@ export const SendMessage = ({id,status,modifyWrap,modifyEmoji}) => {
                 </a>
 
             </div>
-            <div className="mes_send mes_send_user">
+            <div style={{justifyContent:'flex-end'}} className="mes_send mes_send_user">
                 <button onClick={handleSend}>
                     <SendIcon fontSize={'small'}/>
                 </button>

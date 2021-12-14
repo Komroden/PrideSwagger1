@@ -20,7 +20,8 @@ export const LkMainHeaderTop = () => {
     })
     const[openError,setOpenError]=useState(false)
 
-    const handleClick = () => {
+    const handleClick = (e) => {
+        console.log(1)
         if(items.topListUsers[0].id===allInfoUser.value.id) return;
 
         setOpen(!open)
@@ -92,14 +93,15 @@ export const LkMainHeaderTop = () => {
                 лидеры <br/>
                 ваш топ
             </div>
-            <div style={{display:items.topListUsers[0].id===allInfoUser.value.id?'none':'block'}} onClick={handleClick}  className="lider_top_add">
+            <div style={{display:items.topListUsers[0].id===allInfoUser.value.id?'none':'block'}}   className="lider_top_add">
                 <Fade direction="right" in={open} timeout={1000} unmountOnExit>
                     <div className='add_top_wrapper'>
-                <span  className='add_top'  >{'Войти в топ? цена: '+items.price+' руб.'}</span>
+                <span  className='add_top'  >{'Войти в топ? цена: '+items.price+' руб.'}</span><br/>
+                        <input style={{width:'100%',marginTop:'10px'}} placeholder={'Сообщение'} type='text'/>
                     <button onClick={handleVerify} className='add_top_button'>Да</button>
                     </div>
                 </Fade>
-                <span ref={containerRef}>
+                <span onClick={handleClick} ref={containerRef}>
                     <span  className="dark_plus">+</span>
                 </span>
             </div>
@@ -116,7 +118,8 @@ export const LkMainHeaderTop = () => {
                     </a>
                 </div>
             </Slide>
-            {items.topListUsers.filter((ite,index)=>index<=6).map((item,index)=><LkHomeMainLiderTopItem key={item.id} id={item.id} url={item.image}  number={index+1}/>)}
+            {items.topListUsers.filter((ite,index)=>index<=6).map((item,index)=><LkHomeMainLiderTopItem key={item.id} id={item.id} url={item.image}  number={index+1} />)}
+            {items.topListUsers.filter((ite,index)=>index<=6).map((item,index)=><LkHomeMainLiderTopItem key={item.id} id={item.id} url={item.image}  number={'Привет'} />)}
 
         </div>
             <Fade in={openError} unmountOnExit>

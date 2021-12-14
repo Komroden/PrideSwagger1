@@ -7,6 +7,7 @@ export const LkHomeHeaderLinks = ({url,color,path,count}) => {
         e.preventDefault()
         push(path)
     }
+
     return (
         <div className="links_header_item">
             <a href={'/'} onClick={handlePush}>

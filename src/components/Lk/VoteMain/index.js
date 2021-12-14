@@ -28,7 +28,7 @@ export const VoteMain = () => {
                     {/*    </form>*/}
                     {/*</div>*/}
                 </div>
-                {votes.value.items.map(item=><VoteItem key={item.id} id={item.id} title={item.question} votesBars={item.answers} all={item.totalVotesCount}/>)}
+                {votes.value.items.map(item=><VoteItem key={item.id} id={item.id} title={item.question} votesBars={item.answers} all={item.totalVotesCount} isVotesUser={item.votedByUser}/>)}
             </div>
 
         </>

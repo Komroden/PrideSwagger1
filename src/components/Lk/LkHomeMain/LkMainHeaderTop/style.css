@@ -28,7 +28,7 @@
   background: #4b4f57;
   color: #fff8e5;
   position: absolute;
-  top: -120px;
+  top: -150px;
   width: 130px;
   padding: 10px;
   border-radius: 5px;
@@ -60,6 +60,11 @@
 }
 .add_top_button:hover {
   background: #dd2f6e;
+}
+
+.top_wrapper_message {
+  top: -70px !important;
+  width: initial !important;
 }
 
 /*# sourceMappingURL=style.css.map */

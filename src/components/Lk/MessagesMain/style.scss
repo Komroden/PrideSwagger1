@@ -11,7 +11,7 @@
   color: #fff !important;
   font-weight: 600;
   height: 45px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   min-width: 150px;
   -webkit-box-shadow: 0px 0px 9px -2px rgba(34, 60, 80, 0.2);
   -moz-box-shadow: 0px 0px 9px -2px rgba(34, 60, 80, 0.2);
@@ -116,6 +116,13 @@
 }
 
 .mes_send {
+  display: flex;
+  align-items: flex-end;
+  @media screen and (max-width: 460px) {
+    width: 100%;
+    justify-content: center;
+
+  }
   button {
     margin-top: -9px;
     outline: none;
@@ -288,5 +295,16 @@
 .message_image_send{
   width: 15px;
   height: 15px;
+}
+.mes_send_button{
+  background: linear-gradient(180deg, rgba(35,227,183,1) 21%, rgba(33,245,72,1) 100%, rgba(0,212,255,1) 100%)!important;
+  min-width: 110px!important;
+  transition: all 0.3ms ease-in-out;
+  margin-bottom: 0!important;
+  &:hover{
+    background: linear-gradient(180deg, rgba(124,0,130,1) 21%, rgba(245,33,176,1) 100%, rgba(0,212,255,1) 100%)!important;
+    transition: all 0.3ms ease-in-out;
+  }
+
 }
 

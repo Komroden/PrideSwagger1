@@ -15,7 +15,7 @@ export const Refill = () => {
                 <div className='main_content_row'>
                     <div className="main_content_central">
                         <LkBalanceItemsMini/>
-                        <RefillMain/>
+                        <RefillMain action={'Пополнение счета'} actionTitle={'Пополнить'}/>
                     </div>
                     <LkHomeRightSlidebar/>
                 </div>

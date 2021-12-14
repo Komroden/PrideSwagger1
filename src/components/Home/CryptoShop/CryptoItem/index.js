@@ -21,9 +21,6 @@ export const CryptoItem = ({name,market,price,volume24,supply,change,image}) => 
             <td className="volume_t">${volume24WithSpaces}</td>
             <td className="supply_t">{supplyWithSpaces}</td>
             <td className={change<0?"change_t red_t":'change_t green_t'}>{change>0?'+'+change:change}%</td>
-            <td className="actions_t">
-                <a href="/" className="link_info">Coin Info</a>
-            </td>
         </tr>
     );
 };

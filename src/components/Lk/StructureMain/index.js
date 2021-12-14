@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { OrgChartComponent } from './OrgChart';
 import * as d3 from 'd3';
+import Fade from "@mui/material/Fade";
+import FullscreenIcon from '@mui/icons-material/Fullscreen';
+import IconButton from "@mui/material/IconButton";
 
 
 
@@ -8,6 +11,12 @@ import * as d3 from 'd3';
 
 
 export const StructureMain = props => {
+    const [open,setOpen]=useState(false)
+    window.onkeydown=(e)=>{
+        if(e.keyCode===27){
+            setOpen(false)
+        }
+    }
 
 
 
@@ -25,6 +34,19 @@ export const StructureMain = props => {
         });
     }, []);
     return (
+        <>
+            <Fade  in={open}>
+                <div style={{background:'white'}} className='modal__wrapper'>
+                    <OrgChartComponent
+                        setClick={click => ( click)}
+                        onNedeClick={handlePush}
+                        data={data}
+                    />
+                </div>
+            </Fade>
+            <IconButton onClick={()=>setOpen(true)}>
+            <FullscreenIcon/>
+            </IconButton>
 
 
         <OrgChartComponent
@@ -32,6 +54,7 @@ export const StructureMain = props => {
             onNedeClick={handlePush}
             data={data}
         />
+        </>
 
     );
 };
