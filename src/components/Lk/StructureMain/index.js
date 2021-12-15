@@ -4,6 +4,7 @@ import * as d3 from 'd3';
 import Fade from "@mui/material/Fade";
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import IconButton from "@mui/material/IconButton";
+import {useSelector} from "react-redux";
 
 
 
@@ -11,12 +12,15 @@ import IconButton from "@mui/material/IconButton";
 
 
 export const StructureMain = props => {
+    const { referals } = useSelector((state) => state);
     const [open,setOpen]=useState(false)
     window.onkeydown=(e)=>{
         if(e.keyCode===27){
             setOpen(false)
         }
     }
+
+
 
 
 
@@ -40,7 +44,7 @@ export const StructureMain = props => {
                     <OrgChartComponent
                         setClick={click => ( click)}
                         onNedeClick={handlePush}
-                        data={data}
+                        data={referals.value}
                     />
                 </div>
             </Fade>
@@ -52,7 +56,7 @@ export const StructureMain = props => {
         <OrgChartComponent
             setClick={click => ( click)}
             onNedeClick={handlePush}
-            data={data}
+            data={referals.value}
         />
         </>
 

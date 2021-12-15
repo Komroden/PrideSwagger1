@@ -45,11 +45,12 @@ import {setContestsList} from "./store/contest/actions";
 import {AllUserData, UserAvatar} from "./store/allInfoUser";
 import {Votes} from "./store/votes/actions";
 import {useToken} from "./hooks/useToken";
+import {setReferalsList} from "./store/referals/actions";
 
 
 
-
-
+const saveJSON = (key,data)=>
+    sessionStorage.setItem(key,JSON.stringify(data));
 const loadJSON=key=>
     JSON.parse(sessionStorage.getItem(key));
 
@@ -58,13 +59,17 @@ export function App() {
     const { auth } = useSelector((state) => state);
     const dispatch = useDispatch();
 
+    const [isUpdateToken,setIsUpdateToken]=useState(false)
+
+
     const setTokens = useCallback(() => {
         dispatch(UserRegistration(loadJSON('keySwagger')))
     }, [dispatch]);//auth.token
     const header = useToken(auth.token)
     useEffect(()=>{
+        if(auth.token&&header<100&&!isUpdateToken){
 
-        if (header<100){
+
             const payload={
                 token:{
                     access_token:auth.token,
@@ -79,7 +84,9 @@ export function App() {
             })
                 .then((res) => res.json())
                 .then((body)=>{
-                    console.log(body)
+                    setIsUpdateToken(true)
+                    saveJSON('keySwagger', {token:body.access_token,
+                    refresh_token:body.refresh_token })
                 })
 
                 .catch((e) => {
@@ -87,7 +94,9 @@ export function App() {
                 });
         }
 
-        console.log(header)
+
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[auth,header])
 
     useEffect(()=>{
@@ -328,6 +337,31 @@ export function App() {
             })
                 .then(res => res.json())
                 .then(body => setVoteList(body))
+        }
+    },[auth.token])
+
+    const [referals,setReferals]=useState([])
+
+    const setReferal = useCallback(() => {
+        dispatch(setReferalsList(referals))
+    }, [dispatch,referals]);
+    useEffect(()=>{
+        setReferal()
+    },[setReferal,referals])
+
+    useEffect(()=>{
+        if(auth.token){
+            fetch('http://lk.pride.kb-techno.ru/api/Partners/structure',{
+                method:'GET',
+                headers:{
+                    'Accept': 'application/json',
+                    'Authorization':`Bearer ${auth.token}`}
+            })
+                .then((res) => res.json())
+                .then(data=>setReferals(data))
+                .catch((e) => {
+                    console.log(e.message);
+                });
         }
     },[auth.token])
 

@@ -67,7 +67,7 @@ export const LkUserMain = () => {
                                 {value.isCurrentUser&&<p className='your__profile'>Ваш профиль</p>}
                                 {!value.isCurrentUser&&<button onClick={()=>setStatus(!status)} className="form_sbmOpen userBlock_sendMessage">Отправить сообщение</button>}
                                 {!value.isCurrentUser&&<SendMessage id={id} status={status}/>}
-                                {!value.isCurrentUser&& <button onClick={handleBlockById} className="form_sbmOpen form_sbmOpen_clear">Заблокировать</button>}
+                                {!value.isCurrentUser&& <button style={{marginTop:status?'20px':''}} onClick={handleBlockById} className="form_sbmOpen form_sbmOpen_clear">Заблокировать</button>}
                             </div>
                         </div>
                         <div className="userblockplus__detail">

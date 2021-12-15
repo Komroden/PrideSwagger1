@@ -12,13 +12,14 @@ import Alert from "@mui/material/Alert";
 export const LkMainHeaderTop = () => {
     const { auth,allInfoUser } = useSelector((state) => state);
     const[open,setOpen]=useState(false);
-    const[error,setError]=useState('')
+    const[error,setError]=useState('');
     const[items,setItems]=useState({
         topListUsers:[
             {id: 0}
         ]
     })
-    const[openError,setOpenError]=useState(false)
+    const[openError,setOpenError]=useState(false);
+    const [message,setMessage]=useState('')
 
     const handleClick = (e) => {
         console.log(1)
@@ -34,12 +35,12 @@ export const LkMainHeaderTop = () => {
     const handleVerify=()=>{
         if(items.topListUsers[0].id===allInfoUser.value.id) return
         setError('')
-        fetch('http://lk.pride.kb-techno.ru/api/Main/pay-for-top',{
+        fetch(`http://lk.pride.kb-techno.ru/api/Main/pay-for-top?message=${message}`,{
             method:'POST',
             headers:{
                 'Accept': 'application/json',
                 'Authorization':`Bearer ${auth.token}`},
-            body:''
+
         })
             .then(res=> {
                 if (res.status === 422) {
@@ -97,7 +98,7 @@ export const LkMainHeaderTop = () => {
                 <Fade direction="right" in={open} timeout={1000} unmountOnExit>
                     <div className='add_top_wrapper'>
                 <span  className='add_top'  >{'Войти в топ? цена: '+items.price+' руб.'}</span><br/>
-                        <input style={{width:'100%',marginTop:'10px'}} placeholder={'Сообщение'} type='text'/>
+                        <input value={message} onChange={e=>setMessage(e.target.value)} style={{width:'100%',marginTop:'10px'}} placeholder={'Сообщение'} type='text'/>
                     <button onClick={handleVerify} className='add_top_button'>Да</button>
                     </div>
                 </Fade>

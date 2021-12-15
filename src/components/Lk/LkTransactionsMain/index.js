@@ -11,6 +11,7 @@ export const LkTransactionsMain = () => {
     const { auth,allInfoUser } = useSelector((state) => state);
     const [value,setValue]=useState([])
     useEffect(()=>{
+        if(auth.token){
         fetch('http://lk.pride.kb-techno.ru/api/Partners/referal-list',{
             method:'GET',
             headers:{
@@ -24,6 +25,7 @@ export const LkTransactionsMain = () => {
             .catch((e) => {
                 console.log(e.message);
             });
+        }
     },[auth.token])
 
 

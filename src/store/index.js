@@ -13,6 +13,7 @@ import {votesReducer} from "./votes/reducer";
 import {newsReducer} from "./news/reducer";
 import {contestsReducer} from "./contest/reducer";
 import {AlluserDataReducer} from "./allInfoUser/reducer";
+import {referalsReducer} from "./referals/reducer";
 
 
 
@@ -31,7 +32,8 @@ const rootReducer = combineReducers({
     votes:votesReducer,
     news:newsReducer,
     contests:contestsReducer,
-    allInfoUser:AlluserDataReducer
+    allInfoUser:AlluserDataReducer,
+    referals:referalsReducer
 
 
 
