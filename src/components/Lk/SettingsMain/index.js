@@ -11,16 +11,13 @@ export const SettingsMain = () => {
 
     const [open,setOpen]=useState(false);
 
-    const handleOpen=()=>{
-        setOpen(!open)
-    }
 
     return (
         <>
             <MainTitle title={'Настройки'}/>
-            <UserBlock/>
+            <UserBlock isChangeImage={true} setOpen={setOpen} open={open}/>
             <div className="setting_form">
-                <button className="form_sbmOpen" onClick={handleOpen}>Изменить аватар</button>
+
                 <Avatar open={open} maxHeight={150} maxWidth={150}/>
                <FormSettings/>
             </div>

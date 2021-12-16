@@ -41,6 +41,7 @@ export const LkHomeRightSlidebar = () => {
                     console.log(e.message);
                 });
         }
+        return ()=>{setUsers([])}
     },[auth.token])
 
     // referal-stat
@@ -61,6 +62,7 @@ export const LkHomeRightSlidebar = () => {
                     console.log(e.message);
                 });
         }
+        return ()=>{setStatistic({})}
     },[auth.token])
 
 

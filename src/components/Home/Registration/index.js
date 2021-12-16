@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './style.scss';
 import Slider from "react-slick";
 import {useHistory} from "react-router";
@@ -30,6 +30,37 @@ export const Registration = () => {
             slidesToScroll: 1
 
         };
+
+    const [show,setShow]=useState([])
+
+    useEffect(()=>{
+
+        fetch('http://lk.pride.kb-techno.ru/api/Contest/latest-contest',{
+            method:'GET',
+            headers:{'Content-Type': 'application/json',
+                'Accept': 'application/json'}
+        })
+            .then((res) => {
+                if (res.status ===204) {
+                    return 0
+                }
+                if (res.status >= 200 && res.status < 300) {
+                    return res.json();
+                }
+                else {
+                    let error = new Error(res.statusText);
+                    error.response = res;
+                    throw error
+                }
+            })
+            .then((body)=>{
+
+                setShow(body)
+            })
+            .catch((e) => {
+                console.log(e.message);
+            });
+    },[])
 
     return (
         <div className="bg_big">
@@ -156,11 +187,12 @@ export const Registration = () => {
                     </div>
                 </div>
             </div>
-            <div className="show">
+            {show.date&&<div className="show">
                 <div className="containerP">
-                   <Event/>
+                    <Event caption={show.caption} text={show.text} date={show.finishDate} count={show.participantsCount}
+                           prize={show.prize}/>
                 </div>
-            </div>
+            </div>}
         </div>
     );
 };

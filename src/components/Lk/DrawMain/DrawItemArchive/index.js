@@ -1,13 +1,15 @@
 import React from 'react';
+import {useImage} from "../../../../hooks/useImage";
 
 export const DrawItemArchive = ({imgUrl,title,priceAdd,startDate,members,name}) => {
+    const {pic}=useImage(imgUrl,'/images/prize.png')
     let d =new Date(startDate)
     return (
         <div className="rozgr_item rozgr_item_archive">
             <div className="rozgr_item_left">
                 <div className="rozgr_item_left_row">
                     <div className="rozgr_item_left_img">
-                        <img src={imgUrl} alt=""/>
+                        <img src={pic} alt=""/>
                     </div>
                     <div className="rozgr_item_left_descr">
                         <div className="rozgr_item_left_title">{title}</div>

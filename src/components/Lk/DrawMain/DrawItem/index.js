@@ -54,8 +54,8 @@ export const DrawItem = ({imgPrice,priceAdd,title,desc,date,members,startDate}) 
                         <img src="/images/timer.png" alt=""/>
                     </div>
                     <div className="rozgr_item_hours">
-                        <div className="rozgr_item_big_hours"><span id="hour">{hours}</span>:<span id="minutes">{minute}</span>:<span
-                            id="seconds">{seconds}</span></div>
+                        <div className="rozgr_item_big_hours"><span id="hour">{Math.abs(hours)}</span>:<span id="minutes">{Math.abs(minute)}</span>:<span
+                            id="seconds">{Math.abs(seconds)}</span></div>
 
                         <div className="rozgr_item_hours_descr">Окончание конкурса</div>
                     </div>

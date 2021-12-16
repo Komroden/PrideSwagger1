@@ -152,7 +152,7 @@ export const MessagesMain = () => {
 
                                     </div>
                                     <div className="mes_send">
-                                        <a href="/" onClick={handleSend} className="technical_help mes_send_button">Отправить</a>
+                                        <a style={{color:'black'}} href="/" onClick={handleSend} className="technical_help mes_send_button">Отправить</a>
                                         {/*<button  onClick={handleSend}>*/}
                                         {/*    <img className='message_image_send' src="/images/send_mes.png" alt=""/>*/}
                                         {/*</button>*/}
@@ -182,7 +182,7 @@ export const MessagesMain = () => {
                                 <BlockUserId id={name}/>
                             </div>
                         </div>
-                        <a href="/" className="technical_help">Тех поддержка</a>
+                        <a style={{color:'#fff'}} href="/" className="technical_help">Тех поддержка</a>
                     </div>
                 </div>
             </div>

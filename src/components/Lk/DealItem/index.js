@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 
 import {useTimerDeal} from "../../../hooks/useTimerDeal";
 import {ModalConfirm} from "./modalConfirm";
+import {useText} from "../../../hooks/useText";
 
 
 
@@ -11,6 +12,10 @@ export const DealItem = ({numberDeal,minValue,percent}) => {
     const [open,setOpen]=useState(false)
     const [success,setSuccess]=useState(false)
     const {day,hours,minute,seconds,price}=useTimerDeal(minValue, 3, speed)
+    const minText=useText(minute,"Минута","Минуты","Минут");
+    const secText=useText(seconds,"Секунда","Секунды","Секунд");
+    const hourText=useText(hours,"Час","Часа","Часов");
+    const dayText=useText(day,"День","Дня","Дней");
     const handleCancel=(e)=>{
         e.preventDefault()
         setOpen(true)
@@ -43,10 +48,10 @@ export const DealItem = ({numberDeal,minValue,percent}) => {
                         <span id="seconds">{seconds} </span>
                     </div>
                     <div className="deal_top_row_timer_bottom">
-                        <span>Дни</span>
-                        <span>Часы</span>
-                        <span>Минуты</span>
-                        <span>Секунды</span>
+                        <span>{dayText}</span>
+                        <span>{hourText}</span>
+                        <span>{minText}</span>
+                        <span>{secText}</span>
                     </div>
                 </div>
             </div>

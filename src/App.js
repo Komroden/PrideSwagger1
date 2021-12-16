@@ -59,7 +59,7 @@ export function App() {
     const { auth } = useSelector((state) => state);
     const dispatch = useDispatch();
 
-    const [isUpdateToken,setIsUpdateToken]=useState(false)
+    const [isUpdateToken,setIsUpdateToken]=useState(0)
 
 
     const setTokens = useCallback(() => {
@@ -67,7 +67,7 @@ export function App() {
     }, [dispatch]);//auth.token
     const header = useToken(auth.token)
     useEffect(()=>{
-        if(auth.token&&header<100&&!isUpdateToken){
+        if(auth.token&&header<100){
 
 
             const payload={
@@ -84,7 +84,7 @@ export function App() {
             })
                 .then((res) => res.json())
                 .then((body)=>{
-                    setIsUpdateToken(true)
+                    setIsUpdateToken(isUpdateToken+1)
                     saveJSON('keySwagger', {token:body.access_token,
                     refresh_token:body.refresh_token })
                 })
@@ -94,8 +94,6 @@ export function App() {
                 });
         }
 
-
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[auth,header])
 
@@ -103,7 +101,7 @@ export function App() {
         if(loadJSON('keySwagger')){
             setTokens()
         }
-    },[setTokens,auth.token])
+    },[setTokens,auth.token,isUpdateToken])
 
     const[news,setNews]=useState([])
     const[value,setValue]=useState({

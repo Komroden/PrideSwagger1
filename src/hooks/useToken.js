@@ -10,9 +10,6 @@ export const useToken = (token) => {
     let payload=JSON.parse(jsonPayload);
     const date=  Date.now()
 
-
-
-
     return (Math.ceil(payload.exp-date/1000))
 
 };

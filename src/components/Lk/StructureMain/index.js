@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { OrgChartComponent } from './OrgChart';
-import * as d3 from 'd3';
 import Fade from "@mui/material/Fade";
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import IconButton from "@mui/material/IconButton";
@@ -25,18 +24,12 @@ export const StructureMain = props => {
 
 
 
-    const [data, setData] = useState([]);
+
     const handlePush=()=>{
 
     }
 
-    useEffect(() => {
-        d3.csv(
-            'https://raw.githubusercontent.com/bumbeishvili/sample-data/main/org.csv'
-        ).then(data => {
-            setData(data);
-        });
-    }, []);
+
     return (
         <>
             <Fade  in={open}>

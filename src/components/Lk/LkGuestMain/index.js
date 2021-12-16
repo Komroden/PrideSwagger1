@@ -30,6 +30,7 @@ export const LkGuestMain = () => {
                 .then(body => setValue(body))
                 .catch(error => console.log(error))
         }
+        return ()=>{setValue([])}
     },[auth.token])
 
 

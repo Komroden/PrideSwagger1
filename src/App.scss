@@ -263,6 +263,9 @@ h1, .first_title{
   .main_content{
     max-width: none!important;
   }
+  .main_content_central{
+    margin: 0 auto!important;
+  }
 }
 @media screen and (max-width: 1900px) {
   .firstbl .text_bg {

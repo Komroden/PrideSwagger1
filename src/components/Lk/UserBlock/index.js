@@ -5,7 +5,7 @@ import {UseYears} from "../../../hooks/useYears";
 import {CircularProgressWithLabel} from "./CircularProgressWithLabel";
 
 
-export const UserBlock = () => {
+export const UserBlock = ({isChangeImage,setOpen,open}) => {
     const { userData,allInfoUser } = useSelector((state) => state);
     const {push}=useHistory()
     const handlePushUser=(e) => {
@@ -58,8 +58,9 @@ export const UserBlock = () => {
 
     return (
         <div className="user_main_block">
-            <div className="user_main_block_logo">
-                <img src={allInfoUser.avatar?allInfoUser.avatar:'/images/logo_dark.png'} alt=""/>
+            <div className={isChangeImage?'change_avatar_wrapper':"user_main_block_logo"}>
+                <img className={isChangeImage?'change_avatar_img':''} src={allInfoUser.avatar?allInfoUser.avatar:'/images/logo_dark.png'} alt=""/>
+                {isChangeImage&&<button onClick={()=>setOpen(!open)} className="form_sbmOpen change_avatar_button ">Изменить аватар</button>}
             </div>
             <div className="user_main_block_info">
                 <div className="user_main_block_info_top">
@@ -72,7 +73,7 @@ export const UserBlock = () => {
                 <div className="user_main_block_name">{userData.value.userInfo?userData.value.userInfo.fullName:'User'}</div>
                 <a href={allInfoUser.value.email?allInfoUser.value.email:'#'} className="user_main_block_info_mail">
                     <img src="/images/email.png" alt=""/>
-                    <span>{allInfoUser.value.email?allInfoUser.value.email:'none'}</span>
+                    <span style={{color:'#fff'}}>{allInfoUser.value.email?allInfoUser.value.email:'none'}</span>
                 </a>
             </div>
             <div className="user_main_block_vip">

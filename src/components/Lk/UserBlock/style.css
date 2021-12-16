@@ -2,4 +2,36 @@
   color: green;
 }
 
+.change_avatar_img {
+  width: 100px !important;
+  height: 100px !important;
+  border-radius: 50% !important;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.change_avatar_button {
+  min-width: 120px !important;
+  font-size: 11px;
+  margin-bottom: 0 !important;
+}
+@media (max-width: 460px) {
+  .change_avatar_button {
+    margin-bottom: 8px !important;
+  }
+}
+
+.change_avatar_wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 35px;
+}
+@media (max-width: 460px) {
+  .change_avatar_wrapper {
+    margin-right: 0;
+  }
+}
+
 /*# sourceMappingURL=style.css.map */

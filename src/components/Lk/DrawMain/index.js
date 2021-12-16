@@ -33,14 +33,14 @@ export const DrawMain = () => {
                         </form>
                     </div>
                 </div>
-                {(filter==='all'||filter==='active')&&contests.value.filter(item=>!item.isParticipant).map((item,index)=>
+                {(filter==='all'||filter==='active')&&contests.value.filter(item=>!item.winnerName).map((item,index)=>
                     <DrawItem key={item.id} imgPrice={item.image} priceAdd={item.participationCost} title={item.caption} desc={item.desc} date={item.finishDate}
                     members={item.participantsCount} startDate={item.startDate}/>
                     )}
 
                 <div className="rozgr_archive">
-                    {(filter==='all'||filter==='past')&&contests.value.filter(item=>item.isParticipant).map((item,index)=>
-                        <DrawItemArchive key={item.id} imgUrl={item.prize} priceAdd={item.participationCost} title={item.caption} desc={item.desc} date={item.finishDate}
+                    {(filter==='all'||filter==='past')&&contests.value.filter(item=>item.winnerName).map((item,index)=>
+                        <DrawItemArchive key={item.id} imgUrl={item.image} priceAdd={item.participationCost} title={item.caption} desc={item.desc} date={item.finishDate}
                                   members={item.participantsCount} startDate={item.startDate} name={item.winnerName}/>
                     )}
                 </div>
