@@ -81,12 +81,12 @@ export const LkHomeRightSlidebar = () => {
                         <div className="right_news_title_subt">Lorem ipsum dolor</div>
                     </div>
                 </div>
-                {contests.value.map((item)=>
+                {contests.active.map((item)=>
                   <LkHomeRightSlidebarNewsItem key={item.id} img={item.image} value={item.participationCost} title={item.caption}  />)}
-                <a href={'/'} onClick={handlePush} className="right_news_row_viewmore">
+                {contests.active.length>2&&<a href={'/'} onClick={handlePush} className="right_news_row_viewmore">
                     <span>View more</span>
                     <img src="/images/chevr_pink.png" alt=""/>
-                </a>
+                </a>}
             </div>
             <div className="my_statistic">
                 <div className="main_content_right_sidebar_title_bl">

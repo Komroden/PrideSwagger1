@@ -41,7 +41,7 @@ import {ChatList} from "./pages/Lk/ChatList";
 import {Structure} from "./pages/Lk/Structure";
 import {CryptoData} from "./store/crypto/actions";
 import {UserRegistration} from "./store/auth/actions";
-import {setContestsList} from "./store/contest/actions";
+import { setContestsListActive, setContestsListPast} from "./store/contest/actions";
 import {AllUserData, UserAvatar} from "./store/allInfoUser";
 import {Votes} from "./store/votes/actions";
 import {useToken} from "./hooks/useToken";
@@ -239,14 +239,18 @@ export function App() {
 
 
     // from Home AllInfo
-    const [contest,setContest]= useState([])
+    const [contestActive,setContestActive]= useState([])
+    const [contestPast,setContestPast]= useState([])
     const [allInfo,setAllInfo]= useState({
         balance:0
     })
     const [pic,setPic]=useState('')
-    const setContests = useCallback(() => {
-        dispatch(setContestsList(contest))
-    }, [dispatch,contest]);
+    const setContestsActive = useCallback(() => {
+        dispatch(setContestsListActive(contestActive))
+    }, [dispatch,contestActive]);
+    const setContestsPast = useCallback(() => {
+        dispatch(setContestsListPast(contestPast))
+    }, [dispatch,contestPast]);
     const setInfo = useCallback(() => {
         dispatch(AllUserData(allInfo))
     }, [dispatch,allInfo]);
@@ -256,7 +260,7 @@ export function App() {
 
     useEffect(()=>{
         if(auth.token){
-        fetch('http://lk.pride.kb-techno.ru/api/Contest/contest-list',{
+        fetch('http://lk.pride.kb-techno.ru/api/Contest/contest-list?onlyActive=false',{
             method:'GET',
             headers:{
                 'Accept': 'application/json',
@@ -264,7 +268,7 @@ export function App() {
         })
             .then((res) => res.json())
             .then((body)=>{
-                setContest(body)
+                setContestPast(body)
             })
             .catch((e) => {
                 console.log(e.message);
@@ -272,8 +276,28 @@ export function App() {
         }
     },[auth.token])
     useEffect(()=>{
-        setContests()
-    },[setContests,contest])
+        if(auth.token){
+            fetch('http://lk.pride.kb-techno.ru/api/Contest/contest-list?onlyActive=true',{
+                method:'GET',
+                headers:{
+                    'Accept': 'application/json',
+                    'Authorization':`Bearer ${auth.token}`}
+            })
+                .then((res) => res.json())
+                .then((body)=>{
+                    setContestActive(body)
+                })
+                .catch((e) => {
+                    console.log(e.message);
+                });
+        }
+    },[auth.token])
+    useEffect(()=>{
+        setContestsPast()
+    },[setContestsPast,contestPast])
+    useEffect(()=>{
+        setContestsActive()
+    },[setContestsActive,contestActive])
     useEffect(()=>{
         setInfo()
     },[setInfo,allInfo])

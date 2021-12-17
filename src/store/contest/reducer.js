@@ -1,6 +1,7 @@
-import {CONTESTS} from './actions'
+import {CONTESTS_ACTIVE,CONTESTS_PAST} from './actions'
 const initialState = {
-    value:[]
+    active:[],
+    past:[]
 
 
 
@@ -8,10 +9,16 @@ const initialState = {
 
 export const contestsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case CONTESTS: {
+        case CONTESTS_ACTIVE: {
             return {
                 ...state,
-                value:action.payload
+                active:action.payload
+            }
+        }
+        case CONTESTS_PAST: {
+            return {
+                ...state,
+                past:action.payload
             }
         }
 

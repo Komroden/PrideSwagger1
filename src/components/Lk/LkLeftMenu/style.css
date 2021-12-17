@@ -264,4 +264,10 @@
   color: #fff;
 }
 
+.addCash__button:hover {
+  transition: all 0.3s ease-in-out;
+  background: #fff759 !important;
+  color: #0d0d0d !important;
+}
+
 /*# sourceMappingURL=style.css.map */

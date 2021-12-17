@@ -1,6 +1,11 @@
 import React from 'react';
+import {usePopolnit} from "../../../../hooks/usePopolnit";
 
  export const RefillItem = ({logo,title,action}) => {
+     const addCash=usePopolnit();
+
+
+
     return (
         <div className="popoln_item">
             <div className="popoln_item_logo">
@@ -12,9 +17,9 @@ import React from 'react';
                 <div className="popoln_item_text_bottom">Платежная система</div>
             </div>
             <div className="popoln_item_form">
-                <form action="">
+                <form>
                     <input type="number" placeholder="$ 0.00" className="popoln_item_input"/>
-                    <button className="popoln_item_btn">
+                    <button onClick={(e)=>addCash.handlePopol(e)} className="popoln_item_btn">
                         <img src="/images/coins.png" alt=""/>
                         <span>{action}</span>
                     </button>

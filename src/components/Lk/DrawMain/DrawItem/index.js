@@ -3,15 +3,50 @@ import {useTimer} from "../../../../hooks/useTimer";
 
 import Fade from "@mui/material/Fade";
 import {useImage} from "../../../../hooks/useImage";
+import {useSelector} from "react-redux";
+import Alert from "@mui/material/Alert";
 
 
 
 
-export const DrawItem = ({imgPrice,priceAdd,title,desc,date,members,startDate}) => {
+export const DrawItem = ({imgPrice,priceAdd,title,desc,date,members,startDate,id}) => {
+    const { auth } = useSelector((state) => state);
     const {pic}=useImage(imgPrice,'/images/prize.png')
     let d =new Date(startDate)
     const [pay,setPay]=useState(false)
     const {hours,seconds,minute}= useTimer(date);
+
+    const[open,setOpen]=useState(false);
+    const[error,setError]=useState('');
+    const handleAdd =()=>{
+        setError('')
+        fetch(`http://lk.pride.kb-techno.ru/api/Contest/participate/${id}`,{
+            method:'POST',
+            headers:{
+                'Accept': 'application/json',
+                'Authorization':`Bearer ${auth.token}`},
+
+        })
+            .then(res=> {
+                if (res.status === 422) {
+                    let error = new Error('Недостаточно средств');
+                    error.response = res;
+                    throw error
+                }
+                res.json()
+                setError('')
+            })
+            .then(body=> {
+                setError('Вы учавствуете в конкурсе!')
+            })
+            .catch(error=> {
+                console.log(error)
+                setError('Недостаточно средств')
+                setOpen(true)
+            })
+        setOpen(false)
+    }
+
 
     return (
         <>
@@ -25,7 +60,7 @@ export const DrawItem = ({imgPrice,priceAdd,title,desc,date,members,startDate}) 
                         <div className='text__wrapper'>
                         <div className="balance_sidebar_title texp_price_modal">Стоймость входа</div>
                             <div className="balance_sidebar_total texp_priceValue_modal">{priceAdd+' руб.'}</div>
-                            <button className="form_sbmOpen texp_button_modal" >Подтвердить</button>
+                            <button onClick={handleAdd} className="form_sbmOpen texp_button_modal" >Подтвердить</button>
                         </div>
                     </div>
                 </div>
@@ -78,6 +113,12 @@ export const DrawItem = ({imgPrice,priceAdd,title,desc,date,members,startDate}) 
                     {/*    <div className="balance_sidebar_total">{priceAdd+' руб.'}</div>*/}
                     {/*    <button className="form_sbmOpen" >Подтвердить</button>*/}
                     {/*</div>}</Zoom>*/}
+
+            <Fade in={open} unmountOnExit>
+                <div style={{width:'100%'}}>
+                    <Alert severity={error==='Вы учавствуете в конкурсе!'?'success':'error'} sx={{marginTop:'10px'}}>{error}</Alert>
+                </div>
+            </Fade>
 
         </div>
         </>

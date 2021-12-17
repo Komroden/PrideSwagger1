@@ -40,10 +40,10 @@ export const DealItemCancel = ({numberDeal,value,isTimeout}) => {
             <div style={{marginBottom:'0'}} className="deal_top">Сделка #{numberDeal}</div>
             <ModalConfirm open={open} setOpen={setOpen} setSuccess={setSuccess} isDate={true}/>
             <div className="deal_top_row">
-                <div className="deal_top_row_left">
+                {!isTimeout&&<div className="deal_top_row_left">
                     <div className="deal_top_row_left_top">{dayText}</div>
                     <div className="deal_top_row_left_numb">{day}</div>
-                </div>
+                </div>}
 
                 <div className="cancel_timer deal_top_row_timer">
                     {isTimeout&& <div  className=" deal_top_row_timer_top deal_item_cloze ">Депозит возвращен</div>}
