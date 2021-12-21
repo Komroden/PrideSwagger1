@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import {CodeInput} from "../CodeInput";
 import {useInputV} from "../../../../../hooks/useInputV";
 import {useSelector} from "react-redux";
@@ -9,7 +9,7 @@ import {Wallets} from "./Wallets";
 
 
 export const TabCryptoWalets = () => {
-    const {auth} = useSelector((state) => state);
+    const {auth,allInfoUser} = useSelector((state) => state);
     const money = useInputV('')
     const [country,setCountry]=useState('')
     const [visible, setVisible] = useState(false);
@@ -17,9 +17,7 @@ export const TabCryptoWalets = () => {
     const [text,setText]=useState('');
     const [counter,setCounter]=useState(0)
     const [openModal,setOpenModal]=useState(false)
-    const [wallets,setWallets]=useState({
-        cryptoWallets:[]
-    })
+
     const openCaptcha = () => {
         setVisible(!visible);
     };
@@ -82,24 +80,12 @@ export const TabCryptoWalets = () => {
         money.onReset()
     }
 
-    useEffect(()=>{
-        if(auth.token) {
-            fetch('http://lk.pride.kb-techno.ru/api/Profile/requisites', {
-                method: 'GET',
-                headers: {
-                    'accept': 'application/json',
-                    'Authorization': `Bearer ${auth.token}`
-                }
-            })
-                .then(res => res.json())
-                .then(body => setWallets(body))
-        }
-    },[auth.token])
+
 
     return (
         <form onSubmit={handlePut} onReset={handleReset}>
             <div className="setting_form_row ">
-                {wallets.cryptoWallets.map(item=><Wallets name={item.objectName} value={item.cryptoWallet} key={item.id} id={item.id} />)}
+                {allInfoUser.wallets.map(item=><Wallets name={item.objectName} value={item.cryptoWallet} key={item.id} id={item.id} />)}
 
 
                 <div className="setting_form_item setting_form_item_for_two">

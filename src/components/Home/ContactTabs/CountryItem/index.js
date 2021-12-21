@@ -15,7 +15,7 @@ export const CountryItem = ({country,city,address,tel,email,mapsUrl,active,name}
 
 
     return (
-        <Grow in={isActive}  >
+        <Grow in={isActive} timeout={3000} unmountOnExit  >
         <div className={"tabs-panel "+active}  data-index="0">
             <iframe height="710"
                     src={`https://maps.google.com/maps?q=${mapsUrl}&z=15&output=embed`} title={city}/>

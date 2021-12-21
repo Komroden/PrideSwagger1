@@ -72,7 +72,7 @@ export const ProgramCalculator = ({percent,minValue,toBeforeRange}) => {
                     <div className="form_entry_in_program_center">
                         <div className="form_entry_in_program_center_price">
                             <div className="form_entry_in_program_center_titl">Цена скорости</div>
-                            <div className="form_entry_in_program_center_purple">{(course*totalPrice*0.5/100).toFixed(3)} USD</div>
+                            <div className="form_entry_in_program_center_purple">{((speed-1)*course*totalPrice*0.5/100).toFixed(3)} USD</div>
                         </div>
                         <div className="form_entry_in_program_center_all_price">
                             <div className="form_entry_in_program_center_titl">Общая цена</div>

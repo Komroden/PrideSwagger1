@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-export const LkHistoryMainItem = ({img,date,id,from,status,course,title,valueDeb,valueCre}) => {
+export const LkHistoryMainItem = ({img,date,id,status,course,title,valueDeb,valueCre,valueType}) => {
     const d =new Date(date).toLocaleDateString()
     const time =new Date(date).toLocaleTimeString()
     const [value,setValue]=useState(0)
@@ -44,11 +44,11 @@ export const LkHistoryMainItem = ({img,date,id,from,status,course,title,valueDeb
                 </div>
             </div>
             <div className="history_item_text">
-                <div className={'history_item_green'}>{from}</div>
+                <div className={'history_item_green'}>{'С кошелька '+(valueType==='Default'?'Usdc':valueType)}</div>
                 <div className="history_item_span">{title}</div>
             </div>
-            <div className="history_item_coints">{(value/course).toFixed(2)} <br/>btc</div>
-            <div className="history_item_price">{value.toFixed(2)}</div>
+            <div className="history_item_coints">{value.toFixed(2)} <br/>{valueType==='Default'?'Usdc':valueType}</div>
+            <div className="history_item_price">{(value*course).toFixed(2)}</div>
             <div className="history_item_btn">
                 <a href="/" className={"history_item_b "+color}>{text}</a>
             </div>

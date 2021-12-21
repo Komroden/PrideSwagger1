@@ -23,7 +23,7 @@ export const LkHomeMainBalanceItem = ({url,bgr,title,text,value}) => {
             </div>
             <div className="balance_cost_item_bottom">
                 <div className="balance_cost_item_bottom_left">{'1 '+(text==='CurrenyPriceInfoT'?'USDT':text)+' - '+(1*course).toFixed(2)+' USD'}</div>
-                <div className="balance_cost_item_bottom_right">{Math.ceil(profit*course)+' $'}</div>
+                <div className="balance_cost_item_bottom_right">{Math.ceil(profit*course*value)+' $'}</div>
             </div>
         </div>
     );

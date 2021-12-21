@@ -16,7 +16,7 @@ export const LkHistoryMain = () => {
     const filtredArray=totalItems.items.filter(item=>item.processingStatus===filter||filter==='all')
     useEffect(()=>{
         if(auth.token) {
-            fetch('http://lk.pride.kb-techno.ru/api/Finance/list?AccountType=3', {
+            fetch('http://lk.pride.kb-techno.ru/api/Finance/list', {
                 method: 'GET',
                 headers: {
                     'accept': 'application/json',
@@ -87,12 +87,12 @@ export const LkHistoryMain = () => {
                                            date={item.paymentDate}
                                            key={item.id}
                                            title={item.objectName}
-                                           from={'С кошелька Bitcoin'}
                                            course={1}
                                            valueDeb={item.debetSum}
                                            valueCre={item.creditSum}
                                            status={item.processingStatus}
-                                           id={item.id}/>)}
+                                           id={item.id}
+                                           valueType={item.accountName}/>)}
 
                 </div>
 

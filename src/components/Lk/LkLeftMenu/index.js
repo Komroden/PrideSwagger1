@@ -28,6 +28,7 @@ export const LkLeftMenu = () => {
     }
     const handlePushStructure=(e) => {
         e.preventDefault()
+        openMenu()
         push('/structure')
     }
     const addCash=usePopolnit();
@@ -76,7 +77,7 @@ export const LkLeftMenu = () => {
                         <LkLeftMenuOpenThree title={'О проекте'} icon={'/images/icon_m2.png'}
                                              subtitle1={'Оферта'} subtitle2={'Правила'} subtitle3={'Мисиия'}
                         path1={'/offer'}/>
-                        <li onClick={handlePushStructure} className="us_menu_li us_menu_li_hiddenMobile">
+                        <li onClick={handlePushStructure} className="us_menu_li">
                             <div  >
                                 <img src="/images/icon_m1.png" alt=""/>
                                 <span className="text_li">Структура рефералов</span>

@@ -12,11 +12,6 @@ export const LkHomeMainLiderTopItem = ({url,number,isVisible,id}) => {
         push(`/user${id}`)
     }
     const [open,setOpen]=useState(false);
-    const handleOpen=(e)=>{
-        e.stopPropagation()
-        e.preventDefault()
-        setOpen(!open)
-    }
 
     return (
         <Slide direction="left" in={!isVisible}  unmountOnExit mountOnEnter>
@@ -26,12 +21,15 @@ export const LkHomeMainLiderTopItem = ({url,number,isVisible,id}) => {
                     <span  className='add_top' >{number}</span>
                 </div>
             </Fade>
-            <a href="/" onClick={handlePush} className="lider_top_item_link">
+            <a href="/" onClick={(e)=>{e.preventDefault()}}  onDoubleClick={handlePush} className="lider_top_item_link">
 									<span className="lider_top_item_img">
 										<img src={pic} alt=""/>
 									</span>
                 <span className="green_lin"/>
-                <span onClick={typeof number==='string'?handleOpen:()=>{}} className="number_lin">{typeof number==='string'?number.substring(0,3)+'...':'#'+number}</span>
+                <span onMouseEnter={typeof number==='string'?()=>setOpen(true):()=>{}}
+                      onMouseLeave={typeof number==='string'?()=>setOpen(false):()=>{}}
+
+                      className="number_lin">{typeof number==='string'?number.substring(0,3)+'...':'#'+number}</span>
             </a>
         </div>
         </Slide>

@@ -17,6 +17,7 @@
 }
 
 .lider_top_add{
+  z-index: 5;
   cursor: pointer;
   position: relative;
 }
@@ -26,11 +27,12 @@
   color:#fff8e5;
   position: absolute;
   top: -150px;
-  width: 130px;
+  width: 170px;
   padding: 10px;
   border-radius: 5px;
   text-align: center;
   font-size: 14px;
+  z-index: 2;
 
 }
 .linkNewTop{

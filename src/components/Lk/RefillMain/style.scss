@@ -3,7 +3,6 @@
   background-color: #e7e7e7;
   margin-top: 30px;
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   min-height: 165px;
@@ -90,4 +89,9 @@
   font-size: 14px;
   transition: all 0.3s ease-in-out;
   opacity: 0.55;
+}
+.summ_range_withdraw{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }

@@ -48,7 +48,7 @@ export const Statistic = () => {
                     <div className="static_item last_register wow slideInLeft" data-wow-duration="3s">
                         <div className="static_item_title">
                             Последнии регистранции
-                            <span className="stat_sub_tit">real time</span>
+                            <span className="stat_sub_tit">реальное время</span>
                         </div>
                         <ul className="static_data">
                             {data.registrations.map((item,index)=>
@@ -58,7 +58,7 @@ export const Statistic = () => {
                     <div className="static_item last_paymend wow slideInUp" data-wow-duration="2s">
                         <div className="static_item_title">
                             Последнии выплаты
-                            <span className="stat_sub_tit">real time</span>
+                            <span className="stat_sub_tit">реальное время</span>
                         </div>
                         <ul className="static_data">
                             {data.payments.map((item,index)=>
@@ -68,7 +68,7 @@ export const Statistic = () => {
                     <div className="static_item last_invest wow slideInRight" data-wow-duration="3s">
                         <div className="static_item_title">
                             последнии инвестиции
-                            <span className="stat_sub_tit">real time</span>
+                            <span className="stat_sub_tit">реальное время</span>
                         </div>
                         <ul className="static_data">
                             {data.investments.map((item,index)=>

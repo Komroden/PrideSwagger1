@@ -15,4 +15,10 @@
   left: 0;
 }
 
+@media (max-width: 460px) {
+  .button_str_arrow {
+    margin-top: 50px !important;
+  }
+}
+
 /*# sourceMappingURL=style1.css.map */

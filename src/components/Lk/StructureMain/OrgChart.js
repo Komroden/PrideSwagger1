@@ -35,7 +35,7 @@ export const OrgChartComponent = (props, ref) => {
           .childrenMargin((d) => 130)
           .compactMarginBetween((d) => 75)
           .compactMarginPair((d) => 80)
-          .buttonContent(({node,state})=>`<img src="/images/arrow-down.png" alt="" style="display: flex;justify-content: center;
+          .buttonContent(({node,state})=>`<img src="/images/arrow-down.png" alt="" class="button_str_arrow" style="display: flex;justify-content: center;
 align-items: center; width: 20px; height: 20px;margin: 5px 0 0 10px;"/> `)
           .linkUpdate(function (d, i, arr) {
               d3.select('.svg-chart-container')
@@ -73,28 +73,29 @@ align-items: center; width: 20px; height: 20px;margin: 5px 0 0 10px;"/> `)
             const outsideCircleDim = 110;
 
             return `
-            <div style="background-color:white; position:absolute;width:${
+            <div style="background-color:white;width:${
                 data.width
             }px;height:${data.height}px;">
-                   <div style="background-color:${color};position:absolute;margin-top:${-outsideCircleDim / 2+'px'};margin-left:${data.width / 2 - outsideCircleDim / 2}px;border-radius:100px;width:${outsideCircleDim}px;height:${outsideCircleDim}px;"></div>
-                   <div style="background-color:#ffffff;position:absolute;margin-top:${-
-                lightCircleDim / 2+'px'
-            };margin-left:${data.width / 2 - lightCircleDim / 2+'px'};border-radius:100px;width:${lightCircleDim}px;height:${lightCircleDim}px;"></div>
-                   <img src=" ${
+            <div style="background-color:${color};margin-top:${-outsideCircleDim / 2}px;margin-left:${data.width / 2 - outsideCircleDim / 2}px;
+            border-radius:100px;width:${outsideCircleDim}px;height:${outsideCircleDim}px;"></div>
+            <div style="background-color:#ffffff;margin-top:${-
+                205 / 2
+            }px;margin-left:${data.width / 2 - lightCircleDim / 2}px;border-radius:100px;width:${lightCircleDim}px;height:${lightCircleDim}px;">
+             <img src=" ${
                 data.data.imageUrl
-            }" style="position:absolute;margin-top:-${imageDim / 2}px;margin-left:${data.width / 2 - imageDim / 2+'px'};border-radius:100px;width:${imageDim}px;height:${imageDim}px;" />
-                   <div class="card" style="top:${
-                outsideCircleDim / 2 + 10
-            }px;position:absolute;height:30px;width:${data.width}px;background-color:#3AB6E3;">
+            }" style="margin-top:8px; margin-left:8px;border-radius:100px;width:${imageDim}px;height:${imageDim}px;" />
+            
+               </div>
+                <div class="card" style="margin-top:12px;height:30px;width:${data.width}px;background-color:#3AB6E3;">
                       <div style="background-color:${color};height:28px;text-align:center;padding-top:5px;color:#ffffff;font-weight:bold;font-size:16px">
-                          ${data.data.name} 
+                          ${data.data.name}
                       </div>
                       <div style="background-color:#F0EDEF;height:28px;text-align:center;padding-top:5px;color:#424142;font-size:16px">
-                          ${data.data.positionName} 
+                          ${data.data.positionName}
                       </div>
                    </div>
-               </div>
-            
+               
+
             `
           })
         .render();

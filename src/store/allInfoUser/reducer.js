@@ -1,6 +1,10 @@
-import {ALL_USER_DATA,USER_AVATAR} from './actions'
+import {ALL_USER_DATA,USER_AVATAR,USER_WALLETS} from './actions'
 const initialState = {
     value:{
+        balanceBitcoin:0,
+        balanceEthereum:0,
+        balanceLitecoin:0,
+        balanceUsdc:0,
         email:'',
         messageCount:0,
         isVerify:false,
@@ -16,7 +20,8 @@ const initialState = {
         rang:null,
         balance:0,
     },
-    avatar:''
+    avatar:'',
+    wallets:[]
 
 }
 
@@ -32,6 +37,12 @@ export const AlluserDataReducer = (state = initialState, action) => {
             return {
                 ...state,
                 avatar:action.payload
+            }
+        }
+        case USER_WALLETS: {
+            return {
+                ...state,
+                wallets:action.payload
             }
         }
 

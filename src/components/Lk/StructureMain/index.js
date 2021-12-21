@@ -3,6 +3,7 @@ import { OrgChartComponent } from './OrgChart';
 import Fade from "@mui/material/Fade";
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import IconButton from "@mui/material/IconButton";
+import CloseIcon from '@mui/icons-material/Close';
 import {useSelector} from "react-redux";
 
 
@@ -34,11 +35,15 @@ export const StructureMain = props => {
         <>
             <Fade  in={open}>
                 <div style={{background:'white'}} className='modal__wrapper'>
+                    <IconButton onClick={()=>setOpen(false)}>
+                        <CloseIcon/>
+                    </IconButton>
                     <OrgChartComponent
                         setClick={click => ( click)}
                         onNedeClick={handlePush}
                         data={referals.value}
                     />
+
                 </div>
             </Fade>
             <IconButton onClick={()=>setOpen(true)}>

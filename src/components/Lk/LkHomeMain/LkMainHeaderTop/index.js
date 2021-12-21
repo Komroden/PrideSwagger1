@@ -21,9 +21,11 @@ export const LkMainHeaderTop = () => {
     const[openError,setOpenError]=useState(false);
     const [message,setMessage]=useState('')
 
+    const [valueType,setValueType]=useState('Usdc')
+
     const handleClick = (e) => {
-        console.log(1)
-        if(items.topListUsers[0].id===allInfoUser.value.id) return;
+        // console.log(1)
+        // if(items.topListUsers[0].id===allInfoUser.value.id) return;
 
         setOpen(!open)
         if(items.length>=6){
@@ -33,9 +35,8 @@ export const LkMainHeaderTop = () => {
     };
     const containerRef =useRef(null)
     const handleVerify=()=>{
-        if(items.topListUsers[0].id===allInfoUser.value.id) return
         setError('')
-        fetch(`http://lk.pride.kb-techno.ru/api/Main/pay-for-top?message=${message}`,{
+        fetch(`http://lk.pride.kb-techno.ru/api/Main/pay-for-top?message=${message}&accountName=${valueType}`,{
             method:'POST',
             headers:{
                 'Accept': 'application/json',
@@ -52,9 +53,10 @@ export const LkMainHeaderTop = () => {
                 setError('')
             })
             .then(body=> {
-                if(items.topListUsers[0].id!==allInfoUser.value.id){
-                    items.topListUsers.unshift({id:allInfoUser.value.id,image:allInfoUser.value.image})
-                }
+                console.log(body)
+                // if(items.topListUsers[0].id!==allInfoUser.value.id){
+                //     items.topListUsers.unshift({id:allInfoUser.value.id,image:allInfoUser.value.image})
+                // }
             })
             .catch(error=> {
                 console.log(error)
@@ -89,25 +91,35 @@ export const LkMainHeaderTop = () => {
 
     return (
         <>
-        <div className="lider_top" >
-            <div className="lider_top_title">
+        <div  className="lider_top" >
+            <div ref={containerRef} className="lider_top_title">
                 лидеры <br/>
                 ваш топ
             </div>
-            <div style={{display:items.topListUsers[0].id===allInfoUser.value.id?'none':'block'}}   className="lider_top_add">
+
+            {/*//style={{display:items.topListUsers[0].id===allInfoUser.value.id?'none':'block'}}*/}
+            <div   className="lider_top_add">
                 <Fade direction="right" in={open} timeout={1000} unmountOnExit>
                     <div className='add_top_wrapper'>
                 <span  className='add_top'  >{'Войти в топ? цена: '+items.price+' руб.'}</span><br/>
                         <input value={message} onChange={e=>setMessage(e.target.value)} style={{width:'100%',marginTop:'10px'}} placeholder={'Сообщение'} type='text'/>
+                        <span style={{marginTop:'10px'}} className="add_top">Выберете  кошелек:</span><br/>
+                        <select style={{width:'100%'}}  defaultValue={'Usdc'}  onChange={e=>setValueType(e.target.value)}   name="valueType">
+                            <option value='Usdc' >USDC</option>
+                            <option value='Bitcoin' >BTC</option>
+                            <option value='Ethereum' >ETH</option>
+                            <option value='Litecoin' >LITE</option>
+                        </select>
+
                     <button onClick={handleVerify} className='add_top_button'>Да</button>
                     </div>
                 </Fade>
-                <span onClick={handleClick} ref={containerRef}>
-                    <span  className="dark_plus">+</span>
+                <span  onClick={handleClick} >
+                    <span   className="dark_plus">+</span>
                 </span>
             </div>
 
-            <Slide direction="right" in={open} container={containerRef.current} timeout={1000} unmountOnExit mountOnEnter>
+            <Slide direction="left" in={open} container={containerRef.current} timeout={1000} unmountOnExit mountOnEnter>
                 <div className="lider_top_item" >
 
                     <a href="/" onClick={handlePush} className="lider_top_item_link">
@@ -119,8 +131,8 @@ export const LkMainHeaderTop = () => {
                     </a>
                 </div>
             </Slide>
-            {items.topListUsers.filter((ite,index)=>index<=6).map((item,index)=><LkHomeMainLiderTopItem key={item.id} id={item.id} url={item.image}  number={index+1} />)}
-            {items.topListUsers.filter((ite,index)=>index<=6).map((item,index)=><LkHomeMainLiderTopItem key={item.id} id={item.id} url={item.image}  number={'Привет'} />)}
+            {items.topListUsers.filter((ite,index)=>index<=6).map((item,index)=><LkHomeMainLiderTopItem key={item.id} id={item.id} url={item.image}  number={item.message?item.message:index+1} />)}
+
 
         </div>
             <Fade in={openError} unmountOnExit>

@@ -42,7 +42,7 @@ import {Structure} from "./pages/Lk/Structure";
 import {CryptoData} from "./store/crypto/actions";
 import {UserRegistration} from "./store/auth/actions";
 import { setContestsListActive, setContestsListPast} from "./store/contest/actions";
-import {AllUserData, UserAvatar} from "./store/allInfoUser";
+import {AllUserData, UserAvatar, UserWallets} from "./store/allInfoUser";
 import {Votes} from "./store/votes/actions";
 import {useToken} from "./hooks/useToken";
 import {setReferalsList} from "./store/referals/actions";
@@ -242,8 +242,13 @@ export function App() {
     const [contestActive,setContestActive]= useState([])
     const [contestPast,setContestPast]= useState([])
     const [allInfo,setAllInfo]= useState({
-        balance:0
+        balance:0,
+        balanceBitcoin:0,
+        balanceEthereum:0,
+        balanceLitecoin:0,
+        balanceUsdc:0
     })
+
     const [pic,setPic]=useState('')
     const setContestsActive = useCallback(() => {
         dispatch(setContestsListActive(contestActive))
@@ -386,6 +391,29 @@ export function App() {
                 });
         }
     },[auth.token])
+
+
+    //wallets
+    const [wallets,setWallets]=useState([])
+    const setRequisites = useCallback(() => {
+        dispatch(UserWallets(wallets))
+    }, [dispatch,wallets]);
+    useEffect(()=>{
+        if(auth.token) {
+            fetch('http://lk.pride.kb-techno.ru/api/Profile/requisites', {
+                method: 'GET',
+                headers: {
+                    'accept': 'application/json',
+                    'Authorization': `Bearer ${auth.token}`
+                }
+            })
+                .then(res => res.json())
+                .then(body => setWallets(body.cryptoWallets))
+        }
+    },[auth.token])
+    useEffect(()=>{
+        setRequisites()
+    },[wallets,setRequisites])
 
 
   return(
