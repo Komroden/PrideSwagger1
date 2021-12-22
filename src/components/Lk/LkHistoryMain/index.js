@@ -1,32 +1,30 @@
-import React, {useEffect, useLayoutEffect, useState} from 'react';
-
+import React, { useLayoutEffect, useState} from 'react';
 import './style.scss';
-
 import {Line} from "../MainTitle/GreyLine";
 import {LkHistoryMainItem} from "./LkHistoryMainItem";
-import {useSelector} from "react-redux";
 import {Pagination} from "./LkHistoryMainItem/Pagination";
+import {useFetchWithTokenGet} from "../../../hooks/useFetchWithTokenGet";
 
 export const LkHistoryMain = () => {
-    const { auth } = useSelector((state) => state);
     const [filter,setFilter]=useState('all')
-    const [totalItems,setTotalItems]=useState({
-        items:[]
-    })
+    // const [totalItems,setTotalItems]=useState({
+    //     items:[]
+    // })
+    const totalItems=useFetchWithTokenGet('http://lk.pride.kb-techno.ru/api/Finance/list',{items:[]})
     const filtredArray=totalItems.items.filter(item=>item.processingStatus===filter||filter==='all')
-    useEffect(()=>{
-        if(auth.token) {
-            fetch('http://lk.pride.kb-techno.ru/api/Finance/list', {
-                method: 'GET',
-                headers: {
-                    'accept': 'application/json',
-                    'Authorization': `Bearer ${auth.token}`
-                }
-            })
-                .then(res => res.json())
-                .then(body => setTotalItems(body))
-        }
-    },[auth.token])
+    // useEffect(()=>{
+    //     if(auth.token) {
+    //         fetch('http://lk.pride.kb-techno.ru/api/Finance/list', {
+    //             method: 'GET',
+    //             headers: {
+    //                 'accept': 'application/json',
+    //                 'Authorization': `Bearer ${auth.token}`
+    //             }
+    //         })
+    //             .then(res => res.json())
+    //             .then(body => setTotalItems(body))
+    //     }
+    // },[auth.token])
 
     // pagination
     const [currentPage,setCurrentPage]=useState(1);

@@ -4,7 +4,8 @@ import {useTimer} from "../../../../hooks/useTimer";
 import Fade from "@mui/material/Fade";
 import {useImage} from "../../../../hooks/useImage";
 import {useSelector} from "react-redux";
-import Alert from "@mui/material/Alert";
+
+import {SnackBar} from "../../../Home/Snackbar";
 
 
 
@@ -16,10 +17,12 @@ export const DrawItem = ({imgPrice,priceAdd,title,desc,date,members,startDate,id
     const [pay,setPay]=useState(false)
     const {hours,seconds,minute}= useTimer(date);
 
-    const[open,setOpen]=useState(false);
-    const[error,setError]=useState('');
+    const [openSnack,setOpenSnack]=useState({
+        status:false,
+        text:'',
+        color:'error'
+    })
     const handleAdd =()=>{
-        setError('')
         fetch(`http://lk.pride.kb-techno.ru/api/Contest/participate/${id}`,{
             method:'POST',
             headers:{
@@ -34,17 +37,19 @@ export const DrawItem = ({imgPrice,priceAdd,title,desc,date,members,startDate,id
                     throw error
                 }
                 res.json()
-                setError('')
             })
             .then(body=> {
-                setError('Вы учавствуете в конкурсе!')
+                setOpenSnack({
+                    status:true,
+                    text:'Вы участвуете в конкурсе',
+                    color:'success'
+                })
             })
             .catch(error=> {
-                console.log(error)
-                setError('Недостаточно средств')
-                setOpen(true)
+                setOpenSnack({status:true,
+                    text:error.message,
+                    color:'error'})
             })
-        setOpen(false)
     }
 
 
@@ -114,11 +119,7 @@ export const DrawItem = ({imgPrice,priceAdd,title,desc,date,members,startDate,id
                     {/*    <button className="form_sbmOpen" >Подтвердить</button>*/}
                     {/*</div>}</Zoom>*/}
 
-            <Fade in={open} unmountOnExit>
-                <div style={{width:'100%'}}>
-                    <Alert severity={error==='Вы учавствуете в конкурсе!'?'success':'error'} sx={{marginTop:'10px'}}>{error}</Alert>
-                </div>
-            </Fade>
+            <SnackBar open={openSnack} setOpen={setOpenSnack}/>
 
         </div>
         </>

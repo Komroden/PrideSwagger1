@@ -1,15 +1,18 @@
-import React, { useState} from 'react';
-
-import {useSelector} from "react-redux";
+import React, {useEffect, useState} from 'react';
 import {useInputV} from "../../../../../hooks/useInputV";
 import {CodeInput} from "../CodeInput";
-import Alert from "@mui/material/Alert";
 import Fade from '@mui/material/Fade';
 import {Captcha} from "../../../../Home/ContReview/Captcha";
+import {SnackBar} from "../../../../Home/Snackbar";
+import {useFetchHandlePostWithBody} from "../../../../../hooks/useFetchHandlePostWithBody";
 
 export const TabBaseInfo = () => {
     const [code,setCode]=useState('')
-    const { auth } = useSelector((state) => state);
+    const [openSnack,setOpenSnack]=useState({
+        status:false,
+        text:'',
+        color:'error'
+    })
 
     //captcha
     const [visible, setVisible] = useState(false);
@@ -17,65 +20,79 @@ export const TabBaseInfo = () => {
     const openCaptcha = () => {
         setVisible(!visible);
     };
-    const [text,setText]=useState('');
     const [counter,setCounter]=useState(0)
-    const [openModal,setOpenModal]=useState(false)
     const password=useInputV('',{isEmpty:true,minLength:6,maxLength:10});
     const passwordConfirm=useInputV('',{isEmpty:true,minLength:6,maxLength:10});
-    const handlePut=(e)=>{
-        e.preventDefault()
-        setCounter(counter+1)
-        const payload={
-            password:password.value,
-            confirmPassword:passwordConfirm.value,
-            code:code
-        }
-        if(success){
-            fetch('http://lk.pride.kb-techno.ru/api/Profile/change-password', {
-                method:'POST',
-                body:JSON.stringify(payload),
-                headers:{'accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Authorization':`Bearer ${auth.token}`}
-            })
-                .then((res) => {
-                    if (res.status >= 200 && res.status < 300) {
-                        handleSuccess('Успешно')
-                    }
-                    if (res.status===400){
-                        let error = new Error(res.statusText);
-                        error.response = res;
-                        handleSuccess('Неверный код')
-                        if(counter>=2){
-                            setSuccess(false)
-                            openCaptcha()
-                        }
-                        throw error
-                    }
-                })
-
-                .catch((error) => {
-                    console.log(error)});
-        }
-
+    const payload={
+        password:password.value,
+        confirmPassword:passwordConfirm.value,
+        code:code
     }
     const handleReset=()=>{
         password.onReset();
         passwordConfirm.onReset();
         password.setDirty(false);
+        setCode('')
     }
 
-    const handleSuccess=(status)=>{
-        setText(status)
-        setOpenModal(true)
-        if(status==='Успешно'){
-            setTimeout(()=>setText(''),5000)
+
+    const post=useFetchHandlePostWithBody('http://lk.pride.kb-techno.ru/api/Profile/change-password',payload,handleReset,setOpenSnack)
+    // const handlePut=(e)=>{
+    //     e.preventDefault()
+    //     setCounter(counter+1)
+    //
+    //     if(success){
+    //         fetch('http://lk.pride.kb-techno.ru/api/Profile/change-password', {
+    //             method:'POST',
+    //             body:JSON.stringify(payload),
+    //             headers:{'accept': 'application/json',
+    //                 'Content-Type': 'application/json',
+    //                 'Authorization':`Bearer ${auth.token}`}
+    //         })
+    //             .then((res) => {
+    //                 if (res.status >= 200 && res.status < 300) {
+    //                     setOpenSnack({
+    //                         status:true,
+    //                         text:'Отправлено',
+    //                         color:'success'
+    //                     })
+    //                 }
+    //                 if (res.status===400){
+    //                     let error = new Error('Некорректные данные');
+    //                     error.response = res;
+    //                     if(counter>=2){
+    //                         setSuccess(false)
+    //                         openCaptcha()
+    //                     }
+    //                     throw error
+    //                 }
+    //             })
+    //
+    //             .catch((error) => {
+    //                 setOpenSnack({status:true,
+    //                     text:error.message,
+    //                     color:'error'})
+    //             });
+    //     }
+    //
+    // }
+    useEffect(()=>{
+        if(counter===2){
+            setSuccess(false)
+            openCaptcha()
         }
-    }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[counter])
+
+
+
 
 
     return (
-        <form onSubmit={handlePut} onReset={handleReset}>
+        <form onSubmit={success?e=>{
+            e.preventDefault()
+            setCounter(counter+1)
+            post.handlePost(e)}:()=>{}} onReset={handleReset}>
             <div className="setting_form_row">
                 <div className="setting_form_item setting_form_item_for_two">
                     <span className="title_input">Новый пароль</span>
@@ -93,11 +110,7 @@ export const TabBaseInfo = () => {
 
             </div>
              <CodeInput mode={passwordConfirm.value===password.value&&password.inputValid} setCode={setCode} url={'http://lk.pride.kb-techno.ru/api/Confirm/send-authorization-code?action=password'} title={'из смс'}/>
-            <Fade in={openModal} unmountOnExit>
-                <div>
-             <Alert severity={text==='Успешно'?"success":'error'} sx={{marginBottom:'50px'}}>{text}</Alert>
-                </div>
-            </Fade>
+            <SnackBar open={openSnack} setOpen={setOpenSnack}/>
             <Fade  in={visible}>
                 <div>
                     <Captcha setSuccess={setSuccess} setVisible={setVisible} visible={visible}/>

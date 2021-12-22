@@ -1,24 +1,27 @@
-import React, { useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useInputV} from "../../../../../hooks/useInputV";
-import { useSelector} from "react-redux";
-import Alert from '@mui/material/Alert';
 import Fade from "@mui/material/Fade";
 import {Captcha} from "../../../../Home/ContReview/Captcha";
+import {SnackBar} from "../../../../Home/Snackbar";
+import {useFetchHandlePostWithBody} from "../../../../../hooks/useFetchHandlePostWithBody";
 
 
 
 
 export const TabMainInfo = () => {
-    const {auth} = useSelector((state) => state);
     //captcha
     const [visible, setVisible] = useState(false);
     const [success,setSuccess]=useState(true);
     const openCaptcha = () => {
         setVisible(!visible);
     };
-    const [text,setText]=useState('');
+
+    const [openSnack,setOpenSnack]=useState({
+        status:false,
+        text:'',
+        color:'error'
+    })
     const [counter,setCounter]=useState(0)
-    const [openModal,setOpenModal]=useState(false)
 
     const firstName=useInputV('')
     const lastName=useInputV('')
@@ -28,52 +31,15 @@ export const TabMainInfo = () => {
     const city=useInputV('')
     const telegram=useInputV('')
     const vkontakte=useInputV('')
-    const handlePut=(e)=>{
-        e.preventDefault()
-        setCounter(counter+1)
-        const payload={
-            firstName:firstName.value,
-            lastName:lastName.value,
-            middleName:middleName.value,
-            birthDate:birthDate.value,
-            country:country,
-            city:city.value,
-            telegram:telegram.value,
-            vkontakte:vkontakte.value,
-
-        }
-        if(success) {
-            fetch('http://lk.pride.kb-techno.ru/api/Profile/update', {
-                method: 'PUT',
-                body: JSON.stringify(payload),
-                headers: {
-                    'Accept': 'application/octet-stream',
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${auth.token}`
-                }
-            })
-                .then((res) => {
-                    if (res.status >= 200 && res.status < 300) {
-                        handleSuccess('Успешно')
-                    }
-                    if (res.status===400){
-                        let error = new Error(res.statusText);
-                        error.response = res;
-                        handleSuccess('Неверные данные')
-                        if(counter>=2){
-                            setSuccess(false)
-                            openCaptcha()
-                        }
-                        throw error
-                    }
-                    else {
-                        let error = new Error(res.statusText);
-                        error.response = res;
-                        throw error
-                    }
-                })
-                .catch(error => console.log(error))
-        }
+    const payload={
+        firstName:firstName.value,
+        lastName:lastName.value,
+        middleName:middleName.value,
+        birthDate:birthDate.value,
+        country:country,
+        city:city.value,
+        telegram:telegram.value,
+        vkontakte:vkontakte.value,
 
     }
     const handleReset=()=>{
@@ -86,15 +52,65 @@ export const TabMainInfo = () => {
         telegram.onReset()
         vkontakte.onReset()
     }
-    const handleSuccess=(status)=>{
-        setText(status)
-        setOpenModal(true)
-        if(status==='Успешно'){
-            setTimeout(()=>setText(''),5000)
+    const post=useFetchHandlePostWithBody('http://lk.pride.kb-techno.ru/api/Profile/change-password',payload,handleReset,setOpenSnack)
+
+    useEffect(()=>{
+        if(counter===2){
+            setSuccess(false)
+            openCaptcha()
         }
-    }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[counter])
+
+    // const handlePut=(e)=>{
+    //     e.preventDefault()
+    //     setCounter(counter+1)
+    //
+    //     if(success) {
+    //         fetch('http://lk.pride.kb-techno.ru/api/Profile/update', {
+    //             method: 'PUT',
+    //             body: JSON.stringify(payload),
+    //             headers: {
+    //                 'Accept': 'application/octet-stream',
+    //                 'Content-Type': 'application/json',
+    //                 'Authorization': `Bearer ${auth.token}`
+    //             }
+    //         })
+    //             .then((res) => {
+    //                 if (res.status >= 200 && res.status < 300) {
+    //                     setOpenSnack({
+    //                         status:true,
+    //                         text:'Отправлено',
+    //                         color:'success'
+    //                     })
+    //                 }
+    //                 if (res.status===400||422){
+    //                     let error = new Error('Некорректные данные');
+    //                     error.response = res;
+    //                     if(counter>=2){
+    //                         setSuccess(false)
+    //                         openCaptcha()
+    //                     }
+    //                     throw error
+    //                 }
+    //                 else {
+    //                     let error = new Error(res.statusText);
+    //                     error.response = res;
+    //                     throw error
+    //                 }
+    //             })
+    //             .catch(error => setOpenSnack({status:true,
+    //                 text:error.message,
+    //                 color:'error'}))
+    //     }
+    //
+    // }
+
     return (
-        <form onSubmit={handlePut} onReset={handleReset}>
+        <form onSubmit={success?e=>{
+            e.preventDefault()
+            setCounter(counter+1)
+            post.handlePost(e)}:()=>{}} onReset={handleReset}>
             <div className="setting_form_row">
                 <div className="setting_form_item setting_form_item_for_three">
                     <span className="title_input">Ваше Имя</span>
@@ -144,11 +160,6 @@ export const TabMainInfo = () => {
                     <input  onChange={e=>vkontakte.onChange(e)} value={vkontakte.value} type='text' className="dark_input" />
                 </div>
             </div>
-            <Fade in={openModal} unmountOnExit>
-                <div>
-                    <Alert severity={text==='Успешно'?"success":'error'} sx={{marginBottom:'50px'}}>{text}</Alert>
-                </div>
-            </Fade>
             <Fade  in={visible}>
                 <div>
                     <Captcha setSuccess={setSuccess} setVisible={setVisible} visible={visible}/>
@@ -158,6 +169,7 @@ export const TabMainInfo = () => {
                 <button type='submit' className="form_sbm">Сохранить</button>
                 <button type='reset' className="form_refresh">Отменить</button>
             </div>
+            <SnackBar open={openSnack} setOpen={setOpenSnack}/>
         </form>
     );
 };

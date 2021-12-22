@@ -6,7 +6,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {LkLeftMenuOpenFive} from "./LkLeftMenuOpenFive";
 import {LkLeftMenuOpenThree} from "./LkLeftMenuOpenThree";
 import {openLeftMenu} from "../../../store/leftMenu/actions";
-import {usePopolnit} from "../../../hooks/usePopolnit";
 
 
 export const LkLeftMenu = () => {
@@ -31,7 +30,7 @@ export const LkLeftMenu = () => {
         openMenu()
         push('/structure')
     }
-    const addCash=usePopolnit();
+
 
 
 
@@ -86,7 +85,6 @@ export const LkLeftMenu = () => {
 
                     </ul>
                 </div>
-                <button style={{margin:'50px auto 0'}} onClick={(e)=>addCash.handlePopol(e)} className="form_sbmOpen addCash__button ">Пополнить счет</button>
             </div>
             <div className="bottom_sidebar">
 

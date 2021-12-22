@@ -1,33 +1,35 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import './style.scss';
 import {ReviewItem} from "./ReviewItem";
 import {Pagination} from "./Pagination";
 import {ReviewForm} from "./ReviewForm";
 import {useSelector} from "react-redux";
+import {useFetchWithoutTokenGet} from "../../../hooks/useFetchWithoutTokenGet";
 export const ContReview = () => {
 	const { auth } = useSelector((state) => state);
-	const [review,setReview]=useState({items:[]});
+	// const [review,setReview]=useState({items:[]});
+	const review =useFetchWithoutTokenGet('http://lk.pride.kb-techno.ru/api/Main/review-list?pageNumber=0&pageSize=10',{items:[]})
 	const [currentPage,setCurrentPage]=useState(1);
 	const [itemOnPage]=useState(9);
 	const lastItemIndex = currentPage * itemOnPage
 	const firstItemIndex = lastItemIndex-itemOnPage
 	const currentItem = review.items.slice(firstItemIndex,lastItemIndex)
 
-	useEffect(()=>{
-		fetch('http://lk.pride.kb-techno.ru/api/Main/review-list?pageNumber=0&pageSize=10',{
-			method:'GET',
-			headers:{
-				'Accept': 'application/json',
-				}
-		})
-			.then((res) => res.json())
-			.then((body)=>{
-				setReview(body)
-			})
-			.catch((e) => {
-				console.log(e.message);
-			});
-	},[])
+	// useEffect(()=>{
+	// 	fetch('http://lk.pride.kb-techno.ru/api/Main/review-list?pageNumber=0&pageSize=10',{
+	// 		method:'GET',
+	// 		headers:{
+	// 			'Accept': 'application/json',
+	// 			}
+	// 	})
+	// 		.then((res) => res.json())
+	// 		.then((body)=>{
+	// 			setReview(body)
+	// 		})
+	// 		.catch((e) => {
+	// 			console.log(e.message);
+	// 		});
+	// },[])
 
 	const paginate=pageNumber=> setCurrentPage(pageNumber);
 	const nextPage=()=> {

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import {useSelector} from "react-redux";
 import {Line} from "../MainTitle/GreyLine";
 import {LineTitle} from "../LineTitle";
@@ -8,27 +8,29 @@ import IconButton from "@mui/material/IconButton";
 import CommentIcon from "@mui/icons-material/Comment";
 import {useHistory} from "react-router";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import {useFetchWithTokenGet} from "../../../hooks/useFetchWithTokenGet";
 
 export const ChatsMain = () => {
     const { auth } = useSelector((state) => state);
     const {push}=useHistory()
     const [refresh,setRefresh]=useState(false)
-    const [chatrooms,setChatrooms]=useState({
-        items:[]
-    })
-    useEffect(()=>{
-        if(auth.token) {
-            fetch('http://lk.pride.kb-techno.ru/api/Chat/chatrooms', {
-                method: 'GET',
-                headers: {
-                    'accept': 'application/json',
-                    'Authorization': `Bearer ${auth.token}`
-                }
-            })
-                .then(res => res.json())
-                .then(body => setChatrooms(body))
-        }
-    },[auth.token,refresh])
+    // const [chatrooms,setChatrooms]=useState({
+    //     items:[]
+    // })
+    const chatrooms=useFetchWithTokenGet('http://lk.pride.kb-techno.ru/api/Chat/chatrooms',{items:[]},refresh)
+    // useEffect(()=>{
+    //     if(auth.token) {
+    //         fetch('http://lk.pride.kb-techno.ru/api/Chat/chatrooms', {
+    //             method: 'GET',
+    //             headers: {
+    //                 'accept': 'application/json',
+    //                 'Authorization': `Bearer ${auth.token}`
+    //             }
+    //         })
+    //             .then(res => res.json())
+    //             .then(body => setChatrooms(body))
+    //     }
+    // },[auth.token,refresh])
     const handleOpen=({id,name})=>{
         push(`/messages${id}/${name}`)
 

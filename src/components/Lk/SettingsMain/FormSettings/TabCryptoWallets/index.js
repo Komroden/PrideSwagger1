@@ -1,89 +1,106 @@
-import React, { useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {CodeInput} from "../CodeInput";
 import {useInputV} from "../../../../../hooks/useInputV";
 import {useSelector} from "react-redux";
 import Fade from "@mui/material/Fade";
-import Alert from "@mui/material/Alert";
 import {Captcha} from "../../../../Home/ContReview/Captcha";
 import {Wallets} from "./Wallets";
+import {SnackBar} from "../../../../Home/Snackbar";
+import {useFetchHandlePostWithBody} from "../../../../../hooks/useFetchHandlePostWithBody";
 
 
 export const TabCryptoWalets = () => {
-    const {auth,allInfoUser} = useSelector((state) => state);
+    const {allInfoUser} = useSelector((state) => state);
     const money = useInputV('')
-    const [country,setCountry]=useState('')
+    const [country,setCountry]=useState('TRC')
     const [visible, setVisible] = useState(false);
     const [success,setSuccess]=useState(true);
-    const [text,setText]=useState('');
+
     const [counter,setCounter]=useState(0)
-    const [openModal,setOpenModal]=useState(false)
+
+
+    const [openSnack,setOpenSnack]=useState({
+        status:false,
+        text:'',
+        color:'error'
+    })
 
     const openCaptcha = () => {
         setVisible(!visible);
     };
     const[codePhone,setCodePhone]=useState('')
 
-
-
-    const handleSuccess=(status)=>{
-        setText(status)
-        setOpenModal(true)
-        if(status==='Успешно'){
-            setTimeout(()=>setText(''),5000)
-        }
+    const payload={
+        id:'0',
+        objectName:'CryptoWallet',
+        cryptoWallet:money.value,
+        cryptoCurrency:'10',
+        networkType:country,
+        code:codePhone,
     }
-
-    const handlePut=()=>{
-        console.log(country)
-        if (success) {
-            setCounter(counter+1)
-            const payload={
-                id:'0',
-                objectName:'CryptoWallet',
-                cryptoWallet:money.value,
-                cryptoCurrency:'10',
-                networkType:'string',
-                code:codePhone,
-            }
-            fetch('http://lk.pride.kb-techno.ru/api/Profile/requisites/add-crypto-wallet', {
-                method: 'POST',
-                body: JSON.stringify(payload),
-                headers: {
-                    'accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${auth.token}`
-                }
-            })
-                .then((res) => {
-                    if (res.status >= 200 && res.status < 300) {
-                        handleSuccess('Успешно')
-                    }
-                    if (res.status===400){
-                        let error = new Error(res.statusText);
-                        error.response = res;
-                        handleSuccess('Неверный код')
-                        if(counter>=2){
-                            setSuccess(false)
-                            openCaptcha()
-                        }
-                        throw error
-                    }
-                })
-
-                .catch((error) => {
-                    console.log(error)
-                });
-        }
-    }
-
     const handleReset=()=>{
         money.onReset()
     }
 
+    const post=useFetchHandlePostWithBody('http://lk.pride.kb-techno.ru/api/Profile/change-password',payload,handleReset,setOpenSnack)
+
+    useEffect(()=>{
+        if(counter===2){
+            setSuccess(false)
+            openCaptcha()
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[counter])
+    // const handlePut=(e)=>{
+    //     e.preventDefault()
+    //     if (success) {
+    //         setCounter(counter+1)
+    //
+    //         fetch('http://lk.pride.kb-techno.ru/api/Profile/requisites/add-crypto-wallet', {
+    //             method: 'POST',
+    //             body: JSON.stringify(payload),
+    //             headers: {
+    //                 'accept': 'application/json',
+    //                 'Content-Type': 'application/json',
+    //                 'Authorization': `Bearer ${auth.token}`
+    //             }
+    //         })
+    //             .then((res) => {
+    //                 if (res.status >= 200 && res.status < 300) {
+    //                     setOpenSnack({
+    //                         status:true,
+    //                         text:'Отправлено',
+    //                         color:'success'
+    //                     })
+    //                 }
+    //                 if (res.status>=400){
+    //                     let error = new Error('Неверный код');
+    //                     error.response = res;
+    //                     if(counter>=2){
+    //                         setSuccess(false)
+    //                         openCaptcha()
+    //                     }
+    //                     throw error
+    //                 }
+    //             })
+    //
+    //             .catch((error) => {
+    //                 setOpenSnack({status:true,
+    //                     text:error.message,
+    //                     color:'error'})
+    //             });
+    //     }
+    // }
+
+
+
 
 
     return (
-        <form onSubmit={handlePut} onReset={handleReset}>
+        <form onSubmit={success?e=>{
+            e.preventDefault()
+            setCounter(counter+1)
+            post.handlePost(e)}:()=>{}} onReset={handleReset}>
             <div className="setting_form_row ">
                 {allInfoUser.wallets.map(item=><Wallets name={item.objectName} value={item.cryptoWallet} key={item.id} id={item.id} />)}
 
@@ -103,11 +120,7 @@ export const TabCryptoWalets = () => {
                 </div>
 
         </div>
-            <Fade in={openModal} unmountOnExit>
-                <div>
-                    <Alert severity={text==='Успешно'?"success":'error'} sx={{marginBottom:'50px'}}>{text}</Alert>
-                </div>
-            </Fade>
+            <SnackBar open={openSnack} setOpen={setOpenSnack}/>
             <Fade  in={visible}>
                 <div>
                     <Captcha setSuccess={setSuccess} setVisible={setVisible} visible={visible}/>

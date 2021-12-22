@@ -74,8 +74,8 @@ export const Calculator = () => {
                                             className="open_select_categ select_item_calc_body select_item_calc_body2 inputp">
                                             <TypeValueItem openState={setShowCurr} type={'BTC'} id={'mon1'} setValueType={setValueType}/>
                                             <TypeValueItem openState={setShowCurr} type={'ETH'} id={'mon2'} setValueType={setValueType}/>
-                                            <TypeValueItem openState={setShowCurr} type={'ADA'} id={'mon3'} setValueType={setValueType}/>
-                                            <TypeValueItem openState={setShowCurr} type={'CurrenyPriceInfoT'} id={'mon4'} setValueType={setValueType}/>
+                                            <TypeValueItem openState={setShowCurr} type={'Usdc'} id={'mon3'} setValueType={setValueType}/>
+                                            <TypeValueItem openState={setShowCurr} type={'LITE'} id={'mon4'} setValueType={setValueType}/>
                                         </div>
                                         </Collapse>
                                     </div>

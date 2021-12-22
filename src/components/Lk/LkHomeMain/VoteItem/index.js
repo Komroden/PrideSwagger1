@@ -1,9 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useSelector} from "react-redux";
+import {SnackBar} from "../../../Home/Snackbar";
 
 
 export const VoteItem = ({title,votesBars,all,isVotesUser}) => {
     const {auth} = useSelector((state) => state);
+
+    const [openSnack,setOpenSnack]=useState({
+        status:false,
+        text:'',
+        color:'error'
+    })
 
     const handleSubmit=(id)=>{
         if(auth.token) {
@@ -15,7 +22,14 @@ export const VoteItem = ({title,votesBars,all,isVotesUser}) => {
                 },
                 body:''
             })
-                .then(res => res.text())
+                .then(res => {
+                    setOpenSnack({
+                        status:true,
+                        text:'Вы проголосовали!',
+                        color:'success'
+                    })
+                    res.text()
+                })
                 .catch(error=>console.log(error))
 
         }
@@ -64,6 +78,7 @@ export const VoteItem = ({title,votesBars,all,isVotesUser}) => {
             {/*        </li>*/}
             {/*    </ul>*/}
             {/*</div>*/}
+            <SnackBar open={openSnack} setOpen={setOpenSnack}/>
         </div>
     );
 };

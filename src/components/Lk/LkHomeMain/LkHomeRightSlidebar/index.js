@@ -1,17 +1,20 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import './style.scss';
 import {LkHomeRightSlidebarNewsItem} from "../LkHomeRightSlidebarNewsItem";
 import {LkHomeRightSlidebarUserOnLine} from "../LkHomeRightSlidebarUserOnLine";
 import { useSelector} from "react-redux";
 import {useHistory} from "react-router";
 import {useText} from "../../../../hooks/useText";
+import {useFetchWithTokenGet} from "../../../../hooks/useFetchWithTokenGet";
 
 
 
 export const LkHomeRightSlidebar = () => {
-    const { auth,contests } = useSelector((state) => state);
-    const [users,setUsers]=useState([])
-    const [statistic,setStatistic]=useState({})
+    const { contests } = useSelector((state) => state);
+    // const [users,setUsers]=useState([])
+    const users =useFetchWithTokenGet('http://lk.pride.kb-techno.ru/api/Main/online-user-list',[])
+    const statistic =useFetchWithTokenGet('http://lk.pride.kb-techno.ru/api/Partners/referal-stat',{})
+    // const [statistic,setStatistic]=useState({})
     const textLink=useText(statistic.linkHitsCount,'Переход','Перехода','Переходов')
     const textReg=useText(statistic.referalsCount,'Регистрация','Регистрации','Регистраций')
     const textActivate=useText(statistic.activatedReferalsCount,'Активация','Активации','Активаций')
@@ -24,46 +27,46 @@ export const LkHomeRightSlidebar = () => {
     }
 
     // online user list
-    useEffect(()=>{
-        if(auth.token) {
-            fetch('http://lk.pride.kb-techno.ru/api/Main/online-user-list', {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                    'Authorization': `Bearer ${auth.token}`
-                }
-            })
-                .then((res) => res.json())
-                .then((body) => {
-                    setUsers(body)
-                })
-                .catch((e) => {
-                    console.log(e.message);
-                });
-        }
-        return ()=>{setUsers([])}
-    },[auth.token])
+    // useEffect(()=>{
+    //     if(auth.token) {
+    //         fetch('http://lk.pride.kb-techno.ru/api/Main/online-user-list', {
+    //             method: 'GET',
+    //             headers: {
+    //                 'Accept': 'application/json',
+    //                 'Authorization': `Bearer ${auth.token}`
+    //             }
+    //         })
+    //             .then((res) => res.json())
+    //             .then((body) => {
+    //                 setUsers(body)
+    //             })
+    //             .catch((e) => {
+    //                 console.log(e.message);
+    //             });
+    //     }
+    //     return ()=>{setUsers([])}
+    // },[auth.token])
 
     // referal-stat
-    useEffect(()=>{
-        if(auth.token) {
-            fetch('http://lk.pride.kb-techno.ru/api/Partners/referal-stat', {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                    'Authorization': `Bearer ${auth.token}`
-                }
-            })
-                .then((res) => res.json())
-                .then((body) => {
-                    setStatistic(body)
-                })
-                .catch((e) => {
-                    console.log(e.message);
-                });
-        }
-        return ()=>{setStatistic({})}
-    },[auth.token])
+    // useEffect(()=>{
+    //     if(auth.token) {
+    //         fetch('http://lk.pride.kb-techno.ru/api/Partners/referal-stat', {
+    //             method: 'GET',
+    //             headers: {
+    //                 'Accept': 'application/json',
+    //                 'Authorization': `Bearer ${auth.token}`
+    //             }
+    //         })
+    //             .then((res) => res.json())
+    //             .then((body) => {
+    //                 setStatistic(body)
+    //             })
+    //             .catch((e) => {
+    //                 console.log(e.message);
+    //             });
+    //     }
+    //     return ()=>{setStatistic({})}
+    // },[auth.token])
 
 
 

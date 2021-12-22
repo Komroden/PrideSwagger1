@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react';
+import React from 'react';
 import './style.scss';
 
 
@@ -7,39 +7,42 @@ import {LkHomeMainDetailItem} from "./LkHomeMainDetailItem";
 import {UserBlock} from "../UserBlock";
 import { useSelector} from "react-redux";
 import {VoteItem} from "./VoteItem";
+import {useFetchWithTokenGet} from "../../../hooks/useFetchWithTokenGet";
 
 
 export const LkHomeMain = () => {
-    const {auth,allInfoUser,votes} = useSelector((state) => state);
-    const [outputList,setOutputList]=useState({items:[]})
-    const [inputList,setInputList]=useState({items:[]})
+    const {allInfoUser,votes} = useSelector((state) => state);
+    // const [outputList,setOutputList]=useState({items:[]})
+    const outputList=useFetchWithTokenGet('http://lk.pride.kb-techno.ru/api/Finance/list?AccountType=3&TransferDirection=0',{items:[]})
+    // const [inputList,setInputList]=useState({items:[]})
+    const inputList=useFetchWithTokenGet('http://lk.pride.kb-techno.ru/api/Finance/list?AccountType=3&TransferDirection=1',{items:[]})
 
-    useEffect(()=>{
-        if(auth.token) {
-            fetch('http://lk.pride.kb-techno.ru/api/Finance/list?AccountType=3&TransferDirection=0', {
-                method: 'GET',
-                headers: {
-                    'accept': 'application/json',
-                    'Authorization': `Bearer ${auth.token}`
-                }
-            })
-                .then(res => res.json())
-                .then(body => setOutputList(body))
-        }
-    },[auth.token])
-    useEffect(()=>{
-        if(auth.token) {
-            fetch('http://lk.pride.kb-techno.ru/api/Finance/list?AccountType=3&TransferDirection=1', {
-                method: 'GET',
-                headers: {
-                    'accept': 'application/json',
-                    'Authorization': `Bearer ${auth.token}`
-                }
-            })
-                .then(res => res.json())
-                .then(body => setInputList(body))
-        }
-    },[auth.token])
+    // useEffect(()=>{
+    //     if(auth.token) {
+    //         fetch('http://lk.pride.kb-techno.ru/api/Finance/list?AccountType=3&TransferDirection=0', {
+    //             method: 'GET',
+    //             headers: {
+    //                 'accept': 'application/json',
+    //                 'Authorization': `Bearer ${auth.token}`
+    //             }
+    //         })
+    //             .then(res => res.json())
+    //             .then(body => setOutputList(body))
+    //     }
+    // },[auth.token])
+    // useEffect(()=>{
+    //     if(auth.token) {
+    //         fetch('http://lk.pride.kb-techno.ru/api/Finance/list?AccountType=3&TransferDirection=1', {
+    //             method: 'GET',
+    //             headers: {
+    //                 'accept': 'application/json',
+    //                 'Authorization': `Bearer ${auth.token}`
+    //             }
+    //         })
+    //             .then(res => res.json())
+    //             .then(body => setInputList(body))
+    //     }
+    // },[auth.token])
 
 
     return (

@@ -12,7 +12,6 @@ export const HomeFaqItem = ({answer,question,open,setOpen,id}) => {
 
     }
     useEffect(()=>{
-        console.log(open)
         if(id===open) setIsCurrent(true)
         if(id!==open) setIsCurrent(false)
     },[id,open])

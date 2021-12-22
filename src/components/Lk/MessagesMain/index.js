@@ -12,6 +12,7 @@ import {useHistory, useParams} from "react-router";
 import {useSelector} from "react-redux";
 import Fade from '@mui/material/Fade';
 import {UseYears} from "../../../hooks/useYears";
+import {useFetchWithTokenGet} from "../../../hooks/useFetchWithTokenGet";
 
 
 export const MessagesMain = () => {
@@ -23,26 +24,28 @@ export const MessagesMain = () => {
     const [pic,setPic]=useState('')
     const [value,setValue]=useState({})
     const {text}=UseYears(value.yearsOld)
-    const [messages,setMessages]=useState({
-        messages:{
-            items:[]
-        }
-    })
+    // const [messages,setMessages]=useState({
+    //     messages:{
+    //         items:[]
+    //     }
+    // })
+
     const {id,name}=useParams();
-    useEffect(()=>{
-        if(auth.token) {
-            fetch(`http://lk.pride.kb-techno.ru/api/Chat/messages?chatRoomId=${id}`, {
-                method: 'GET',
-                headers: {
-                    'accept': 'application/json',
-                    'Authorization': `Bearer ${auth.token}`
-                }
-            })
-                .then(res => res.json())
-                .then(body => setMessages(body))
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[auth.token,send])
+    const messages=useFetchWithTokenGet(`http://lk.pride.kb-techno.ru/api/Chat/messages?chatRoomId=${id}`,{messages:{items:[]}},send)
+    // useEffect(()=>{
+    //     if(auth.token) {
+    //         fetch(`http://lk.pride.kb-techno.ru/api/Chat/messages?chatRoomId=${id}`, {
+    //             method: 'GET',
+    //             headers: {
+    //                 'accept': 'application/json',
+    //                 'Authorization': `Bearer ${auth.token}`
+    //             }
+    //         })
+    //             .then(res => res.json())
+    //             .then(body => setMessages(body))
+    //     }
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // },[auth.token,send])
     useEffect(()=>{
         if (messages.id===0) return
         if(auth.token) {

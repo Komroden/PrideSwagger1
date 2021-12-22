@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import {useInputV} from "../../../../../hooks/useInputV";
 import {CodeInput} from "../CodeInput";
 import {useSelector} from "react-redux";
-import Alert from "@mui/material/Alert";
 import Fade from "@mui/material/Fade";
 import {Captcha} from "../../../../Home/ContReview/Captcha";
+import {SnackBar} from "../../../../Home/Snackbar";
 
 export const TabDopInfo = () => {
     const {auth} = useSelector((state) => state);
@@ -15,9 +15,13 @@ export const TabDopInfo = () => {
     const openCaptcha = () => {
         setVisible(!visible);
     };
-    const [text,setText]=useState('');
+
+    const [openSnack,setOpenSnack]=useState({
+        status:false,
+        text:'',
+        color:'error'
+    })
     const [counter,setCounter]=useState(0)
-    const [openModal,setOpenModal]=useState(false)
     const phoneNumber = useInputV('', {isEmpty: true, isPhone: true});
     const email = useInputV('', {isEmpty: true, isEmail: true});
     const[codePhone,setCodePhone]=useState('')
@@ -43,12 +47,15 @@ export const TabDopInfo = () => {
             })
                 .then((res) => {
                     if (res.status >= 200 && res.status < 300) {
-                        handleSuccess('Успешно')
+                        setOpenSnack({
+                            status:true,
+                            text:'Отправлено',
+                            color:'success'
+                        })
                     }
                     if (res.status===400){
-                        let error = new Error(res.statusText);
+                        let error = new Error('Неверный код');
                         error.response = res;
-                        handleSuccess('Неверный код')
                         if(counter>=2){
                             setSuccess(false)
                             openCaptcha()
@@ -58,7 +65,9 @@ export const TabDopInfo = () => {
                 })
 
                 .catch((error) => {
-                    console.log(error)
+                    setOpenSnack({status:true,
+                        text:error.message,
+                        color:'error'})
                 });
         }
 
@@ -79,12 +88,15 @@ export const TabDopInfo = () => {
             })
                 .then((res) => {
                     if (res.status >= 200 && res.status < 300) {
-                        handleSuccess('Успешно')
+                        setOpenSnack({
+                            status:true,
+                            text:'Отправлено',
+                            color:'success'
+                        })
                     }
-                    if (res.status===400){
-                        let error = new Error(res.statusText);
+                    if (res.status===400||422){
+                        let error = new Error('Неверный код');
                         error.response = res;
-                        handleSuccess('Неверный код')
                         if(counter>=2){
                             setSuccess(false)
                             openCaptcha()
@@ -94,7 +106,9 @@ export const TabDopInfo = () => {
                 })
 
                 .catch((error) => {
-                    console.log(error)
+                    setOpenSnack({status:true,
+                        text:error.message,
+                        color:'error'})
                 });
         }
 
@@ -110,13 +124,6 @@ export const TabDopInfo = () => {
         phoneNumber.setDirty(false)
     }
 
-    const handleSuccess=(status)=>{
-        setText(status)
-        setOpenModal(true)
-        if(status==='Успешно'){
-            setTimeout(()=>setText(''),5000)
-        }
-    }
 
     return (
         <form onSubmit={handlePut} onReset={handleReset}>
@@ -138,11 +145,7 @@ export const TabDopInfo = () => {
                 </div>
 
             </div>
-            <Fade in={openModal} unmountOnExit>
-                <div>
-                    <Alert severity={text==='Успешно'?"success":'error'} sx={{marginBottom:'50px'}}>{text}</Alert>
-                </div>
-            </Fade>
+            <SnackBar open={openSnack} setOpen={setOpenSnack}/>
             <Fade  in={visible}>
                 <div>
                     <Captcha setSuccess={setSuccess} setVisible={setVisible} visible={visible}/>

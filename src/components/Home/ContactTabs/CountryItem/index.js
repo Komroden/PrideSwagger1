@@ -4,18 +4,20 @@ import Grow from '@mui/material/Grow';
 export const CountryItem = ({country,city,address,tel,email,mapsUrl,active,name}) => {
     const[isActive,setActive]=useState(false);
     useEffect(()=>{
+        setActive(false)
         if(active){
             setActive(true)
         }
         else {
             setActive(false)
         }
+        return ()=>{
+            setActive(false)
+        }
     },[active])
 
-
-
     return (
-        <Grow in={isActive} timeout={3000} unmountOnExit  >
+        <Grow in={isActive} timeout={3000}   >
         <div className={"tabs-panel "+active}  data-index="0">
             <iframe height="710"
                     src={`https://maps.google.com/maps?q=${mapsUrl}&z=15&output=embed`} title={city}/>

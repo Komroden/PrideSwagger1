@@ -1,37 +1,34 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import './style.scss';
-
-
-
 import {LkBalanceItemsMini} from "../BalanceItemsMini";
 import {LkGuestMainGuestItem} from "./LkGuestMainGuestItem";
 import {Line} from "../MainTitle/GreyLine";
 import Fade from '@mui/material/Fade';
-import {useSelector} from "react-redux";
 import {useText} from "../../../hooks/useText";
+import {useFetchWithTokenGet} from "../../../hooks/useFetchWithTokenGet";
 
 
 
 export const LkGuestMain = () => {
-    const { auth } = useSelector((state) => state);
     const [openModal,setOpenModal]=useState(false);
-    const [value,setValue]=useState([])
+    // const [value,setValue]=useState([])
+    const value=useFetchWithTokenGet('http://lk.pride.kb-techno.ru/api/Profile/guest-list',[])
     const text=useText(value.length,'Человек','Человека','Человек')
-    useEffect(()=>{
-        if(auth.token) {
-            fetch('http://lk.pride.kb-techno.ru/api/Profile/guest-list', {
-                method: 'GET',
-                headers: {
-                    'accept': 'application/json',
-                    'Authorization': `Bearer ${auth.token}`
-                }
-            })
-                .then(res => res.json())
-                .then(body => setValue(body))
-                .catch(error => console.log(error))
-        }
-        return ()=>{setValue([])}
-    },[auth.token])
+    // useEffect(()=>{
+    //     if(auth.token) {
+    //         fetch('http://lk.pride.kb-techno.ru/api/Profile/guest-list', {
+    //             method: 'GET',
+    //             headers: {
+    //                 'accept': 'application/json',
+    //                 'Authorization': `Bearer ${auth.token}`
+    //             }
+    //         })
+    //             .then(res => res.json())
+    //             .then(body => setValue(body))
+    //             .catch(error => console.log(error))
+    //     }
+    //     return ()=>{setValue([])}
+    // },[auth.token])
 
 
     return (

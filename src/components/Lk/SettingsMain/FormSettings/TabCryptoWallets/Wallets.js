@@ -1,11 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import {useSelector} from "react-redux";
+import {SnackBar} from "../../../../Home/Snackbar";
 
 export const Wallets = ({name,value,id}) => {
     const {auth} = useSelector((state) => state);
+    const [openSnack,setOpenSnack]=useState({
+        status:false,
+        text:'',
+        color:'error'
+    })
     const handleRemove=()=>{
         fetch(`http://lk.pride.kb-techno.ru/api/Profile/requisites/${id}`, {
             method: 'DELETE',
@@ -14,7 +20,14 @@ export const Wallets = ({name,value,id}) => {
                 'Authorization': `Bearer ${auth.token}`
             }
         })
-            .then(res => res.text())
+            .then(res => {
+                setOpenSnack({
+                    status:true,
+                    text:'Удалено',
+                    color:'success'
+                })
+                res.text()
+            })
             .catch(error=>console.log(error))
 
     }
@@ -46,6 +59,7 @@ export const Wallets = ({name,value,id}) => {
             <IconButton sx={{width:'40px'}} onClick={handleRemove} >
                 <DeleteOutlineIcon/>
             </IconButton>
+            <SnackBar open={openSnack} setOpen={setOpenSnack}/>
         </div>
     );
 };

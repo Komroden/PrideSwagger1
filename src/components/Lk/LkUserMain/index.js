@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 
 import './style.scss';
 import {LkUserInfoItem} from "./LkUserInfoItem";
@@ -6,10 +6,12 @@ import {useSelector} from "react-redux";
 import {useHistory, useParams} from "react-router";
 import {UseYears} from "../../../hooks/useYears";
 import {SendMessage} from "./SendMessage";
+import {useFetchWithTokenGet} from "../../../hooks/useFetchWithTokenGet";
 
 export const LkUserMain = () => {
     const { auth,allInfoUser } = useSelector((state) => state);
-    const [value,setValue]=useState({})
+    // const [value,setValue]=useState({})
+
     const [status,setStatus]=useState(false)
     const {push}=useHistory()
     const{id}=useParams()
@@ -17,17 +19,18 @@ export const LkUserMain = () => {
         e.preventDefault()
         push(`/user${value.partnerId}`)
     }
-    useEffect(()=>{
-        fetch(`http://lk.pride.kb-techno.ru/api/Profile/view-profile/${id}`,{
-            method:'GET',
-            headers:{
-                'accept': 'application/json',
-                'Authorization':`Bearer ${auth.token}`}
-        })
-            .then(res=>res.json())
-            .then(body=>setValue(body))
-            .catch(error=>console.log(error))
-    },[auth.token,id])
+    const value =useFetchWithTokenGet(`http://lk.pride.kb-techno.ru/api/Profile/view-profile/${id}`,{})
+    // useEffect(()=>{
+    //     fetch(`http://lk.pride.kb-techno.ru/api/Profile/view-profile/${id}`,{
+    //         method:'GET',
+    //         headers:{
+    //             'accept': 'application/json',
+    //             'Authorization':`Bearer ${auth.token}`}
+    //     })
+    //         .then(res=>res.json())
+    //         .then(body=>setValue(body))
+    //         .catch(error=>console.log(error))
+    // },[auth.token,id])
     const {text}=UseYears(value.yearsOld)
 
 
