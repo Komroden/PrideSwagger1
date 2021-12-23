@@ -52,7 +52,7 @@ export const TabMainInfo = () => {
         telegram.onReset()
         vkontakte.onReset()
     }
-    const post=useFetchHandlePostWithBody('http://lk.pride.kb-techno.ru/api/Profile/change-password',payload,handleReset,setOpenSnack)
+    const post=useFetchHandlePostWithBody('http://lk.pride.kb-techno.ru/api/Profile/update',payload,handleReset,setOpenSnack,'PUT')
 
     useEffect(()=>{
         if(counter===2){
@@ -61,6 +61,8 @@ export const TabMainInfo = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[counter])
+
+
 
     // const handlePut=(e)=>{
     //     e.preventDefault()

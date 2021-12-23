@@ -5,6 +5,7 @@ import {Pagination} from "./Pagination";
 import {ReviewForm} from "./ReviewForm";
 import {useSelector} from "react-redux";
 import {useFetchWithoutTokenGet} from "../../../hooks/useFetchWithoutTokenGet";
+import {Loader} from "../../../api/Loader";
 export const ContReview = () => {
 	const { auth } = useSelector((state) => state);
 	// const [review,setReview]=useState({items:[]});
@@ -13,7 +14,7 @@ export const ContReview = () => {
 	const [itemOnPage]=useState(9);
 	const lastItemIndex = currentPage * itemOnPage
 	const firstItemIndex = lastItemIndex-itemOnPage
-	const currentItem = review.items.slice(firstItemIndex,lastItemIndex)
+	const currentItem = review.data.items.slice(firstItemIndex,lastItemIndex)
 
 	// useEffect(()=>{
 	// 	fetch('http://lk.pride.kb-techno.ru/api/Main/review-list?pageNumber=0&pageSize=10',{
@@ -46,12 +47,13 @@ export const ContReview = () => {
 	};
     return (
         <div className="main_cont">
+			<Loader loading={review.loading}/>
             <div className="news_rowHome containerP">
 				{currentItem.map(item=>(
 					<ReviewItem  key={item.partnerId} url={item.partnerImage} desc={item.text} login={item.partnerName}  date={item.creationDate}/>
 					))}
             </div>
-			{review.items.length>=itemOnPage&&<div className="pagination_p">
+			{review.data.items.length>=itemOnPage&&<div className="pagination_p">
 				<ul className="containerP">
 					<li onClick={prevPage} className="prev_pag ">
 						<i className="fa fa-arrow-left" aria-hidden="true"/>

@@ -3,9 +3,8 @@ import {useSelector} from "react-redux";
 
 export const usePopolnit = () => {
     const { auth } = useSelector((state) => state);
-    const handlePopol =(e)=>{
-        e.preventDefault()
-        fetch('http://lk.pride.kb-techno.ru/api/CryptoFinance/coinbase-charge-create',{
+    const handlePopol =(sum)=>{
+        fetch(`http://lk.pride.kb-techno.ru/api/CryptoFinance/coinbase-charge-create?sumUsd=${sum}`,{
             method:'GET',
             headers:{'Content-Type': 'application/json',
                 'Accept': 'application/json',

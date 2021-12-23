@@ -40,7 +40,7 @@ export const Contacts = ({title,isSocial}) => {
         message.onReset()
     }
 
-    const post=useFetchHandlePostWithBody('http://lk.pride.kb-techno.ru/api/Main/feedback',payload,handleReset,setOpenSnack)
+    const post=useFetchHandlePostWithBody('http://lk.pride.kb-techno.ru/api/Main/feedback',payload,handleReset,setOpenSnack,'POST')
 
 
     // const handlePost=(e)=>{

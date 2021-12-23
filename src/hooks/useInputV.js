@@ -16,12 +16,16 @@ export const useInputV = (initialValue,validations) => {
     const onReset=()=>{
         setValue('')
     }
+    const change=(value)=>{
+        setValue(value)
+    }
 
     return {
         value,
         onChange,
         onBlur,
         onReset,
+        change,
         isDirty,
         ...valid,
         setDirty

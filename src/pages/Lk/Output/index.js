@@ -11,7 +11,7 @@ export const Output = () => {
         <div className='bodyLk full_content bg_fullcontent'>
             <LkLeftMenu/>
             <div className='main_content'>
-                <LkHomeHeader title={'Вывод срдеств'}/>
+                <LkHomeHeader title={'Вывод средств'}/>
                 <div className='main_content_row'>
                     <div className="main_content_central">
                         <LkBalanceItemsMini/>

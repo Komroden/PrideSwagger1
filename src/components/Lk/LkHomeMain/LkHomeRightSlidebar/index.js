@@ -6,6 +6,7 @@ import { useSelector} from "react-redux";
 import {useHistory} from "react-router";
 import {useText} from "../../../../hooks/useText";
 import {useFetchWithTokenGet} from "../../../../hooks/useFetchWithTokenGet";
+import {Loader} from "../../../../api/Loader";
 
 
 
@@ -25,6 +26,8 @@ export const LkHomeRightSlidebar = () => {
         e.preventDefault()
         push(`/draw`)
     }
+
+
 
     // online user list
     // useEffect(()=>{
@@ -98,15 +101,18 @@ export const LkHomeRightSlidebar = () => {
                 </div>
                 <div className="my_statistic_row">
                     <div className="my_statistic_item">
-                        <div className="my_statistic_number">{statistic.linkHitsCount}</div>
+                        <Loader loading={statistic.loading}/>
+                        <div className="my_statistic_number">{statistic.data.linkHitsCount}</div>
                         <div className="my_statistic_text">{textLink}</div>
                     </div>
                     <div className="my_statistic_item">
-                        <div className="my_statistic_number">{statistic.referalsCount}</div>
+                        <Loader loading={statistic.loading}/>
+                        <div className="my_statistic_number">{statistic.data.referalsCount}</div>
                         <div className="my_statistic_text">{textReg}</div>
                     </div>
                     <div className="my_statistic_item my_statistic_item_greem">
-                        <div className="my_statistic_number">{statistic.activatedReferalsCount}</div>
+                        <Loader loading={statistic.loading}/>
+                        <div className="my_statistic_number">{statistic.data.activatedReferalsCount}</div>
                         <div className="my_statistic_text">{textActivate}</div>
                     </div>
                 </div>
@@ -115,10 +121,11 @@ export const LkHomeRightSlidebar = () => {
             <div className="now_on_site">
                 <div className="main_content_right_sidebar_title_bl">
                     <div className="main_content_right_sidebar_title_bl_title">Сейчас на сайте</div>
-                    <div className="main_content_right_sidebar_title_bl_subtitle">Пользователи онлайн {users.length}</div>
+                    <div className="main_content_right_sidebar_title_bl_subtitle">Пользователи онлайн {users.data.length}</div>
                 </div>
                 <div className="now_on_site_row">
-                    {users.map((item)=>
+                    <Loader loading={users.loading}/>
+                    {users.data.map((item)=>
                         <LkHomeRightSlidebarUserOnLine  key={item.id} id={item.id} img={item.image} />)}
 
                 </div>

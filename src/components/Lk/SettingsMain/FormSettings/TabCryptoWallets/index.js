@@ -42,7 +42,7 @@ export const TabCryptoWalets = () => {
         money.onReset()
     }
 
-    const post=useFetchHandlePostWithBody('http://lk.pride.kb-techno.ru/api/Profile/change-password',payload,handleReset,setOpenSnack)
+    const post=useFetchHandlePostWithBody('http://lk.pride.kb-techno.ru/api/Profile/requisites/add-crypto-wallet',payload,handleReset,setOpenSnack,'POST')
 
     useEffect(()=>{
         if(counter===2){

@@ -22,7 +22,7 @@ export const ReviewForm = () => {
         message.onReset()
     }
 
-    const post=useFetchHandlePostWithBody('http://lk.pride.kb-techno.ru/api/Main/review',message.value,handleReset,setOpenSnack,setSuccess)
+    const post=useFetchHandlePostWithBody('http://lk.pride.kb-techno.ru/api/Main/review',message.value,handleReset,setOpenSnack,"POST")
 
     // const handlePost=(e)=>{
     //     e.preventDefault()
@@ -70,7 +70,7 @@ export const ReviewForm = () => {
                         <SnackBar setOpen={setOpenSnack} open={openSnack}/>
                         <button disabled={!message.value}  onClick={success?e=> {
                             e.preventDefault()
-                            post.handlePost(e)
+                            post.handlePost()
                         }:openCaptcha} className="subm_form">
                             Отправить сообщение
                         </button>

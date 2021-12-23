@@ -4,8 +4,10 @@ import {useSelector} from "react-redux";
 export const useFetchWithTokenGet = (url,initialState,dopRefresh) => {
     const { auth } = useSelector((state) => state);
     const [data,setData]=useState(initialState)
+    const [loading,setLoading]=useState(false)
     useEffect(()=>{
         if(auth.token) {
+            setLoading(true)
             fetch(url, {
                 method: 'GET',
                 headers: {
@@ -14,11 +16,21 @@ export const useFetchWithTokenGet = (url,initialState,dopRefresh) => {
                 }
             })
                 .then(res => res.json())
-                .then(body => setData(body))
+                .then(body => {
+                    setData(body)
+                    setLoading(false)
+                })
+                .catch(e=> {
+                    setLoading(false)
+                    console.log(e.message)
+                })
         }
     },[url,auth.token,dopRefresh])
-    return (
-        data
-    );
+    return {
+        data,
+        loading
+    }
+
+
 };
 

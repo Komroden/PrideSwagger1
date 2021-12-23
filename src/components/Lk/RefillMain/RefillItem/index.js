@@ -3,13 +3,17 @@ import {useSelector} from "react-redux";
 
 import {ModalConfirmAll} from "./modalConfirmAll";
 import {SnackBar} from "../../../Home/Snackbar";
+import {useInputV} from "../../../../hooks/useInputV";
+import {usePopolnit} from "../../../../hooks/usePopolnit";
 
  export const RefillItem = ({title,action,withdraw,comission,maxValue,minValue,wallets}) => {
      const { auth } = useSelector((state) => state);
-     const [value,setValue]=useState(0)
+     const value=useInputV(0,{isEmpty:true,isNumber:true})
      const [logo,setLogo]=useState('')
      const [open,setOpen]=useState(false)
      const [success,setSuccess]=useState(false)
+     const[text,setText]=useState('')
+     const draw=usePopolnit();
 
      const [openSnack,setOpenSnack]=useState({
          status:false,
@@ -18,7 +22,7 @@ import {SnackBar} from "../../../Home/Snackbar";
      })
      useEffect(()=>{
          if (title==='Usdc'){
-             setLogo('/images/pay7.png')
+             setLogo('/images/USDClogo.png')
              return
          }
          if (title==='Bitcoin'){
@@ -33,10 +37,15 @@ import {SnackBar} from "../../../Home/Snackbar";
              setLogo('/images/pay5.png')
              return
          }
+         if (title==='CoinBase'){
+             setLogo('/images/coinBaselogo.png')
+             setText('$')
+             return
+         }
      },[title])
 
      useEffect(()=>{
-         if(value>maxValue)setValue(maxValue)
+         if(value.value>maxValue)value.change(maxValue)
 
 
      },[value,maxValue])
@@ -76,7 +85,7 @@ import {SnackBar} from "../../../Home/Snackbar";
 
     return (
         <>
-            <ModalConfirmAll setOpen={setOpen} open={open} comission={comission} wallets={wallets} value={value} setSuccess={setSuccess}/>
+            <ModalConfirmAll setOpen={setOpen&&withdraw} open={open} comission={comission} wallets={wallets} value={value} setSuccess={setSuccess}/>
         <div className="popoln_item">
             <div className="popoln_item_logo">
                 <img src={logo} alt=""/>
@@ -91,13 +100,16 @@ import {SnackBar} from "../../../Home/Snackbar";
             </div>
             <div className="popoln_item_form">
                 <form>
-                    <input type="number" value={value} onChange={e=>setValue(e.target.value)} className="popoln_item_input" max={maxValue}/>
-                    <button disabled={wallets===0||maxValue===0} onClick={(e)=> {
+                    <input type="number" onBlur={e => value.onBlur(e)} onChange={e=>value.onChange(e)} value={value.value} className="popoln_item_input" max={maxValue}/>
+                    <button disabled={wallets===0||maxValue===0||!value.inputValid} onClick={withdraw?(e)=> {
                         e.preventDefault()
                         setOpen(true)
+                    }:(e)=> {
+                        e.preventDefault()
+                        draw.handlePopol(value.value)
                     }} className="popoln_item_btn">
                         <img src="/images/coins.png" alt=""/>
-                        <span>{action}</span>
+                        <span>{action+' '+text}</span>
                     </button>
                 </form>
                 <SnackBar open={openSnack} setOpen={setOpenSnack}/>

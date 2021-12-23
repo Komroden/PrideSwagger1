@@ -13,6 +13,7 @@ import {useSelector} from "react-redux";
 import Fade from '@mui/material/Fade';
 import {UseYears} from "../../../hooks/useYears";
 import {useFetchWithTokenGet} from "../../../hooks/useFetchWithTokenGet";
+import {Loader} from "../../../api/Loader";
 
 
 export const MessagesMain = () => {
@@ -128,7 +129,8 @@ export const MessagesMain = () => {
                 <div className="message_form_row">
                     <div className="message_left_form">
                         <div className="messageses">
-                            {messages.messages.items.map(item=>item.senderId===allInfoUser.value.id?<LkMessagesMainYou key={item.id} url={item.senderId} text={item.text} time={item.creationDate}/>:
+                            <Loader loading={messages.loading}/>
+                            {messages.data.messages.items.map(item=>item.senderId===allInfoUser.value.id?<LkMessagesMainYou key={item.id} url={item.senderId} text={item.text} time={item.creationDate}/>:
                                 <LkMessagesMainUser key={item.id} url={pic} text={item.text} time={item.creationDate} />)}
                         </div>
                         <div className="message_left_form_navig">

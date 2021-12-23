@@ -1,7 +1,7 @@
 
 import {useSelector} from "react-redux";
 
-export const useFetchHandlePostWithBody = (url,payload,resetFunc,setOpenSnack) => {
+export const useFetchHandlePostWithBody = (url,payload,resetFunc,setOpenSnack,method) => {
     const { auth } = useSelector((state) => state);
 
     const handlePost=()=>{
@@ -12,7 +12,7 @@ export const useFetchHandlePostWithBody = (url,payload,resetFunc,setOpenSnack) =
         })
 
         fetch(url,{
-            method:'POST',
+            method: method,
             body:JSON.stringify(payload),
             headers: {'Content-Type': 'application/json',
                 "Accept": "application/json",

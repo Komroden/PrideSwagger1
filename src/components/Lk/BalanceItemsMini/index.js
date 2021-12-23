@@ -9,7 +9,7 @@ export const LkBalanceItemsMini = () => {
             <div className="balance_cost_row">
                 <LkAddProgMainBalanceItem url='/images/c1.png' bgr='url(/images/coint1.png)' title={'Bitcoin'} text={'BTC'} value={allInfoUser.value.balanceBitcoin.toFixed(0)} />
                 <LkAddProgMainBalanceItem url='/images/c2.png' bgr='url(/images/coint2.png)' title={'Ethereum'} text={'ETH'} value={allInfoUser.value.balanceEthereum.toFixed(0)} />
-                <LkAddProgMainBalanceItem url='/images/c3.png' bgr='url(/images/coint3.png)' title={'Litecoin'} text={'LITE'} value={allInfoUser.value.balanceLitecoin.toFixed(0)} />
+                <LkAddProgMainBalanceItem url='/images/c3.png' bgr='url(/images/coint3.png)' title={'Litecoin'} text={'LTC'} value={allInfoUser.value.balanceLitecoin.toFixed(0)} />
                 <LkAddProgMainBalanceItem url='/images/c4.png' bgr='url(/images/coint4.png)' title={'USDC'} text={'USDC'} value={allInfoUser.value.balanceUsdc.toFixed(0)} />
                 {/*<div className="balance_cost_item balance_cost_item_plus ">*/}
                 {/*    <a href="#">*/}

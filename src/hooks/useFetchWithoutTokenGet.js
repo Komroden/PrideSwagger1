@@ -4,7 +4,9 @@ import {useSelector} from "react-redux";
 export const useFetchWithoutTokenGet = (url,initialState) => {
     const { auth } = useSelector((state) => state);
     const [data,setData]=useState(initialState)
+    const [loading,setLoading]=useState(false)
     useEffect(()=>{
+        setLoading(true)
             fetch(url, {
                 method: 'GET',
                 headers: {
@@ -13,10 +15,19 @@ export const useFetchWithoutTokenGet = (url,initialState) => {
                 }
             })
                 .then(res => res.json())
-                .then(body => setData(body))
+                .then(body => {
+                    setLoading(false)
+                    setData(body)
+                })
+                .catch(e=> {
+                    setLoading(false)
+                    console.log(e.message)
+                })
 
     },[url,auth.token])
-    return (
-        data
-    );
+    return{
+        data,loading
+    }
+
+    ;
 };

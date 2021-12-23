@@ -1,8 +1,9 @@
-import React, { useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './style.scss';
 import {CountryItem} from "./CountryItem";
 import {CountryCard} from "./CountryCard";
 import {useFetchWithoutTokenGet} from "../../../hooks/useFetchWithoutTokenGet";
+import {Loader} from "../../../api/Loader";
 
 export const ContactTabs = () => {
     const [country,setCountry]=useState('');
@@ -22,18 +23,25 @@ export const ContactTabs = () => {
     //         });
     //
     // },[])
+    const [wtf,setWtf]=useState(true)
+    useEffect(()=>{
+        setWtf(false)
+        setTimeout(()=>{setWtf(true)},1000)
+
+    },[country])
 
 
     return (
         <div className="contact_tabs">
+            <Loader loading={offices.loading}/>
             <div className="">
                 <div className="tabs-container">
                     <ul  className="tabs containerP">
-                        {offices.map((item,index)=><CountryCard key={index} city={item.city} address={item.address} country={item.country} setCountry={setCountry}/>)}
+                        {offices.data.map((item,index)=><CountryCard key={index} city={item.city} address={item.address} country={item.country} setCountry={setCountry}/>)}
                     </ul>
                     <div className="tabs-content">
-                        {offices.filter(item=>country===item.address).map((item,index)=><CountryItem key={index} city={item.city} address={item.address} country={item.country} email={item.email}
-                                                                active={'active'} tel={item.phone} mapsUrl={item.latitude+', '+item.longitude} name={item.objectName}/>)}
+                        {offices.data.filter(item=>country===item.address).map((item,index)=><CountryItem key={index} city={item.city} address={item.address} country={item.country} email={item.email}
+                                                                 tel={item.phone} mapsUrl={item.latitude+', '+item.longitude} name={item.objectName} isActive={wtf}/>)}
 
 
                     </div>

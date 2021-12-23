@@ -7,6 +7,7 @@ export const Loader = ({loading}) => {
   display: block;
   margin: 0 auto;
   border-color: red;
+  text-align: center;
 `;
     return (
         <PulseLoader loading={loading} css={override} size={15}/>

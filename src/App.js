@@ -193,8 +193,8 @@ export function App() {
     // const[crypto,setCrypto]=useState([])
     const crypto =useFetchWithoutTokenGet('http://lk.pride.kb-techno.ru/api/Main/currency-rates',[])
     const setCryptoData = useCallback(() => {
-        dispatch(CryptoData(crypto))
-    }, [dispatch,crypto]);
+        dispatch(CryptoData(crypto.data))
+    }, [dispatch,crypto.data]);
     // useEffect(()=>{
     //     fetch('http://lk.pride.kb-techno.ru/api/Main/currency-rates',{
     //         method:'GET',
@@ -210,17 +210,17 @@ export function App() {
     //
     // },[])
     useEffect(()=>{
-        if(!crypto) return
+        if(!crypto.data) return
         setCryptoData()
-    },[setCryptoData,crypto])
+    },[setCryptoData,crypto.data])
 
 
 
     // const[news,setNews]=useState([])
     const news=useFetchWithoutTokenGet('http://lk.pride.kb-techno.ru/api/News/last',[])
     const setNewses = useCallback(() => {
-        dispatch(setNewsList(news))
-    }, [dispatch,news]);
+        dispatch(setNewsList(news.data))
+    }, [dispatch,news.data]);
     // useEffect(()=>{
     //     fetch('http://lk.pride.kb-techno.ru/api/News/last',{
     //         method:'GET',
@@ -238,7 +238,7 @@ export function App() {
     // },[])
     useEffect(()=>{
         setNewses()
-    },[news,setNewses])
+    },[news.data,setNewses])
 
 
 
@@ -264,14 +264,14 @@ export function App() {
 
     const [pic,setPic]=useState('')
     const setContestsActive = useCallback(() => {
-        dispatch(setContestsListActive(contestActive))
-    }, [dispatch,contestActive]);
+        dispatch(setContestsListActive(contestActive.data))
+    }, [dispatch,contestActive.data]);
     const setContestsPast = useCallback(() => {
-        dispatch(setContestsListPast(contestPast))
-    }, [dispatch,contestPast]);
+        dispatch(setContestsListPast(contestPast.data))
+    }, [dispatch,contestPast.data]);
     const setInfo = useCallback(() => {
-        dispatch(AllUserData(allInfo))
-    }, [dispatch,allInfo]);
+        dispatch(AllUserData(allInfo.data))
+    }, [dispatch,allInfo.data]);
     const setAvatar = useCallback(() => {
         dispatch(UserAvatar(pic))
     }, [dispatch,pic]);
@@ -312,13 +312,13 @@ export function App() {
     // },[auth.token])
     useEffect(()=>{
         setContestsPast()
-    },[setContestsPast,contestPast])
+    },[setContestsPast,contestPast.data])
     useEffect(()=>{
         setContestsActive()
-    },[setContestsActive,contestActive])
+    },[setContestsActive,contestActive.data])
     useEffect(()=>{
         setInfo()
-    },[setInfo,allInfo])
+    },[setInfo,allInfo.data])
     useEffect(()=>{
         if (pic==='') return
         setAvatar()
@@ -343,8 +343,8 @@ export function App() {
     // },[auth.token])
     useEffect(()=>{
         if(auth.token) {
-            if (!allInfo.image) return
-            fetch(`http://lk.pride.kb-techno.ru/assets/Img/${allInfo.image}`, {
+            if (!allInfo.data.image) return
+            fetch(`http://lk.pride.kb-techno.ru/assets/Img/${allInfo.data.image}`, {
                 method: 'GET',
                 headers: {
                     'accept': 'application/octet-stream',
@@ -354,18 +354,18 @@ export function App() {
             })
                 .then(res => setPic(res.url))
         }
-    },[auth.token,allInfo])
+    },[auth.token,allInfo.data])
 
     // votes
 
 
     const voteList=useFetchWithTokenGet('http://lk.pride.kb-techno.ru/api/Poll/poll-list',{items:[]})
     const setVote = useCallback(() => {
-        dispatch(Votes(voteList))
-    }, [dispatch,voteList]);
+        dispatch(Votes(voteList.data))
+    }, [dispatch,voteList.data]);
     useEffect(()=>{
         setVote()
-    },[setVote,voteList])
+    },[setVote,voteList.data])
 
     // useEffect(()=>{
     //     if(auth.token) {
@@ -384,11 +384,11 @@ export function App() {
     const referals=useFetchWithTokenGet('http://lk.pride.kb-techno.ru/api/Partners/structure',[])
 
     const setReferal = useCallback(() => {
-        dispatch(setReferalsList(referals))
-    }, [dispatch,referals]);
+        dispatch(setReferalsList(referals.data))
+    }, [dispatch,referals.data]);
     useEffect(()=>{
         setReferal()
-    },[setReferal,referals])
+    },[setReferal,referals.data])
 
     // useEffect(()=>{
     //     if(auth.token){

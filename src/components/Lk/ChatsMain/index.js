@@ -9,6 +9,7 @@ import CommentIcon from "@mui/icons-material/Comment";
 import {useHistory} from "react-router";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import {useFetchWithTokenGet} from "../../../hooks/useFetchWithTokenGet";
+import {Loader} from "../../../api/Loader";
 
 export const ChatsMain = () => {
     const { auth } = useSelector((state) => state);
@@ -53,7 +54,8 @@ export const ChatsMain = () => {
                 <LineTitle title={'Список Чатов'}/>
                 <div className="message_form_row">
                     <List sx={{width:'100%'}} >
-                        {chatrooms.items.map((item) => (
+                        <Loader loading={chatrooms.loading}/>
+                        {chatrooms.data.items.map((item) => (
                             <ListItem
                                 key={item.id}
                                 disableGutters

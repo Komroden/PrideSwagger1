@@ -6,6 +6,7 @@ import './style.scss';
 import {useSelector} from "react-redux";
 import {SnackBar} from "../../../Home/Snackbar";
 import {useFetchWithTokenGet} from "../../../../hooks/useFetchWithTokenGet";
+import {Loader} from "../../../../api/Loader";
 
 
 
@@ -30,7 +31,7 @@ export const LkMainHeaderTop = () => {
     })
 
     const [message,setMessage]=useState('')
-    const [valueType,setValueType]=useState('Usdc')
+    const [valueType,setValueType]=useState('USDC')
 
     const handleClick = (e) => {
         // console.log(1)
@@ -114,7 +115,7 @@ export const LkMainHeaderTop = () => {
                 <span  className='add_top'  >{'Войти в топ? цена: '+items.price+' руб.'}</span><br/>
                         <input value={message} onChange={e=>setMessage(e.target.value)} style={{width:'100%',marginTop:'10px'}} placeholder={'Сообщение'} type='text'/>
                         <span style={{marginTop:'10px'}} className="add_top">Выберете  кошелек:</span><br/>
-                        <select style={{width:'100%'}}  defaultValue={'Usdc'}  onChange={e=>setValueType(e.target.value)}   name="valueType">
+                        <select style={{width:'100%'}}  defaultValue={'USDC'}  onChange={e=>setValueType(e.target.value)}   name="valueType">
                             <option value='Usdc' >USDC</option>
                             <option value='Bitcoin' >BTC</option>
                             <option value='Ethereum' >ETH</option>
@@ -141,7 +142,8 @@ export const LkMainHeaderTop = () => {
                     </a>
                 </div>
             </Slide>
-            {items.topListUsers.filter((ite,index)=>index<=6).map((item,index)=><LkHomeMainLiderTopItem key={item.id} id={item.id} url={item.image}  number={item.message?item.message:index+1} />)}
+            <Loader loading={items.loading}/>
+            {items.data.topListUsers.filter((ite,index)=>index<=6).map((item,index)=><LkHomeMainLiderTopItem key={item.id} id={item.id} url={item.image}  number={item.message?item.message:index+1} />)}
 
 
         </div>

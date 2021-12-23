@@ -3,15 +3,17 @@ import './style.scss';
 import {RefillItem} from "./RefillItem";
 import {Line} from "../MainTitle/GreyLine";
 import {useSelector} from "react-redux";
-import {usePopolnit} from "../../../hooks/usePopolnit";
+import {Loader} from "../../../api/Loader";
 export const RefillMain = ({action,actionTitle}) => {
     const { auth,allInfoUser } = useSelector((state) => state);
     const [wallets,setWallets]=useState([])
     const [valueType,setValueType]=useState(allInfoUser.wallets.length===1?allInfoUser.wallets[0].id:0)
+    const [loading,setLoading]=useState(false)
 
 
     useEffect(()=>{
         if(auth.token&&actionTitle==='Вывести') {
+            setLoading(true)
             fetch('http://lk.pride.kb-techno.ru/api/Finance/withdraw', {
                 method: 'GET',
                 headers: {
@@ -21,9 +23,11 @@ export const RefillMain = ({action,actionTitle}) => {
             })
                 .then((res) => res.json())
                 .then((body) => {
+                    setLoading(false)
                     setWallets(body)
                 })
                 .catch((e) => {
+                    setLoading(false)
                     console.log(e.message);
                 });
         }
@@ -33,9 +37,6 @@ export const RefillMain = ({action,actionTitle}) => {
             setValueType(allInfoUser.wallets[0].id)
         }
     },[allInfoUser])
-
-    const addCash=usePopolnit();
-
 
 
 
@@ -56,14 +57,16 @@ export const RefillMain = ({action,actionTitle}) => {
 
                     </select>
                 </div>}
-                {actionTitle==='Пополнить'&&<button style={{margin: '50px auto 0'}} onClick={(e) => addCash.handlePopol(e)}
-                         className="form_sbmOpen addCash__button ">Пополнить счет</button>}
+                {allInfoUser.wallets.length===0&&actionTitle==='Вывести'&&
+                    <span className="title_input" style={{marginTop: '30px',textAlign:'center'}}>Для вывода необходимо добавить кошелек</span>}
+                {actionTitle==='Пополнить'&&<RefillItem action={actionTitle} title={'CoinBase'} draw={true}/>}
 
                 {/*<RefillItem logo={'/images/pay1.png'} title={'PAYEER'} action={actionTitle} />*/}
                 {/*<RefillItem logo={'/images/pay2.png'} title={'Perfect money'} action={actionTitle}/>*/}
                 {/*<RefillItem logo={'/images/pay3.png'} title={'Bitcoin'} action={actionTitle}/>*/}
                 {/*<RefillItem logo={'/images/pay4.png'} title={'Etherium'} action={actionTitle}/>*/}
                 {/*<RefillItem logo={'/images/pay7.png'} title={'USD-T'} action={actionTitle}/>*/}
+                <Loader loading={loading}/>
 
                 {wallets.map((item,index)=><RefillItem key={index} withdraw={true} action={actionTitle} title={item.accountName} comission={item.comission} maxValue={item.maxSum} minValue={item.minSum}
                                                        wallets={valueType}/>)}

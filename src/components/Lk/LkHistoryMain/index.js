@@ -4,6 +4,7 @@ import {Line} from "../MainTitle/GreyLine";
 import {LkHistoryMainItem} from "./LkHistoryMainItem";
 import {Pagination} from "./LkHistoryMainItem/Pagination";
 import {useFetchWithTokenGet} from "../../../hooks/useFetchWithTokenGet";
+import {Loader} from "../../../api/Loader";
 
 export const LkHistoryMain = () => {
     const [filter,setFilter]=useState('all')
@@ -11,7 +12,7 @@ export const LkHistoryMain = () => {
     //     items:[]
     // })
     const totalItems=useFetchWithTokenGet('http://lk.pride.kb-techno.ru/api/Finance/list',{items:[]})
-    const filtredArray=totalItems.items.filter(item=>item.processingStatus===filter||filter==='all')
+    const filtredArray=totalItems.data.items.filter(item=>item.processingStatus===filter||filter==='all')
     // useEffect(()=>{
     //     if(auth.token) {
     //         fetch('http://lk.pride.kb-techno.ru/api/Finance/list', {
@@ -80,6 +81,7 @@ export const LkHistoryMain = () => {
                     </div>
                 </div>
                 <div className="history_row">
+                    <Loader loading={totalItems.loading}/>
                     {currentItem.map((item)=>
                         <LkHistoryMainItem img={'/images/history_img.png'}
                                            date={item.paymentDate}
