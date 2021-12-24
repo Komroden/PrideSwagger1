@@ -1,10 +1,12 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useRef, useState} from 'react';
 import {LkHomeMainLiderTopItem} from "../LkHomeMainLiderTopItem";
 import Slide from '@mui/material/Slide';
 import Fade from '@mui/material/Fade';
 import './style.scss';
 import {useSelector} from "react-redux";
-import Alert from "@mui/material/Alert";
+import {SnackBar} from "../../../Home/Snackbar";
+import {useFetchWithTokenGet} from "../../../../hooks/useFetchWithTokenGet";
+import {Loader} from "../../../../api/Loader";
 
 
 
@@ -12,16 +14,24 @@ import Alert from "@mui/material/Alert";
 export const LkMainHeaderTop = () => {
     const { auth,allInfoUser } = useSelector((state) => state);
     const[open,setOpen]=useState(false);
-    const[error,setError]=useState('');
-    const[items,setItems]=useState({
+    const [openSnack,setOpenSnack]=useState({
+        status:false,
+        text:'',
+        color:'error'
+    })
+    // const[items,setItems]=useState({
+    //     topListUsers:[
+    //         {id: 0}
+    //     ]
+    // })
+    const items=useFetchWithTokenGet('http://lk.pride.kb-techno.ru/api/Main/top-list',{
         topListUsers:[
             {id: 0}
         ]
     })
-    const[openError,setOpenError]=useState(false);
-    const [message,setMessage]=useState('')
 
-    const [valueType,setValueType]=useState('Usdc')
+    const [message,setMessage]=useState('')
+    const [valueType,setValueType]=useState('USDC')
 
     const handleClick = (e) => {
         // console.log(1)
@@ -35,7 +45,7 @@ export const LkMainHeaderTop = () => {
     };
     const containerRef =useRef(null)
     const handleVerify=()=>{
-        setError('')
+
         fetch(`http://lk.pride.kb-techno.ru/api/Main/pay-for-top?message=${message}&accountName=${valueType}`,{
             method:'POST',
             headers:{
@@ -50,18 +60,19 @@ export const LkMainHeaderTop = () => {
                     throw error
                 }
                 res.json()
-                setError('')
+
             })
             .then(body=> {
-                console.log(body)
-                // if(items.topListUsers[0].id!==allInfoUser.value.id){
-                //     items.topListUsers.unshift({id:allInfoUser.value.id,image:allInfoUser.value.image})
-                // }
+                setOpenSnack({
+                    status:true,
+                    text:'Вы добавлены в топ!',
+                    color:'success'
+                })
             })
             .catch(error=> {
-                console.log(error)
-                setError('Недостаточно средств')
-                setOpenError(true)
+                setOpenSnack({status:true,
+                    text:error.message,
+                    color:'error'})
             })
         setOpen(false)
 
@@ -70,24 +81,24 @@ export const LkMainHeaderTop = () => {
         e.preventDefault()
 
     }
-    useEffect(()=>{
-        if(auth.token) {
-            fetch('http://lk.pride.kb-techno.ru/api/Main/top-list', {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                    'Authorization': `Bearer ${auth.token}`
-                }
-            })
-                .then((res) => res.json())
-                .then((body) => {
-                    setItems(body)
-                })
-                .catch((e) => {
-                    console.log(e.message);
-                });
-        }
-    },[auth.token])
+    // useEffect(()=>{
+    //     if(auth.token) {
+    //         fetch('http://lk.pride.kb-techno.ru/api/Main/top-list', {
+    //             method: 'GET',
+    //             headers: {
+    //                 'Accept': 'application/json',
+    //                 'Authorization': `Bearer ${auth.token}`
+    //             }
+    //         })
+    //             .then((res) => res.json())
+    //             .then((body) => {
+    //                 setItems(body)
+    //             })
+    //             .catch((e) => {
+    //                 console.log(e.message);
+    //             });
+    //     }
+    // },[auth.token])
 
     return (
         <>
@@ -101,10 +112,10 @@ export const LkMainHeaderTop = () => {
             <div   className="lider_top_add">
                 <Fade direction="right" in={open} timeout={1000} unmountOnExit>
                     <div className='add_top_wrapper'>
-                <span  className='add_top'  >{'Войти в топ? цена: '+items.price+' руб.'}</span><br/>
+                <span  className='add_top'  >{'Войти в топ? цена: '+items.data.price+' руб.'}</span><br/>
                         <input value={message} onChange={e=>setMessage(e.target.value)} style={{width:'100%',marginTop:'10px'}} placeholder={'Сообщение'} type='text'/>
                         <span style={{marginTop:'10px'}} className="add_top">Выберете  кошелек:</span><br/>
-                        <select style={{width:'100%'}}  defaultValue={'Usdc'}  onChange={e=>setValueType(e.target.value)}   name="valueType">
+                        <select style={{width:'100%'}}  defaultValue={'USDC'}  onChange={e=>setValueType(e.target.value)}   name="valueType">
                             <option value='Usdc' >USDC</option>
                             <option value='Bitcoin' >BTC</option>
                             <option value='Ethereum' >ETH</option>
@@ -131,15 +142,12 @@ export const LkMainHeaderTop = () => {
                     </a>
                 </div>
             </Slide>
-            {items.topListUsers.filter((ite,index)=>index<=6).map((item,index)=><LkHomeMainLiderTopItem key={item.id} id={item.id} url={item.image}  number={item.message?item.message:index+1} />)}
+            <Loader loading={items.loading}/>
+            {items.data.topListUsers.filter((ite,index)=>index<=6).map((item,index)=><LkHomeMainLiderTopItem key={item.id} id={item.id} url={item.image}  number={item.message?item.message:index+1} />)}
 
 
         </div>
-            <Fade in={openError} unmountOnExit>
-                <div>
-                    <Alert severity='error' sx={{marginBottom:'30px'}}>{error}</Alert>
-                </div>
-            </Fade>
+            <SnackBar open={openSnack} setOpen={setOpenSnack}/>
             </>
 
     );

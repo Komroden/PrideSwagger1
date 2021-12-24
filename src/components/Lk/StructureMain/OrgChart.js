@@ -7,8 +7,10 @@ import './style1.scss';
 
 export const OrgChartComponent = (props, ref) => {
 
+
   const d3Container = useRef(null);
   let chart = null;
+
 
   function addNode(node) {
     chart.addNode(node);
@@ -38,10 +40,7 @@ export const OrgChartComponent = (props, ref) => {
           .buttonContent(({node,state})=>`<img src="/images/arrow-down.png" alt="" class="button_str_arrow" style="display: flex;justify-content: center;
 align-items: center; width: 20px; height: 20px;margin: 5px 0 0 10px;"/> `)
           .linkUpdate(function (d, i, arr) {
-              d3.select('.svg-chart-container')
-                  .attr("preserveAspectRatio", "xMinYMin meet")
-                  .attr("viewBox", "0 0 800 800")
-                  .classed("svg-content", true);
+
             d3.select(this)
                 .attr('stroke', (d) =>
                     d.data._upToTheRootHighlighted ? '#152785' : 'lightgray'

@@ -46,6 +46,8 @@ import {AllUserData, UserAvatar, UserWallets} from "./store/allInfoUser";
 import {Votes} from "./store/votes/actions";
 import {useToken} from "./hooks/useToken";
 import {setReferalsList} from "./store/referals/actions";
+import {useFetchWithTokenGet} from "./hooks/useFetchWithTokenGet";
+import {useFetchWithoutTokenGet} from "./hooks/useFetchWithoutTokenGet";
 
 
 
@@ -103,7 +105,7 @@ export function App() {
         }
     },[setTokens,auth.token,isUpdateToken])
 
-    const[news,setNews]=useState([])
+
     const[value,setValue]=useState({
 
             userInfo:
@@ -188,60 +190,71 @@ export function App() {
         setSecond()
     },[seconds,setSecond])
     // 07.12
-    const[crypto,setCrypto]=useState([])
+    // const[crypto,setCrypto]=useState([])
+    const crypto =useFetchWithoutTokenGet('http://lk.pride.kb-techno.ru/api/Main/currency-rates',[])
     const setCryptoData = useCallback(() => {
-        dispatch(CryptoData(crypto))
-    }, [dispatch,crypto]);
+        dispatch(CryptoData(crypto.data))
+    }, [dispatch,crypto.data]);
+    // useEffect(()=>{
+    //     fetch('http://lk.pride.kb-techno.ru/api/Main/currency-rates',{
+    //         method:'GET',
+    //         headers:{'Content-Type': 'application/json',
+    //             'Accept': 'application/json'}
+    //     })
+    //         .then((res) => res.json())
+    //         .then((body)=>setCrypto(body)
+    //         )
+    //         .catch((e) => {
+    //             console.log(e.message);
+    //         });
+    //
+    // },[])
     useEffect(()=>{
-        fetch('http://lk.pride.kb-techno.ru/api/Main/currency-rates',{
-            method:'GET',
-            headers:{'Content-Type': 'application/json',
-                'Accept': 'application/json'}
-        })
-            .then((res) => res.json())
-            .then((body)=>setCrypto(body)
-            )
-            .catch((e) => {
-                console.log(e.message);
-            });
-
-    },[])
-    useEffect(()=>{
-        if(!crypto) return
+        if(!crypto.data) return
         setCryptoData()
-    },[setCryptoData,crypto])
+    },[setCryptoData,crypto.data])
 
 
 
-
+    // const[news,setNews]=useState([])
+    const news=useFetchWithoutTokenGet('http://lk.pride.kb-techno.ru/api/News/last',[])
     const setNewses = useCallback(() => {
-        dispatch(setNewsList(news))
-    }, [dispatch,news]);
-    useEffect(()=>{
-        fetch('http://lk.pride.kb-techno.ru/api/News/last',{
-            method:'GET',
-            headers:{'Content-Type': 'application/json',
-                'Accept': 'application/json'}
-        })
-            .then((res) => res.json())
-            .then((body)=>{
-                setNews(body)
-            })
-
-            .catch((e) => {
-                console.log(e.message);
-            });
-    },[])
+        dispatch(setNewsList(news.data))
+    }, [dispatch,news.data]);
+    // useEffect(()=>{
+    //     fetch('http://lk.pride.kb-techno.ru/api/News/last',{
+    //         method:'GET',
+    //         headers:{'Content-Type': 'application/json',
+    //             'Accept': 'application/json'}
+    //     })
+    //         .then((res) => res.json())
+    //         .then((body)=>{
+    //             setNews(body)
+    //         })
+    //
+    //         .catch((e) => {
+    //             console.log(e.message);
+    //         });
+    // },[])
     useEffect(()=>{
         setNewses()
-    },[news,setNewses])
+    },[news.data,setNewses])
 
 
 
     // from Home AllInfo
-    const [contestActive,setContestActive]= useState([])
-    const [contestPast,setContestPast]= useState([])
-    const [allInfo,setAllInfo]= useState({
+    // const [contestActive,setContestActive]= useState([])
+    const contestActive=useFetchWithTokenGet('http://lk.pride.kb-techno.ru/api/Contest/contest-list?onlyActive=true',[])
+    // const [contestPast,setContestPast]= useState([])
+    const contestPast=useFetchWithTokenGet('http://lk.pride.kb-techno.ru/api/Contest/contest-list?onlyActive=false',[])
+    // const [allInfo,setAllInfo]= useState({
+    //     balance:0,
+    //     balanceBitcoin:0,
+    //     balanceEthereum:0,
+    //     balanceLitecoin:0,
+    //     balanceUsdc:0
+    // })
+    const allInfo=useFetchWithTokenGet('http://lk.pride.kb-techno.ru/api/Partners/current',{
         balance:0,
         balanceBitcoin:0,
         balanceEthereum:0,
@@ -251,87 +264,87 @@ export function App() {
 
     const [pic,setPic]=useState('')
     const setContestsActive = useCallback(() => {
-        dispatch(setContestsListActive(contestActive))
-    }, [dispatch,contestActive]);
+        dispatch(setContestsListActive(contestActive.data))
+    }, [dispatch,contestActive.data]);
     const setContestsPast = useCallback(() => {
-        dispatch(setContestsListPast(contestPast))
-    }, [dispatch,contestPast]);
+        dispatch(setContestsListPast(contestPast.data))
+    }, [dispatch,contestPast.data]);
     const setInfo = useCallback(() => {
-        dispatch(AllUserData(allInfo))
-    }, [dispatch,allInfo]);
+        dispatch(AllUserData(allInfo.data))
+    }, [dispatch,allInfo.data]);
     const setAvatar = useCallback(() => {
         dispatch(UserAvatar(pic))
     }, [dispatch,pic]);
 
-    useEffect(()=>{
-        if(auth.token){
-        fetch('http://lk.pride.kb-techno.ru/api/Contest/contest-list?onlyActive=false',{
-            method:'GET',
-            headers:{
-                'Accept': 'application/json',
-                'Authorization':`Bearer ${auth.token}`}
-        })
-            .then((res) => res.json())
-            .then((body)=>{
-                setContestPast(body)
-            })
-            .catch((e) => {
-                console.log(e.message);
-            });
-        }
-    },[auth.token])
-    useEffect(()=>{
-        if(auth.token){
-            fetch('http://lk.pride.kb-techno.ru/api/Contest/contest-list?onlyActive=true',{
-                method:'GET',
-                headers:{
-                    'Accept': 'application/json',
-                    'Authorization':`Bearer ${auth.token}`}
-            })
-                .then((res) => res.json())
-                .then((body)=>{
-                    setContestActive(body)
-                })
-                .catch((e) => {
-                    console.log(e.message);
-                });
-        }
-    },[auth.token])
+    // useEffect(()=>{
+    //     if(auth.token){
+    //     fetch('http://lk.pride.kb-techno.ru/api/Contest/contest-list?onlyActive=false',{
+    //         method:'GET',
+    //         headers:{
+    //             'Accept': 'application/json',
+    //             'Authorization':`Bearer ${auth.token}`}
+    //     })
+    //         .then((res) => res.json())
+    //         .then((body)=>{
+    //             setContestPast(body)
+    //         })
+    //         .catch((e) => {
+    //             console.log(e.message);
+    //         });
+    //     }
+    // },[auth.token])
+    // useEffect(()=>{
+    //     if(auth.token){
+    //         fetch('http://lk.pride.kb-techno.ru/api/Contest/contest-list?onlyActive=true',{
+    //             method:'GET',
+    //             headers:{
+    //                 'Accept': 'application/json',
+    //                 'Authorization':`Bearer ${auth.token}`}
+    //         })
+    //             .then((res) => res.json())
+    //             .then((body)=>{
+    //                 setContestActive(body)
+    //             })
+    //             .catch((e) => {
+    //                 console.log(e.message);
+    //             });
+    //     }
+    // },[auth.token])
     useEffect(()=>{
         setContestsPast()
-    },[setContestsPast,contestPast])
+    },[setContestsPast,contestPast.data])
     useEffect(()=>{
         setContestsActive()
-    },[setContestsActive,contestActive])
+    },[setContestsActive,contestActive.data])
     useEffect(()=>{
         setInfo()
-    },[setInfo,allInfo])
+    },[setInfo,allInfo.data])
     useEffect(()=>{
         if (pic==='') return
         setAvatar()
     },[setAvatar,pic])
+    // useEffect(()=>{
+    //     if(auth.token) {
+    //         fetch('http://lk.pride.kb-techno.ru/api/Partners/current', {
+    //             method: 'GET',
+    //             headers: {
+    //                 'Accept': 'application/json',
+    //                 'Authorization': `Bearer ${auth.token}`
+    //             }
+    //         })
+    //             .then((res) => res.json())
+    //             .then((body) => {
+    //                 setAllInfo(body)
+    //             })
+    //             .catch((e) => {
+    //                 console.log(e.message);
+    //             });
+    //     }
+    // },[auth.token])
     useEffect(()=>{
         if(auth.token) {
-            fetch('http://lk.pride.kb-techno.ru/api/Partners/current', {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                    'Authorization': `Bearer ${auth.token}`
-                }
-            })
-                .then((res) => res.json())
-                .then((body) => {
-                    setAllInfo(body)
-                })
-                .catch((e) => {
-                    console.log(e.message);
-                });
-        }
-    },[auth.token])
-    useEffect(()=>{
-        if(auth.token) {
-            if (!allInfo.image) return
-            fetch(`http://lk.pride.kb-techno.ru/assets/Img/${allInfo.image}`, {
+            if (!allInfo.data.image) return
+            fetch(`http://lk.pride.kb-techno.ru/assets/Img/${allInfo.data.image}`, {
                 method: 'GET',
                 headers: {
                     'accept': 'application/octet-stream',
@@ -341,56 +354,57 @@ export function App() {
             })
                 .then(res => setPic(res.url))
         }
-    },[auth.token,allInfo])
+    },[auth.token,allInfo.data])
 
     // votes
 
-    const [voteList,setVoteList]=useState({items:[]});
+
+    const voteList=useFetchWithTokenGet('http://lk.pride.kb-techno.ru/api/Poll/poll-list',{items:[]})
     const setVote = useCallback(() => {
-        dispatch(Votes(voteList))
-    }, [dispatch,voteList]);
+        dispatch(Votes(voteList.data))
+    }, [dispatch,voteList.data]);
     useEffect(()=>{
         setVote()
-    },[setVote,voteList])
+    },[setVote,voteList.data])
 
-    useEffect(()=>{
-        if(auth.token) {
-            fetch('http://lk.pride.kb-techno.ru/api/Poll/poll-list', {
-                method: 'GET',
-                headers: {
-                    'accept': 'application/json',
-                    'Authorization': `Bearer ${auth.token}`
-                }
-            })
-                .then(res => res.json())
-                .then(body => setVoteList(body))
-        }
-    },[auth.token])
+    // useEffect(()=>{
+    //     if(auth.token) {
+    //         fetch('http://lk.pride.kb-techno.ru/api/Poll/poll-list', {
+    //             method: 'GET',
+    //             headers: {
+    //                 'accept': 'application/json',
+    //                 'Authorization': `Bearer ${auth.token}`
+    //             }
+    //         })
+    //             .then(res => res.json())
+    //             .then(body => setVoteList(body))
+    //     }
+    // },[auth.token])
 
-    const [referals,setReferals]=useState([])
+    const referals=useFetchWithTokenGet('http://lk.pride.kb-techno.ru/api/Partners/structure',[])
 
     const setReferal = useCallback(() => {
-        dispatch(setReferalsList(referals))
-    }, [dispatch,referals]);
+        dispatch(setReferalsList(referals.data))
+    }, [dispatch,referals.data]);
     useEffect(()=>{
         setReferal()
-    },[setReferal,referals])
+    },[setReferal,referals.data])
 
-    useEffect(()=>{
-        if(auth.token){
-            fetch('http://lk.pride.kb-techno.ru/api/Partners/structure',{
-                method:'GET',
-                headers:{
-                    'Accept': 'application/json',
-                    'Authorization':`Bearer ${auth.token}`}
-            })
-                .then((res) => res.json())
-                .then(data=>setReferals(data))
-                .catch((e) => {
-                    console.log(e.message);
-                });
-        }
-    },[auth.token])
+    // useEffect(()=>{
+    //     if(auth.token){
+    //         fetch('http://lk.pride.kb-techno.ru/api/Partners/structure',{
+    //             method:'GET',
+    //             headers:{
+    //                 'Accept': 'application/json',
+    //                 'Authorization':`Bearer ${auth.token}`}
+    //         })
+    //             .then((res) => res.json())
+    //             .then(data=>setReferals(data))
+    //             .catch((e) => {
+    //                 console.log(e.message);
+    //             });
+    //     }
+    // },[auth.token])
 
 
     //wallets

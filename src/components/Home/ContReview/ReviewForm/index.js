@@ -1,50 +1,57 @@
 import React, { useState} from 'react';
-
 import Fade from "@mui/material/Fade";
 import {Captcha} from "../Captcha";
 import {useInputV} from "../../../../hooks/useInputV";
-import {useSelector} from "react-redux";
-import Alert from "@mui/material/Alert";
+import {SnackBar} from "../../Snackbar";
+import {useFetchHandlePostWithBody} from "../../../../hooks/useFetchHandlePostWithBody";
 
 export const ReviewForm = () => {
-    const { auth } = useSelector((state) => state);
     const [visible, setVisible] = useState(false);
     const [success,setSuccess]=useState(false);
-    const [text,setText]=useState('');
-    const [openModal,setOpenModal]=useState(false)
+    const [openSnack,setOpenSnack]=useState({
+        status:false,
+        text:'',
+        color:'error'
+    })
     const message=useInputV('');
     const openCaptcha = (e) => {
         e.preventDefault()
         setVisible(!visible);
     };
-
-    const handlePost=(e)=>{
-        e.preventDefault()
-        if(auth.token&&success){
-            console.log(message.value)
-            fetch('http://lk.pride.kb-techno.ru/api/Main/review',{
-                method:'POST',
-                headers:{
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Authorization':`Bearer ${auth.token}`},
-                    body:JSON.stringify(message.value)
-            })
-                .then((res) => res.text())
-                .then(()=>{
-                    setText('Отправлено')
-                    setOpenModal(true)
-                    setTimeout(()=>setOpenModal(false),5000)
-                    setSuccess(false)})
-                .catch((e) => {
-                    setSuccess(false)
-                    console.log(e.message);
-                });
-        }
-        setText('Необходимо авторизоваться')
-        setOpenModal(true)
-        setTimeout(()=>setOpenModal(false),10000)
+    const handleReset=()=>{
+        message.onReset()
     }
+
+    const post=useFetchHandlePostWithBody('http://lk.pride.kb-techno.ru/api/Main/review',message.value,handleReset,setOpenSnack,"POST")
+
+    // const handlePost=(e)=>{
+    //     e.preventDefault()
+    //     if(auth.token&&success){
+    //         fetch('http://lk.pride.kb-techno.ru/api/Main/review',{
+    //             method:'POST',
+    //             headers:{
+    //                 'Accept': 'application/json',
+    //                 'Content-Type': 'application/json',
+    //                 'Authorization':`Bearer ${auth.token}`},
+    //                 body:JSON.stringify(message.value)
+    //         })
+    //             .then((res) => res.text())
+    //             .then(()=>{
+    //                 setOpenSnack({
+    //                     status:true,
+    //                     text:'Отправлено',
+    //                     color:'success'
+    //                 })
+    //                 setSuccess(false)})
+    //             .catch((e) => {
+    //                 setSuccess(false)
+    //                 console.log(e.message);
+    //             });
+    //     }
+    //     setOpenSnack({status:true,
+    //         text:"Необходимо авторизоваться",
+    //         color:'error'})
+    // }
 
     // только авторизованный
     return (
@@ -59,12 +66,12 @@ export const ReviewForm = () => {
                         {/*<input type="text" placeholder="Phone" className="inputp"/>*/}
                         {/*<input type="text" placeholder="Subject" className="inputp"/>*/}
                         <textarea placeholder="Message" className="inputp" onBlur={e => message.onBlur(e)} onChange={e=>message.onChange(e)} value={message.value}/>
-                        <Fade in={openModal} unmountOnExit>
-                            <div>
-                                <Alert severity={text==='Отправлено'?"success":'error'} sx={{marginTop:'10px'}}>{text}</Alert>
-                            </div>
-                        </Fade>
-                        <button disabled={!message.value}  onClick={success?handlePost:openCaptcha} className="subm_form">
+
+                        <SnackBar setOpen={setOpenSnack} open={openSnack}/>
+                        <button disabled={!message.value}  onClick={success?e=> {
+                            e.preventDefault()
+                            post.handlePost()
+                        }:openCaptcha} className="subm_form">
                             Отправить сообщение
                         </button>
                         <Fade  in={visible}>

@@ -35,9 +35,8 @@ export const ProgramCalculator = ({percent,minValue,toBeforeRange}) => {
                             }}>
                                 <ProgramCalculatorValue name={'BTC'}/>
                                 <ProgramCalculatorValue name={'ETH'}/>
-                                <ProgramCalculatorValue name={'ADA'}/>
-                                <ProgramCalculatorValue name={'SOL'}/>
-                                <ProgramCalculatorValue name={'CurrenyPriceInfoT'}/>
+                                <ProgramCalculatorValue name={'USDC'}/>
+                                <ProgramCalculatorValue name={'LTC'}/>
                             </select>
                         </div>
                         <div className="form_entry_in_program_right">

@@ -11,6 +11,7 @@ import {useSelector} from "react-redux";
 
 
 
+
 export const StructureMain = props => {
     const { referals } = useSelector((state) => state);
     const [open,setOpen]=useState(false)
@@ -21,14 +22,10 @@ export const StructureMain = props => {
     }
 
 
-
-
-
-
-
     const handlePush=()=>{
 
     }
+
 
 
     return (

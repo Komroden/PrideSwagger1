@@ -150,9 +150,9 @@ export const ContLogin = () => {
                         throw error
                     }
                 })
-                .then(function(body) {
-                    console.log(body)
-                })
+                // .then(function(body) {
+                //     console.log(body)
+                // })
                 .catch((e) => {
                     setError(e.message);
 
@@ -170,7 +170,7 @@ export const ContLogin = () => {
                         <img src="/images/logo_dark.png" alt="" className="img"/>
                             <div className="log_title">Войти в личный аккаунт</div>
                             <div className="log_form">
-                                <form>
+                                <form onSubmit={handleLogin}>
                                     <Loader loading={loading}/>
                                     <div>
                                         <input type="text" placeholder="Login" className=" inputp" onBlur={e => login.onBlur(e)} onChange={e=>login.onChange(e)} value={login.value}
@@ -204,11 +204,11 @@ export const ContLogin = () => {
                                 </form>
 
                             </div>
-                            <div className="or">
-                                OR
-                            </div>
-                            <a href='https://oauth.vk.com/authorize?client_id=8008853&redirect_uri=http://localhost:3000/login&scope=friends&response_type=code&v=5.131' className="login_vk">
-                                <span><img src="/images/vk.png" alt=""/></span>login WITH Vkontakte</a>
+                            {/*<div className="or">*/}
+                            {/*    OR*/}
+                            {/*</div>*/}
+                            {/*<a href='https://oauth.vk.com/authorize?client_id=8008853&redirect_uri=http://localhost:3000/login&scope=friends&response_type=code&v=5.131' className="login_vk">*/}
+                            {/*    <span><img src="/images/vk.png" alt=""/></span>login WITH Vkontakte</a>*/}
                             <div className="registr reemb_pasw">У меня нет аккаунта? <a href="/" onClick={handlePushRegister}>Регистрация</a></div>
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Slide from '@mui/material/Slide';
 import {useImage} from "../../../../hooks/useImage";
 import {useHistory} from "react-router";
@@ -12,6 +12,11 @@ export const LkHomeMainLiderTopItem = ({url,number,isVisible,id}) => {
         push(`/user${id}`)
     }
     const [open,setOpen]=useState(false);
+    useEffect(()=>{
+        if(open){
+            setTimeout(()=>setOpen(false),5000)
+        }
+    },[open])
 
     return (
         <Slide direction="left" in={!isVisible}  unmountOnExit mountOnEnter>

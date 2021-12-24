@@ -6,6 +6,7 @@ export const useValidation = (value,validations) => {
     const [maxLengthError,setMaxLengthError]=useState(false);
     const [emailError,setEmailError]=useState(false);
     const [phoneError,setPhoneError]= useState(false)
+    const [numberError,setNumberError]= useState(false)
     const [inputValid,setInputValid]= useState(false)
 useEffect(()=>{
     for (const validation in validations) {
@@ -29,6 +30,11 @@ useEffect(()=>{
                 const regPhone= /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/
                 regPhone.test(value)? setPhoneError(false):setPhoneError(true)
                 break;
+            case 'isNumber':
+                // eslint-disable-next-line no-useless-escape
+                const number= /^[0-9]*[.,][0-9]+$/
+                number.test(value)? setNumberError(false):setNumberError(true)
+                break;
             default :
                 break;
 
@@ -50,7 +56,8 @@ useEffect(()=>{
         maxLengthError,
         emailError,
         phoneError,
-        inputValid
+        inputValid,
+        numberError
     }
 };
 

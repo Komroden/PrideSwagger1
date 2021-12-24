@@ -5,11 +5,17 @@ import 'react-slide-captcha/dist/styles.css';
 import {useInputV} from "../../../hooks/useInputV";
 import {Captcha} from "../ContReview/Captcha";
 import Fade from "@mui/material/Fade";
+import {SnackBar} from "../Snackbar";
+import {useFetchHandlePostWithBody} from "../../../hooks/useFetchHandlePostWithBody";
+
 export const Contacts = ({title,isSocial}) => {
     const [visible, setVisible] = useState(false);
     const [success,setSuccess]=useState(false);
-
-
+    const [openSnack,setOpenSnack]=useState({
+        status:false,
+        text:'',
+        color:'error'
+    })
     const email=useInputV('',{isEmpty:true});
     const name=useInputV('',{isEmpty:true});
     const subject=useInputV('',{isEmpty:true});
@@ -19,32 +25,69 @@ export const Contacts = ({title,isSocial}) => {
         e.preventDefault()
         setVisible(!visible);
     };
-
-    const handlePost=(e)=>{
-        e.preventDefault()
-        const payload= {
-            contactName:name.value,
-            email:email.value,
-            phone:phone_number.value,
-            subject:subject.value,
-            text:message.value,
-        }
-        fetch('http://lk.pride.kb-techno.ru/api/Main/feedback',{
-            method:'POST',
-            body:JSON.stringify(payload),
-            headers: {'Content-Type': 'application/json',
-                      "Accept": "application/json"}
-        })
-            .then(()=>{
-                console.log('отправлено')
-                name.onReset()
-                email.onReset()
-                subject.onReset()
-                phone_number.onReset()
-                message.onReset()
-            })
-            .catch(console.error);
+    const payload= {
+        contactName:name.value,
+        email:email.value,
+        phone:phone_number.value,
+        subject:subject.value,
+        text:message.value,
     }
+    const handleReset=()=>{
+        name.onReset()
+        email.onReset()
+        subject.onReset()
+        phone_number.onReset()
+        message.onReset()
+    }
+
+    const post=useFetchHandlePostWithBody('http://lk.pride.kb-techno.ru/api/Main/feedback',payload,handleReset,setOpenSnack,'POST')
+
+
+    // const handlePost=(e)=>{
+    //     setOpenSnack({
+    //         status:false,
+    //         text:'',
+    //         color:'error'
+    //     })
+    //     e.preventDefault()
+    //
+    //     fetch('http://lk.pride.kb-techno.ru/api/Main/feedback',{
+    //         method:'POST',
+    //         body:JSON.stringify(payload),
+    //         headers: {'Content-Type': 'application/json',
+    //                   "Accept": "application/json"}
+    //     })
+    //
+    //
+    // .then((res) => {
+    //         if (res.status >= 200 && res.status < 300) {
+    //             setOpenSnack({
+    //                 status:true,
+    //                 text:'Отправлено',
+    //                 color:'success'
+    //             })
+    //             name.onReset()
+    //             email.onReset()
+    //             subject.onReset()
+    //             phone_number.onReset()
+    //             message.onReset()
+    //             return
+    //         }
+    //         if (res.status === 400 ){
+    //             let error = new Error('Некорректные данные');
+    //             error.response = res;
+    //             throw error
+    //         }else {
+    //             let error = new Error(res.statusText);
+    //             error.response = res;
+    //             throw error
+    //         }
+    //     })
+    //         .catch(error=>setOpenSnack({status:true,
+    //             text:error.message,
+    //             color:'error'}));
+    // }
+
     return (
         <div className="contact_block wow bounceInUp" data-wow-duration="3s">
             <div className="containerP">
@@ -79,7 +122,11 @@ export const Contacts = ({title,isSocial}) => {
                         {/*{(subject.isDirty && subject.isEmpty) && <span className='inp'><span className="required_fail"> Обязательное поле</span></span>}*/}
                                         <textarea placeholder="Message" className="inputp" onBlur={e => message.onBlur(e)} onChange={e=>message.onChange(e)} value={message.value}/>
                         {/*{(message.isDirty && message.isEmpty) && <span className='inp'><span className="required_fail"> Обязательное поле</span></span>}*/}
-                                        <button disabled={!email.inputValid||!name.inputValid||!phone_number.inputValid||!subject.inputValid} onClick={success?handlePost:openCaptcha}  className="subm_form" type='submit'>Отправить сообщение</button>
+                                        <button disabled={!email.inputValid||!name.inputValid||!phone_number.inputValid||!subject.inputValid} onClick={success?e=> {
+                                            e.preventDefault()
+                                            post.handlePost(e)
+                                            setSuccess(false)
+                                        }:openCaptcha}  className="subm_form" type='submit'>Отправить сообщение</button>
                         <Fade  in={visible}>
                             <div>
                                 <Captcha setSuccess={setSuccess} setVisible={setVisible} visible={visible}/>
@@ -88,6 +135,7 @@ export const Contacts = ({title,isSocial}) => {
                     </form>
                 </div>
             </div>
+            <SnackBar open={openSnack} setOpen={setOpenSnack}/>
         </div>
     );
 };

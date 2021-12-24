@@ -1,23 +1,37 @@
-import React from 'react';
+import React, {useState} from 'react';
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import {useSelector} from "react-redux";
+import {SnackBar} from "../../../../Home/Snackbar";
+import {useFetchStringParametr} from "../../../../../hooks/useFetchStringParametr";
 
 export const Wallets = ({name,value,id}) => {
-    const {auth} = useSelector((state) => state);
-    const handleRemove=()=>{
-        fetch(`http://lk.pride.kb-techno.ru/api/Profile/requisites/${id}`, {
-            method: 'DELETE',
-            headers: {
-                'accept': 'application/octet-stream',
-                'Authorization': `Bearer ${auth.token}`
-            }
-        })
-            .then(res => res.text())
-            .catch(error=>console.log(error))
+    const [openSnack,setOpenSnack]=useState({
+        status:false,
+        text:'',
+        color:'error'
+    })
 
-    }
+    const del=useFetchStringParametr(`http://lk.pride.kb-techno.ru/api/Profile/requisites/${id}`,'DELETE',setOpenSnack)
+    // const handleRemove=()=>{
+    //     fetch(`http://lk.pride.kb-techno.ru/api/Profile/requisites/${id}`, {
+    //         method: 'DELETE',
+    //         headers: {
+    //             'accept': 'application/octet-stream',
+    //             'Authorization': `Bearer ${auth.token}`
+    //         }
+    //     })
+    //         .then(res => {
+    //             setOpenSnack({
+    //                 status:true,
+    //                 text:'Удалено',
+    //                 color:'success'
+    //             })
+    //             res.text()
+    //         })
+    //         .catch(error=>console.log(error))
+    //
+    // }
     return (
         <div className="requisiters_wallets_wrapper">
             <TextField
@@ -43,9 +57,10 @@ export const Wallets = ({name,value,id}) => {
                 className='wallets_value'
 
             />
-            <IconButton sx={{width:'40px'}} onClick={handleRemove} >
+            <IconButton sx={{width:'40px'}} onClick={del.handleFetch} >
                 <DeleteOutlineIcon/>
             </IconButton>
+            <SnackBar open={openSnack} setOpen={setOpenSnack}/>
         </div>
     );
 };

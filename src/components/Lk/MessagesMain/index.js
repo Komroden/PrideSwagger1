@@ -12,6 +12,8 @@ import {useHistory, useParams} from "react-router";
 import {useSelector} from "react-redux";
 import Fade from '@mui/material/Fade';
 import {UseYears} from "../../../hooks/useYears";
+import {useFetchWithTokenGet} from "../../../hooks/useFetchWithTokenGet";
+import {Loader} from "../../../api/Loader";
 
 
 export const MessagesMain = () => {
@@ -23,26 +25,28 @@ export const MessagesMain = () => {
     const [pic,setPic]=useState('')
     const [value,setValue]=useState({})
     const {text}=UseYears(value.yearsOld)
-    const [messages,setMessages]=useState({
-        messages:{
-            items:[]
-        }
-    })
+    // const [messages,setMessages]=useState({
+    //     messages:{
+    //         items:[]
+    //     }
+    // })
+
     const {id,name}=useParams();
-    useEffect(()=>{
-        if(auth.token) {
-            fetch(`http://lk.pride.kb-techno.ru/api/Chat/messages?chatRoomId=${id}`, {
-                method: 'GET',
-                headers: {
-                    'accept': 'application/json',
-                    'Authorization': `Bearer ${auth.token}`
-                }
-            })
-                .then(res => res.json())
-                .then(body => setMessages(body))
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[auth.token,send])
+    const messages=useFetchWithTokenGet(`http://lk.pride.kb-techno.ru/api/Chat/messages?chatRoomId=${id}`,{messages:{items:[]}},send)
+    // useEffect(()=>{
+    //     if(auth.token) {
+    //         fetch(`http://lk.pride.kb-techno.ru/api/Chat/messages?chatRoomId=${id}`, {
+    //             method: 'GET',
+    //             headers: {
+    //                 'accept': 'application/json',
+    //                 'Authorization': `Bearer ${auth.token}`
+    //             }
+    //         })
+    //             .then(res => res.json())
+    //             .then(body => setMessages(body))
+    //     }
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // },[auth.token,send])
     useEffect(()=>{
         if (messages.id===0) return
         if(auth.token) {
@@ -125,7 +129,8 @@ export const MessagesMain = () => {
                 <div className="message_form_row">
                     <div className="message_left_form">
                         <div className="messageses">
-                            {messages.messages.items.map(item=>item.senderId===allInfoUser.value.id?<LkMessagesMainYou key={item.id} url={item.senderId} text={item.text} time={item.creationDate}/>:
+                            <Loader loading={messages.loading}/>
+                            {messages.data.messages.items.map(item=>item.senderId===allInfoUser.value.id?<LkMessagesMainYou key={item.id} url={item.senderId} text={item.text} time={item.creationDate}/>:
                                 <LkMessagesMainUser key={item.id} url={pic} text={item.text} time={item.creationDate} />)}
                         </div>
                         <div className="message_left_form_navig">
