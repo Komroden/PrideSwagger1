@@ -10,25 +10,9 @@ export const Footer = () => {
         dispatch(openMenu())
     }, [dispatch]);
     const {push}=useHistory()
-    const handlePushHome=(e) => {
+    const handlePush=(e,url)=>{
         e.preventDefault()
-        push('/')
-    }
-    const handlePushAbout=(e) => {
-        e.preventDefault()
-        push('/about')
-    }
-    const handlePushAllNews=(e) => {
-        e.preventDefault()
-        push('/allNews')
-    }
-    const handlePushRev=(e) => {
-        e.preventDefault()
-        push('/review')
-    }
-    const handlePushCont=(e) => {
-        e.preventDefault()
-        push('/contact')
+        push(url)
     }
     return (
         <footer className="footer">
@@ -48,10 +32,10 @@ export const Footer = () => {
                         <div className="clasic_footer_nav">
                             <ul>
                                 <li>
-                                    <a href="/" onClick={handlePushHome}>Главная</a>
+                                    <a href="/" onClick={e=>handlePush(e,'/')}>Главная</a>
                                 </li>
                                 <li>
-                                    <a href="/" onClick={handlePushAbout}>О нас</a>
+                                    <a href="/" onClick={e=>handlePush(e,'about')}>О нас</a>
                                 </li>
                                 <li>
                                     <a href="/">Инвестиции</a>
@@ -64,16 +48,16 @@ export const Footer = () => {
                         <div className="clasic_footer_nav">
                             <ul>
                                 <li>
-                                    <a href="/" onClick={handlePushRev}>Отзывы</a>
+                                    <a href="/" onClick={e=>handlePush(e,'review')}>Отзывы</a>
                                 </li>
                                 <li>
-                                    <a href="/" onClick={handlePushAllNews}>Новости</a>
+                                    <a href="/" onClick={e=>handlePush(e,'allNews')}>Новости</a>
                                 </li>
                                 <li>
                                     <a href="/" onClick={setName} >Меню</a>
                                 </li>
                                 <li>
-                                    <a href="/" onClick={handlePushCont} >Контакты</a>
+                                    <a href="/" onClick={e=>handlePush(e,'contact')} >Контакты</a>
                                 </li>
                             </ul>
                         </div>

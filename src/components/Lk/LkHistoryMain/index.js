@@ -5,57 +5,17 @@ import {LkHistoryMainItem} from "./LkHistoryMainItem";
 import {Pagination} from "./LkHistoryMainItem/Pagination";
 import {useFetchWithTokenGet} from "../../../hooks/useFetchWithTokenGet";
 import {Loader} from "../../../api/Loader";
+import {usePagination} from "../../../hooks/usePagination";
 
 export const LkHistoryMain = () => {
     const [filter,setFilter]=useState('all')
-    // const [totalItems,setTotalItems]=useState({
-    //     items:[]
-    // })
+
     const totalItems=useFetchWithTokenGet('http://lk.pride.kb-techno.ru/api/Finance/list',{items:[]})
     const filtredArray=totalItems.data.items.filter(item=>item.processingStatus===filter||filter==='all')
-    // useEffect(()=>{
-    //     if(auth.token) {
-    //         fetch('http://lk.pride.kb-techno.ru/api/Finance/list', {
-    //             method: 'GET',
-    //             headers: {
-    //                 'accept': 'application/json',
-    //                 'Authorization': `Bearer ${auth.token}`
-    //             }
-    //         })
-    //             .then(res => res.json())
-    //             .then(body => setTotalItems(body))
-    //     }
-    // },[auth.token])
-
-    // pagination
-    const [currentPage,setCurrentPage]=useState(1);
-    const [itemOnPage]=useState(12);
-    const lastItemIndex = currentPage * itemOnPage
-    const firstItemIndex = lastItemIndex-itemOnPage
-    const currentItem = filtredArray.slice(firstItemIndex,lastItemIndex)
-
-
-    const paginate=pageNumber=> setCurrentPage(pageNumber);
-    const nextPage=(e)=> {
-
-        e.preventDefault()
-        if(currentPage===Math.ceil(filtredArray.length/itemOnPage)){
-            setCurrentPage(1)
-            return
-        }
-        setCurrentPage(prev => prev + 1)
-    };
-    const prevPage=(e)=> {
-        e.preventDefault()
-        if(currentPage===1){
-            setCurrentPage(Math.ceil(filtredArray.length/itemOnPage))
-            return
-        }
-        setCurrentPage(prev => prev - 1)
-    };
+    const pagination=usePagination(filtredArray,12)
 
     useLayoutEffect (() => {
-        window.scrollTo ( 0 , 0 ); }, [currentPage]);
+        window.scrollTo ( 0 , 0 ); }, [pagination.currentPage]);
 
 
 
@@ -82,7 +42,7 @@ export const LkHistoryMain = () => {
                 </div>
                 <div className="history_row">
                     <Loader loading={totalItems.loading}/>
-                    {currentItem.map((item)=>
+                    {pagination.currentItem.map((item)=>
                         <LkHistoryMainItem img={'/images/history_img.png'}
                                            date={item.paymentDate}
                                            key={item.id}
@@ -101,13 +61,13 @@ export const LkHistoryMain = () => {
                     <div className="voice_pagination">
                         <ul>
                             <li className="arrow_li li_start">
-                                <a href={'/'} onClick={prevPage}>
+                                <a href={'/'} onClick={pagination.prevPage}>
                                     <img src="/images/pag_arr.png" alt=""/>
                                 </a>
                             </li>
-                            <Pagination itemsPerPage={itemOnPage} totalItems={filtredArray.length} paginate={paginate}  currentPage={currentPage}  />
+                            <Pagination itemsPerPage={12} totalItems={filtredArray.length} paginate={pagination.paginate}  currentPage={pagination.currentPage}  />
                             <li className="arrow_li li_eng">
-                                <a href={'/'} onClick={nextPage}>
+                                <a href={'/'} onClick={pagination.nextPage}>
                                     <img src="/images/pag_arr.png" alt=""/>
                                 </a>
                             </li>

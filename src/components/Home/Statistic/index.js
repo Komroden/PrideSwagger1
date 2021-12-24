@@ -1,41 +1,48 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import './style.scss'
 import {RegistItem} from "./RegistItem";
 import {PayItem} from "./PayItem";
 import {InvestItem} from "./InvestItem";
+import {useFetchWithoutTokenGet} from "../../../hooks/useFetchWithoutTokenGet";
+import {Loader} from "../../../api/Loader";
 export const Statistic = () => {
-    const[data, setData]=useState({
+    // const[data, setData]=useState({
+    //     registrations: [],
+    //     payments: [],
+    //     investments: []
+    // })
+    const data=useFetchWithoutTokenGet('http://lk.pride.kb-techno.ru/api/Main/last-events',{
         registrations: [],
         payments: [],
         investments: []
     })
 
-    useEffect(()=>{
-        let cleanupFunction = false;
-        fetch('http://lk.pride.kb-techno.ru/api/Main/last-events',{
-            method:'GET',
-            headers:{'Content-Type': 'application/json',
-                'Accept': 'application/json'}
-        })
-            .then((res) => {
-                if (res.status >= 200 && res.status < 300) {
-                    return res.json();
-                } else {
-                    let error = new Error(res.statusText);
-                    error.response = res;
-                    throw error
-                }
-            })
-            .then((body)=>{
-                if(!cleanupFunction){
-                    setData(body)
-                }
-            })
-            .catch((e) => {
-                console.log(e.message);
-            });
-        return () => cleanupFunction = true;
-    },[])
+    // useEffect(()=>{
+    //     let cleanupFunction = false;
+    //     fetch('http://lk.pride.kb-techno.ru/api/Main/last-events',{
+    //         method:'GET',
+    //         headers:{'Content-Type': 'application/json',
+    //             'Accept': 'application/json'}
+    //     })
+    //         .then((res) => {
+    //             if (res.status >= 200 && res.status < 300) {
+    //                 return res.json();
+    //             } else {
+    //                 let error = new Error(res.statusText);
+    //                 error.response = res;
+    //                 throw error
+    //             }
+    //         })
+    //         .then((body)=>{
+    //             if(!cleanupFunction){
+    //                 setData(body)
+    //             }
+    //         })
+    //         .catch((e) => {
+    //             console.log(e.message);
+    //         });
+    //     return () => cleanupFunction = true;
+    // },[])
     return (
         <div className="stastistic">
             <div className="containerP wow slideInUp" data-wow-duration="2s">
@@ -51,7 +58,8 @@ export const Statistic = () => {
                             <span className="stat_sub_tit">реальное время</span>
                         </div>
                         <ul className="static_data">
-                            {data.registrations.map((item,index)=>
+                            <Loader loading={data.loading}/>
+                            {data.data.registrations.map((item,index)=>
                                 <RegistItem key={index} date={item.creationDate} object={item.eventData}/>)}
                         </ul>
                     </div>
@@ -61,7 +69,8 @@ export const Statistic = () => {
                             <span className="stat_sub_tit">реальное время</span>
                         </div>
                         <ul className="static_data">
-                            {data.payments.map((item,index)=>
+                            <Loader loading={data.loading}/>
+                            {data.data.payments.map((item,index)=>
                                 <PayItem key={index} date={item.creationDate} object={item.eventData}/>)}
                         </ul>
                     </div>
@@ -71,7 +80,8 @@ export const Statistic = () => {
                             <span className="stat_sub_tit">реальное время</span>
                         </div>
                         <ul className="static_data">
-                            {data.investments.map((item,index)=>
+                            <Loader loading={data.loading}/>
+                            {data.data.investments.map((item,index)=>
                                 <InvestItem key={index} date={item.creationDate} object={item.eventData}/>)}
                         </ul>
                     </div>

@@ -24,6 +24,9 @@ export const useFetchWithoutTokenGet = (url,initialState) => {
                     console.log(e.message)
                 })
 
+        return () => setData(initialState);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[url,auth.token])
     return{
         data,loading

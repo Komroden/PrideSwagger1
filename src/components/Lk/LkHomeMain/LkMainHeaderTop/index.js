@@ -112,7 +112,7 @@ export const LkMainHeaderTop = () => {
             <div   className="lider_top_add">
                 <Fade direction="right" in={open} timeout={1000} unmountOnExit>
                     <div className='add_top_wrapper'>
-                <span  className='add_top'  >{'Войти в топ? цена: '+items.price+' руб.'}</span><br/>
+                <span  className='add_top'  >{'Войти в топ? цена: '+items.data.price+' руб.'}</span><br/>
                         <input value={message} onChange={e=>setMessage(e.target.value)} style={{width:'100%',marginTop:'10px'}} placeholder={'Сообщение'} type='text'/>
                         <span style={{marginTop:'10px'}} className="add_top">Выберете  кошелек:</span><br/>
                         <select style={{width:'100%'}}  defaultValue={'USDC'}  onChange={e=>setValueType(e.target.value)}   name="valueType">

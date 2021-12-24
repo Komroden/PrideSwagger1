@@ -25,6 +25,8 @@ export const useFetchWithTokenGet = (url,initialState,dopRefresh) => {
                     console.log(e.message)
                 })
         }
+        return () => setData(initialState);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[url,auth.token,dopRefresh])
     return {
         data,

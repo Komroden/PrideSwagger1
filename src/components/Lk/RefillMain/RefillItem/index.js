@@ -85,7 +85,7 @@ import {usePopolnit} from "../../../../hooks/usePopolnit";
 
     return (
         <>
-            <ModalConfirmAll setOpen={setOpen&&withdraw} open={open} comission={comission} wallets={wallets} value={value} setSuccess={setSuccess}/>
+            <ModalConfirmAll setOpen={setOpen} open={open} comission={comission} wallets={wallets} value={value.value} setSuccess={setSuccess}/>
         <div className="popoln_item">
             <div className="popoln_item_logo">
                 <img src={logo} alt=""/>
@@ -101,7 +101,7 @@ import {usePopolnit} from "../../../../hooks/usePopolnit";
             <div className="popoln_item_form">
                 <form>
                     <input type="number" onBlur={e => value.onBlur(e)} onChange={e=>value.onChange(e)} value={value.value} className="popoln_item_input" max={maxValue}/>
-                    <button disabled={wallets===0||maxValue===0||!value.inputValid} onClick={withdraw?(e)=> {
+                    <button  onClick={withdraw?(e)=> {
                         e.preventDefault()
                         setOpen(true)
                     }:(e)=> {
