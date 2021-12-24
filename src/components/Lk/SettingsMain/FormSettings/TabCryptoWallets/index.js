@@ -31,10 +31,8 @@ export const TabCryptoWalets = () => {
     const[codePhone,setCodePhone]=useState('')
 
     const payload={
-        id:'0',
-        objectName:'CryptoWallet',
         cryptoWallet:money.value,
-        cryptoCurrency:'10',
+        cryptoCurrency:'USDT',
         networkType:country,
         code:codePhone,
     }

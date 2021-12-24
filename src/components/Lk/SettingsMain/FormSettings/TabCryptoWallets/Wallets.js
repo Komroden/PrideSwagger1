@@ -12,7 +12,7 @@ export const Wallets = ({name,value,id}) => {
         color:'error'
     })
 
-    const del=useFetchStringParametr(`http://lk.pride.kb-techno.ru/api/Profile/requisites/${id}`,'DELETE',setOpenSnack)
+    const del=useFetchStringParametr(`http://lk.pride.kb-techno.ru/api/Profile/requisites/${id}`,'DELETE',setOpenSnack,'Удалено')
     // const handleRemove=()=>{
     //     fetch(`http://lk.pride.kb-techno.ru/api/Profile/requisites/${id}`, {
     //         method: 'DELETE',

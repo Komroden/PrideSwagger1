@@ -25,7 +25,7 @@ export const DrawMain = () => {
                     </div>
                     <div className="sidebar_title_bl_right">
                         <form>
-                            <select defaultValue={'all'}  className="select_filter" name="filter" onChange={e => handleFilter(e.target)}>
+                            <select defaultValue={'all'} style={{minWidth:'140px'}}  className="select_filter" name="filter" onChange={e => handleFilter(e.target)}>
                                 <option value={'all'} >Все</option>
                                 <option value="active">Активные</option>
                                 <option value="past">Прошедшие</option>

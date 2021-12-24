@@ -1,56 +1,56 @@
 import React, { useState} from 'react';
 import {useTimer} from "../../../../hooks/useTimer";
-
 import Fade from "@mui/material/Fade";
 import {useImage} from "../../../../hooks/useImage";
-import {useSelector} from "react-redux";
-
 import {SnackBar} from "../../../Home/Snackbar";
+import {useFetchPayStringParametrs} from "../../../../hooks/useFetchPayStringParametrs";
 
 
 
 
 export const DrawItem = ({imgPrice,priceAdd,title,desc,date,members,startDate,id}) => {
-    const { auth } = useSelector((state) => state);
     const {pic}=useImage(imgPrice,'/images/prize.png')
     let d =new Date(startDate)
     const [pay,setPay]=useState(false)
     const {hours,seconds,minute}= useTimer(date);
+    const [valueType,setValueType]=useState('Usdc')
 
     const [openSnack,setOpenSnack]=useState({
         status:false,
         text:'',
         color:'error'
     })
-    const handleAdd =()=>{
-        fetch(`http://lk.pride.kb-techno.ru/api/Contest/participate/${id}`,{
-            method:'POST',
-            headers:{
-                'Accept': 'application/json',
-                'Authorization':`Bearer ${auth.token}`},
 
-        })
-            .then(res=> {
-                if (res.status === 422) {
-                    let error = new Error('Недостаточно средств');
-                    error.response = res;
-                    throw error
-                }
-                res.json()
-            })
-            .then(body=> {
-                setOpenSnack({
-                    status:true,
-                    text:'Вы участвуете в конкурсе',
-                    color:'success'
-                })
-            })
-            .catch(error=> {
-                setOpenSnack({status:true,
-                    text:error.message,
-                    color:'error'})
-            })
-    }
+    const addContest=useFetchPayStringParametrs(`http://lk.pride.kb-techno.ru/api/Contest/participate/${id}?accountName=${valueType}`,'POST',setOpenSnack,'Вы учавствуете в конкурсе!')
+    // const handleAdd =()=>{
+    //     fetch(`http://lk.pride.kb-techno.ru/api/Contest/participate/${id}`,{
+    //         method:'POST',
+    //         headers:{
+    //             'Accept': 'application/json',
+    //             'Authorization':`Bearer ${auth.token}`},
+    //
+    //     })
+    //         .then(res=> {
+    //             if (res.status === 422) {
+    //                 let error = new Error('Недостаточно средств');
+    //                 error.response = res;
+    //                 throw error
+    //             }
+    //             res.json()
+    //         })
+    //         .then(body=> {
+    //             setOpenSnack({
+    //                 status:true,
+    //                 text:'Вы участвуете в конкурсе',
+    //                 color:'success'
+    //             })
+    //         })
+    //         .catch(error=> {
+    //             setOpenSnack({status:true,
+    //                 text:error.message,
+    //                 color:'error'})
+    //         })
+    // }
 
 
     return (
@@ -65,7 +65,14 @@ export const DrawItem = ({imgPrice,priceAdd,title,desc,date,members,startDate,id
                         <div className='text__wrapper'>
                         <div className="balance_sidebar_title texp_price_modal">Стоймость входа</div>
                             <div className="balance_sidebar_total texp_priceValue_modal">{priceAdd+' руб.'}</div>
-                            <button onClick={handleAdd} className="form_sbmOpen texp_button_modal" >Подтвердить</button>
+                            <span  className="add_top">Выберете  кошелек :</span><br/>
+                            <select  style={{width:'50%',marginBottom:'20px',height:'40px'}} className="dark_input"  defaultValue={'Usdc'}  onChange={e=>setValueType(e.target.value)}   name="valueType">
+                                <option value='Usdc' >USDC</option>
+                                <option value='Bitcoin' >BTC</option>
+                                <option value='Ethereum' >ETH</option>
+                                <option value='Litecoin' >LITE</option>
+                            </select>
+                            <button onClick={()=>addContest.handleFetch()} className="form_sbmOpen texp_button_modal" >Подтвердить</button>
                         </div>
                     </div>
                 </div>

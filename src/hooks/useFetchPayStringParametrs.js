@@ -1,7 +1,7 @@
 
 import {useSelector} from "react-redux";
 
-export const useFetchStringParametr = (url,method,setOpenSnack,textSuccess) => {
+export const useFetchPayStringParametrs = (url,method,setOpenSnack,textSuccess) => {
     const { auth } = useSelector((state) => state);
 
     const handleFetch=()=>{
@@ -20,7 +20,12 @@ export const useFetchStringParametr = (url,method,setOpenSnack,textSuccess) => {
                         color:'success'
                     })
                     return
-                } else {
+                }
+                if (res.status === 422) {
+                    let error = new Error('Недостаточно средств');
+                    error.response = res;
+                    throw error
+                }else {
                     let error = new Error('Ошибка');
                     error.response = res;
                     throw error
