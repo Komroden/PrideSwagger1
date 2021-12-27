@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './style.scss';
 
 
@@ -9,6 +9,7 @@ import { useSelector} from "react-redux";
 import {VoteItem} from "./VoteItem";
 import {useFetchWithTokenGet} from "../../../hooks/useFetchWithTokenGet";
 import {Loader} from "../../../api/Loader";
+import {SnackBar} from "../../Home/Snackbar";
 
 
 export const LkHomeMain = () => {
@@ -17,6 +18,11 @@ export const LkHomeMain = () => {
     const outputList=useFetchWithTokenGet('http://lk.pride.kb-techno.ru/api/Finance/list?AccountType=3&TransferDirection=0',{items:[]})
     // const [inputList,setInputList]=useState({items:[]})
     const inputList=useFetchWithTokenGet('http://lk.pride.kb-techno.ru/api/Finance/list?AccountType=3&TransferDirection=1',{items:[]})
+    const [openSnack,setOpenSnack]=useState({
+        status:false,
+        text:'Скопировано',
+        color:'success'
+    })
 
     // useEffect(()=>{
     //     if(auth.token) {
@@ -54,7 +60,7 @@ export const LkHomeMain = () => {
                     <LkHomeMainBalanceItem url='/images/c1.png' bgr='url(/images/coint1.png)' title={'Bitcoin'} text={'BTC'} value={allInfoUser.value.balanceBitcoin.toFixed(0)}  />
                     <LkHomeMainBalanceItem url='/images/c2.png' bgr='url(/images/coint2.png)' title={'Ethereum'} text={'ETH'} value={allInfoUser.value.balanceEthereum.toFixed(0)}  />
                     <LkHomeMainBalanceItem url='/images/c3.png' bgr='url(/images/coint3.png)' title={'Litecoin'} text={'LTC'} value={allInfoUser.value.balanceLitecoin.toFixed(0)}  />
-                    <LkHomeMainBalanceItem url='/images/c4.png' bgr='url(/images/coint4.png)' title={'USDC'} text={'USDC'} value={allInfoUser.value.balanceUsdc.toFixed(0)}  />
+                    <LkHomeMainBalanceItem url='/images/c5.png' bgr='url(/images/coint6.png)' title={'USDC'} text={'USDC'} value={allInfoUser.value.balanceUsdc.toFixed(0)}  />
                     {/*<div className="balance_cost_item balance_cost_item_plus ">*/}
                     {/*    <a href="#">*/}
                     {/*        <span className="dark_plus">+</span>*/}
@@ -70,8 +76,13 @@ export const LkHomeMain = () => {
                 </div>
                 <div className="home2link__text">ваша реферальная ссылка:</div>
                 <div className="home2link__form">
-                    <input type="text" defaultValue={"http://www.pride.io/ref_000001123"}/>
-                    <button>
+                    <input type="text" style={{padding:'5px 45px 5px 10px'}}  value={"http://1-pride.com/register"+allInfoUser.value.id} readOnly/>
+                    <button onClick={() => {navigator.clipboard.writeText("http://1-pride.com/register"+allInfoUser.value.id)
+                        setOpenSnack({
+                        status:true,
+                        text:'Скопировано',
+                        color:'success'
+                    })}}>
                         <img src="/images/copyimg.png" alt=""/>
                     </button>
                 </div>
@@ -108,6 +119,8 @@ export const LkHomeMain = () => {
 
                 {votes.value.items.filter((item,index)=>index===0).map(item=><VoteItem key={item.id} id={item.id} title={item.question} votesBars={item.answers} all={item.totalVotesCount} isVotesUser={item.votedByUser}/>)}
             </div>
+            <SnackBar open={openSnack} setOpen={setOpenSnack}/>
+
         </>
     );
 };

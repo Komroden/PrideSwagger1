@@ -4,11 +4,18 @@ import {RefillItem} from "./RefillItem";
 import {Line} from "../MainTitle/GreyLine";
 import {useSelector} from "react-redux";
 import {Loader} from "../../../api/Loader";
+import {useHistory} from "react-router";
 export const RefillMain = ({action,actionTitle}) => {
     const { auth,allInfoUser } = useSelector((state) => state);
     const [wallets,setWallets]=useState([])
     const [valueType,setValueType]=useState(allInfoUser.wallets.length===1?allInfoUser.wallets[0].id:0)
     const [loading,setLoading]=useState(false)
+
+    const {push}=useHistory()
+    const handlePush=(e) => {
+        e.preventDefault()
+        push('/settings')
+    }
 
 
     useEffect(()=>{
@@ -58,7 +65,7 @@ export const RefillMain = ({action,actionTitle}) => {
                     </select>
                 </div>}
                 {allInfoUser.wallets.length===0&&actionTitle==='Вывести'&&
-                    <span className="title_input" style={{marginTop: '30px',textAlign:'center'}}>Для вывода необходимо добавить кошелек</span>}
+                <span className="title_input" style={{marginTop: '30px',textAlign:'center'}}>Для вывода необходимо <span onClick={handlePush} style={{color:'green',cursor:'pointer'}}>добавить кошелек</span></span>}
                 {actionTitle==='Пополнить'&&<RefillItem action={actionTitle} title={'CoinBase'} draw={true}/>}
 
                 {/*<RefillItem logo={'/images/pay1.png'} title={'PAYEER'} action={actionTitle} />*/}

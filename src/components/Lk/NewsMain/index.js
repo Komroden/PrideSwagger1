@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './style.scss';
 import {NewsItemLk} from "./NewsItemLk";
 import {useSelector} from "react-redux";
@@ -6,10 +6,11 @@ import {useSelector} from "react-redux";
 
 export const NewsMain = () => {
     const { news } = useSelector((state) => state);
-    //const [count,setCount]=useState(9)
+    const [count,setCount]=useState(9)
     const handleAddNews=e=>{
         e.preventDefault()
-        // news.value.filter(index=>index>0+count)
+        news.value.filter((item,index)=>index>count)
+        setCount(count+9)
     }
     return (
         <>
@@ -32,10 +33,10 @@ export const NewsMain = () => {
 
 
                 </div>
-                <a href="/" onClick={handleAddNews} className="more_news">
+                {news.value.length>9&&<a href="/" onClick={handleAddNews} className="more_news">
                     <span>Еще новости</span>
                     <img src="/images/chevr_pink.png" alt=""/>
-                </a>
+                </a>}
             </div>
             <div className="main_for_all_pages youtube_main">
                 <div className="youtube_row">

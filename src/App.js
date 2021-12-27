@@ -255,6 +255,9 @@ export function App() {
     //     balanceUsdc:0
     // })
     const allInfo=useFetchWithTokenGet('http://lk.pride.kb-techno.ru/api/Partners/current',{
+        value:{
+            id:0
+        },
         balance:0,
         balanceBitcoin:0,
         balanceEthereum:0,
@@ -458,6 +461,9 @@ export function App() {
             <Login/>
         </Route>
         <Route  path='/register'>
+            <Registration/>
+        </Route>
+        <Route  path='/register:partnerId'>
             <Registration/>
         </Route>
         <PrivateRoute auth={auth}  path='/structure'>
