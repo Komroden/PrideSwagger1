@@ -21,7 +21,8 @@ const initialState = {
         balance:0,
     },
     avatar:'',
-    wallets:[]
+    wallets:[],
+
 
 }
 

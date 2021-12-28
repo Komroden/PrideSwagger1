@@ -30,7 +30,7 @@ export const FormRegist = ({status}) => {
     const passwordConfirm=useInputV('',{isEmpty:true,minLength:6,maxLength:10});
     const phoneNumber=useInputV('',{isEmpty:true,isPhone:true});
     const patronymic=useInputV('');
-    const idInvited=useInputV(partnerId?partnerId:null);
+    const idInvited=useInputV(partnerId?partnerId:0);
 
 
 

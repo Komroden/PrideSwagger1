@@ -1,6 +1,10 @@
-import {OPEN_MESSAGE_SMS} from './actions'
+import {OPEN_MESSAGE_SMS,OPEN_SNACK_BAR} from './actions'
 const initialState = {
     openMessage: false,
+    openSnack:{
+        status:false,
+        text:'',
+        color:'error'}
 
 
 }
@@ -12,6 +16,13 @@ export const messageReducer = (state = initialState, action) => {
             return {
                 ...state,
                 openMessage: !state.openMessage
+            }
+
+        }
+        case OPEN_SNACK_BAR: {
+            return {
+                ...state,
+                openSnack: action.payload
             }
 
         }

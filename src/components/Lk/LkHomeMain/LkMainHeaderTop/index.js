@@ -103,9 +103,12 @@ export const LkMainHeaderTop = () => {
     return (
         <>
         <div  className="lider_top" >
-            <div ref={containerRef} className="lider_top_title">
+            <div   className="lider_top_title">
                 лидеры <br/>
                 ваш топ
+            </div>
+            <div ref={containerRef}>
+
             </div>
 
             {/*//style={{display:items.topListUsers[0].id===allInfoUser.value.id?'none':'block'}}*/}
@@ -125,7 +128,7 @@ export const LkMainHeaderTop = () => {
                     <button onClick={handleVerify} className='add_top_button'>Да</button>
                     </div>
                 </Fade>
-                <span  onClick={handleClick} >
+                <span    onClick={handleClick} >
                     <span   className="dark_plus">+</span>
                 </span>
             </div>

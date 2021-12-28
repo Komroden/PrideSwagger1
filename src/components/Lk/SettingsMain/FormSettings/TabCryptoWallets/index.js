@@ -1,12 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import {CodeInput} from "../CodeInput";
 import {useInputV} from "../../../../../hooks/useInputV";
-import {useSelector} from "react-redux";
+import { useSelector} from "react-redux";
 import Fade from "@mui/material/Fade";
 import {Captcha} from "../../../../Home/ContReview/Captcha";
 import {Wallets} from "./Wallets";
 import {SnackBar} from "../../../../Home/Snackbar";
 import {useFetchHandlePostWithBody} from "../../../../../hooks/useFetchHandlePostWithBody";
+
 
 
 export const TabCryptoWalets = () => {
@@ -16,7 +17,8 @@ export const TabCryptoWalets = () => {
     const [visible, setVisible] = useState(false);
     const [success,setSuccess]=useState(true);
 
-    const [counter,setCounter]=useState(0)
+    const [counter,setCounter]=useState(0);
+
 
 
     const [openSnack,setOpenSnack]=useState({
@@ -49,48 +51,6 @@ export const TabCryptoWalets = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[counter])
-    // const handlePut=(e)=>{
-    //     e.preventDefault()
-    //     if (success) {
-    //         setCounter(counter+1)
-    //
-    //         fetch('http://lk.pride.kb-techno.ru/api/Profile/requisites/add-crypto-wallet', {
-    //             method: 'POST',
-    //             body: JSON.stringify(payload),
-    //             headers: {
-    //                 'accept': 'application/json',
-    //                 'Content-Type': 'application/json',
-    //                 'Authorization': `Bearer ${auth.token}`
-    //             }
-    //         })
-    //             .then((res) => {
-    //                 if (res.status >= 200 && res.status < 300) {
-    //                     setOpenSnack({
-    //                         status:true,
-    //                         text:'Отправлено',
-    //                         color:'success'
-    //                     })
-    //                 }
-    //                 if (res.status>=400){
-    //                     let error = new Error('Неверный код');
-    //                     error.response = res;
-    //                     if(counter>=2){
-    //                         setSuccess(false)
-    //                         openCaptcha()
-    //                     }
-    //                     throw error
-    //                 }
-    //             })
-    //
-    //             .catch((error) => {
-    //                 setOpenSnack({status:true,
-    //                     text:error.message,
-    //                     color:'error'})
-    //             });
-    //     }
-    // }
-
-
 
 
 

@@ -3,19 +3,25 @@ import Fade from "@mui/material/Fade";
 import {Picker} from "emoji-mart";
 import {useSelector} from "react-redux";
 import SendIcon from '@mui/icons-material/Send';
+import {SnackBar} from "../../../Home/Snackbar";
 
 
-export const SendMessage = ({id,status,modifyWrap,modifyEmoji}) => {
+export const SendMessage = ({url,status,modifyWrap,modifyEmoji}) => {
     const { auth } = useSelector((state) => state);
     const [message,setMessage]=useState('')
     const [open,setOpen]=useState(false)
+    const [openSnack,setOpenSnack]=useState({
+        status:false,
+        text:'',
+        color:'error'
+    })
     const handleAddEmoji=(emoji)=> setMessage(prev=>prev+emoji)
     const handleOpen=(e)=>{
         e.preventDefault()
         setOpen(!open)}
     const handleSend=(e)=>{
         e.preventDefault()
-        fetch(`http://lk.pride.kb-techno.ru/api/Chat/send-message/${id}`,{
+        fetch(url,{
             method:'POST',
             body:JSON.stringify(message),
             headers:{
@@ -23,8 +29,32 @@ export const SendMessage = ({id,status,modifyWrap,modifyEmoji}) => {
                 'accept': 'application/octet-stream',
                 'Content-Type': 'application/json'}
         })
-            .then(res=>res.text())
-            .then(setMessage(''))
+            .then(res=> {
+                if (res.status >= 200 && res.status < 300) {
+                res.text()
+                    setOpenSnack({
+                        status:true,
+                        text:'Отправлено',
+                        color:'success'
+                    })
+                    setMessage('')
+                }
+                if(res.status===422) {
+                    let error = new Error('Пользователь заблокировал сообщения');
+                    error.response = res;
+                    throw error
+                }
+                else {
+                    let error = new Error('Ошибка');
+                    error.response = res;
+                    throw error
+                }})
+            .catch(error=>setOpenSnack({
+                    status: true,
+                    text: error.message,
+                    color: 'error'
+                }))
+
 
 
     }
@@ -56,6 +86,7 @@ export const SendMessage = ({id,status,modifyWrap,modifyEmoji}) => {
                     <SendIcon fontSize={'small'}/>
                 </button>
             </div>
+            <SnackBar open={openSnack} setOpen={setOpenSnack}/>
         </div>
         </Fade>
     );

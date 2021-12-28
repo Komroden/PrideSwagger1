@@ -19,21 +19,13 @@ export const ChatsMain = () => {
     //     items:[]
     // })
     const chatrooms=useFetchWithTokenGet('http://lk.pride.kb-techno.ru/api/Chat/chatrooms',{items:[]},refresh)
-    // useEffect(()=>{
-    //     if(auth.token) {
-    //         fetch('http://lk.pride.kb-techno.ru/api/Chat/chatrooms', {
-    //             method: 'GET',
-    //             headers: {
-    //                 'accept': 'application/json',
-    //                 'Authorization': `Bearer ${auth.token}`
-    //             }
-    //         })
-    //             .then(res => res.json())
-    //             .then(body => setChatrooms(body))
-    //     }
-    // },[auth.token,refresh])
-    const handleOpen=({id,name})=>{
-        push(`/messages${id}/${name}`)
+
+    const handleOpen=({id,name,recipientName})=>{
+        if(recipientName==='Служба поддержки'){
+            push(`/chatsSupport${id}`)
+        }else {
+            push(`/messages${id}/${name}`)
+        }
 
     }
     const handleDelete=(id)=>{
@@ -66,7 +58,7 @@ export const ChatsMain = () => {
                                 }
                             >
                                 <div  onClick={()=>handleOpen({id:item.id,name:item.recipientId})} style={{marginBottom:'0',cursor:'pointer'}} >{item.recipientName+' : '+item.lastMessageText}</div>
-                                <IconButton onClick={()=>handleOpen({id:item.id,name:item.recipientId})}>
+                                <IconButton onClick={()=>handleOpen({id:item.id,name:item.recipientId,recipientName:item.recipientName})}>
                                     <CommentIcon  />
                                 </IconButton>
 

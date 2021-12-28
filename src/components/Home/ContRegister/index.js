@@ -32,9 +32,9 @@ export const ContRegister = () => {
         setStatus(false)
     },[])
 
-    const handleOpen=()=>{
-        setStatus(!status)
-    }
+    // const handleOpen=()=>{
+    //     setStatus(!status)
+    // }
 const handlePost=(e)=> {
 e.preventDefault()
     setLoading(true)
@@ -76,7 +76,7 @@ e.preventDefault()
                 </div>
                 <div className="first_left wow slideInUp" data-wow-duration="3s">
                     <div className="log_block">
-                        <img onClick={handleOpen} src="/images/logo_dark.png" alt="" className="img"/>
+                        <img  src="/images/logo_dark.png" alt="" className="img"/>
                             <div className="log_title">{status?'Введите код':'Регистрация в Pride'}</div>
                             <div className="log_form">
                                 <form onSubmit={handlePost}>

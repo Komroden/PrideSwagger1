@@ -20,6 +20,8 @@ export const useImage = (url,valueError) => {
             })
             .catch(error=>console.log(error))
 
+        return () => setPic('');
+
     },[url,valueError])
     return {pic};
 };

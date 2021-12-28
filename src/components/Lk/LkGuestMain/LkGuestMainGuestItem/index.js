@@ -52,7 +52,7 @@ export const LkGuestMainGuestItem = ({image,name,year,isOnline,setOpenModal,id})
                     <img src="/images/prof.png" alt=""/>
                     <span>Профайл пользователя</span>
                 </a>
-                <SendMessage status={status} id={id} modifyWrap={'mes_guest_wrap'} modifyEmoji={'mes_guest_emoji'}/>
+                <SendMessage status={status} url={`http://lk.pride.kb-techno.ru/api/Chat/send-message/${id}`} modifyWrap={'mes_guest_wrap'} modifyEmoji={'mes_guest_emoji'}/>
             </div>
             <BlockUserId/>
         </div>

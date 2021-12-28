@@ -8,6 +8,8 @@ import {UseYears} from "../../../hooks/useYears";
 import {SendMessage} from "./SendMessage";
 import {useFetchWithTokenGet} from "../../../hooks/useFetchWithTokenGet";
 import {Loader} from "../../../api/Loader";
+import {useFetchStringParametr} from "../../../hooks/useFetchStringParametr";
+import {SnackBar} from "../../Home/Snackbar";
 
 export const LkUserMain = () => {
     const { auth,allInfoUser } = useSelector((state) => state);
@@ -36,7 +38,7 @@ export const LkUserMain = () => {
     const {text}=UseYears(value.data.yearsOld)
 
     useEffect(()=>{
-        if(auth.token&&!value.data.isCurrentUser) {
+        if(auth.token&&!value.data.isCurrentUser&&value.data.image) {
             fetch(`http://lk.pride.kb-techno.ru/assets/Img/${value.data.image}`, {
                 method: 'GET',
                 headers: {
@@ -50,22 +52,29 @@ export const LkUserMain = () => {
     },[auth.token,value.data.image,value.data.isCurrentUser])
 
 
+
     //id props
-    const handleBlockById=()=>{
-        fetch(`http://lk.pride.kb-techno.ru/api/Chat/block-user/${id}`, {
-            method:'PUT',
-            headers:{
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization':`Bearer ${auth.token}`}
-        })
-            .then(res=>res.json())
-            .then(res=>console.log(res))
-            .catch(e=>console.log(e))
-    }
-    const handleAddFriend=(e)=>{
-        e.preventDefault()
-    }
+    const [openSnack,setOpenSnack]=useState({
+        status:false,
+        text:'',
+        color:'error'
+    })
+    const block=useFetchStringParametr(`http://lk.pride.kb-techno.ru/api/Chat/block-sender/${id}`,'PUT',setOpenSnack,'Пользователь заблокирован')
+    // const handleBlockById=()=>{
+    //     fetch(`http://lk.pride.kb-techno.ru/api/Chat/block-sender/${id}`, {
+    //         method:'PUT',
+    //         headers:{
+    //             'Content-Type': 'application/json',
+    //             'Accept': 'application/json',
+    //             'Authorization':`Bearer ${auth.token}`}
+    //     })
+    //         .then(res=>res.json())
+    //         .then(res=>console.log(res))
+    //         .catch(e=>console.log(e))
+    // }
+    // const handleAddFriend=(e)=>{
+    //     e.preventDefault()
+    // }
     return (
         <>
 
@@ -81,14 +90,15 @@ export const LkUserMain = () => {
                             <div className="user_main_block_logo">
                                 {/*//image*/}
                                 {value.data.isCurrentUser&&<img src={allInfoUser.avatar ? allInfoUser.avatar : '/images/logo_dark.png'} alt=""/>}
-                                {!value.data.isCurrentUser&&<img src={pic} alt=""/>}
+                                {!value.data.isCurrentUser&&<img src={pic?pic:'/images/logo_dark.png'} alt=""/>}
                             </div>
                             <div className="userblockplus__photolink">
-                                {!value.data.isCurrentUser&& <a href="/" onClick={handleAddFriend}>Добавить в друзья</a>}
+                                {/*{!value.data.isCurrentUser&& <a href="/" onClick={handleAddFriend}>Добавить в друзья</a>}*/}
                                 {value.data.isCurrentUser&&<p className='your__profile'>Ваш профиль</p>}
                                 {!value.data.isCurrentUser&&<button onClick={()=>setStatus(!status)} className="form_sbmOpen userBlock_sendMessage">Отправить сообщение</button>}
-                                {!value.data.isCurrentUser&&<SendMessage id={id} status={status}/>}
-                                {!value.data.isCurrentUser&& <button style={{marginTop:status?'20px':''}} onClick={handleBlockById} className="form_sbmOpen form_sbmOpen_clear">Заблокировать</button>}
+                                {!value.data.isCurrentUser&&<SendMessage url={`http://lk.pride.kb-techno.ru/api/Chat/send-message/${id}`} status={status}/>}
+                                {!value.data.isCurrentUser&& <button style={{marginTop:status?'20px':''}} onClick={(e)=>{e.preventDefault()
+                                block.handleFetch()}} className="form_sbmOpen form_sbmOpen_clear">Заблокировать</button>}
                             </div>
                         </div>
                         <div className="userblockplus__detail">
@@ -103,7 +113,7 @@ export const LkUserMain = () => {
                                     </div>
 
                                 </div>
-                                <div className="user_main_block_name">{value.data.firstName+' '+value.data.lastName}</div>
+                                <div className="user_main_block_name">{value.data.firstName+' '+value.data.lastName+' '+value.data.middleName}</div>
                             </div>
                         </div>
                     </div>
@@ -166,6 +176,7 @@ export const LkUserMain = () => {
             <div className="home2img">
                 <img src="/images/home2.png" alt=""/>
             </div>
+            <SnackBar open={openSnack} setOpen={setOpenSnack}/>
 
         </>
 

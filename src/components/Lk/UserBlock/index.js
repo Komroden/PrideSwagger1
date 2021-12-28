@@ -3,6 +3,7 @@ import {useHistory} from "react-router";
 import {useSelector} from "react-redux";
 import {UseYears} from "../../../hooks/useYears";
 import {CircularProgressWithLabel} from "./CircularProgressWithLabel";
+import {useSubstringText} from "../../../hooks/useSubstringText";
 
 
 export const UserBlock = ({isChangeImage,setOpen,open}) => {
@@ -28,11 +29,10 @@ export const UserBlock = ({isChangeImage,setOpen,open}) => {
         {name: allInfoUser.value.birthDate},
         {name: allInfoUser.value.telegram},
         {name: allInfoUser.value.vkontakte},
-
-])
-    const [percent,setPercent]=useState([])
+    ])
+    const [percent,setPercent]=useState(value.filter(item=>item.name!==''&&item.name!==null))
     useEffect(()=>{
-        if(!allInfoUser.value) return
+
         setValue([
             {name: allInfoUser.value.email},
             {name: allInfoUser.value.firstName},
@@ -48,12 +48,17 @@ export const UserBlock = ({isChangeImage,setOpen,open}) => {
         setPercent(value.filter(item=>item.name!==''&&item.name!==null))
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[allInfoUser.value])
+    },[allInfoUser])
+
 
     const birth =new Date(allInfoUser.value.birthDate).getFullYear()
     const d =new Date().getFullYear()
     const years = d-birth
     const {text}=UseYears(years)
+
+    const firstName=useSubstringText(allInfoUser.value.firstName,10)
+    const lastName=useSubstringText(allInfoUser.value.lastName,10)
+
 
 
     return (
@@ -64,13 +69,14 @@ export const UserBlock = ({isChangeImage,setOpen,open}) => {
             </div>
             <div className="user_main_block_info">
                 <div className="user_main_block_info_top">
-                    <div className="user_main_block_years">{years&&years<100?years:'Не указано'} <span>{years&&years<100?text:''}</span></div>
+                    {allInfoUser.value.birthDate!=='0001-01-01T00:00:00'&&<div className="user_main_block_years">{years && years < 100 ? years : 'Не указано'}
+                        <span>{years && years < 100 ? text : ''}</span></div>}
                     <div className={allInfoUser.value.isVerified?"user_main_block_verif":"user_main_block_verif no_verif"}>
                         <img src={allInfoUser.value.isVerified?"/images/verif.png":"/images/noVerif.png"} alt=""/>
                         <span>Верефикация <br/>{allInfoUser.value.isVerified?'пройдена':'не пройдена'}</span>
                     </div>
                 </div>
-                <div className="user_main_block_name">{userData.value.userInfo?userData.value.userInfo.fullName:'User'}</div>
+                <div className="user_main_block_name">{allInfoUser.value.firstName&&allInfoUser.value.lastName?firstName+' '+lastName:'User'}</div>
                 <a href={allInfoUser.value.email?allInfoUser.value.email:'#'} className="user_main_block_info_mail">
                     <img src="/images/email.png" alt=""/>
                     <span style={{color:'#fff'}}>{allInfoUser.value.email?allInfoUser.value.email:'none'}</span>

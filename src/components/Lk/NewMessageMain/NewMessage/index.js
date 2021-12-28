@@ -42,7 +42,7 @@ export const NewMessage = ({name,text,date,mode,id,setDeleteMessage}) => {
                 <a href="/" onClick={handleDelete} className="red_remove_btn">Удалить</a>
             </div>
             <div style={{position:'absolute',top:'-115px',right:'0'}}>
-            <SendMessage id={id} status={open}/>
+            <SendMessage url={`http://lk.pride.kb-techno.ru/api/Chat/send-message/${id}`} status={open}/>
             </div>
         </div>
     );

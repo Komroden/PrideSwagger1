@@ -48,6 +48,7 @@ import {useToken} from "./hooks/useToken";
 import {setReferalsList} from "./store/referals/actions";
 import {useFetchWithTokenGet} from "./hooks/useFetchWithTokenGet";
 import {useFetchWithoutTokenGet} from "./hooks/useFetchWithoutTokenGet";
+import {ChatsSupport} from "./pages/Lk/ChatSupport";
 
 
 
@@ -255,14 +256,25 @@ export function App() {
     //     balanceUsdc:0
     // })
     const allInfo=useFetchWithTokenGet('http://lk.pride.kb-techno.ru/api/Partners/current',{
-        value:{
-            id:0
-        },
-        balance:0,
+
         balanceBitcoin:0,
         balanceEthereum:0,
         balanceLitecoin:0,
-        balanceUsdc:0
+        balanceUsdc:0,
+        email:'',
+        messageCount:0,
+        isVerify:false,
+        firstName:'',
+        middleName:'',
+        lastName:'',
+        phoneNumber:'',
+        country:'',
+        city:'',
+        birthDate:'',
+        telegram:'',
+        vkontakte:'',
+        rang:null,
+        balance:0,
     })
 
     const [pic,setPic]=useState('')
@@ -323,7 +335,6 @@ export function App() {
         setInfo()
     },[setInfo,allInfo.data])
     useEffect(()=>{
-        if (pic==='') return
         setAvatar()
     },[setAvatar,pic])
     // useEffect(()=>{
@@ -346,7 +357,10 @@ export function App() {
     // },[auth.token])
     useEffect(()=>{
         if(auth.token) {
-            if (!allInfo.data.image) return
+            if (!allInfo.data.image) {
+                setPic('')
+                return
+            }
             fetch(`http://lk.pride.kb-techno.ru/assets/Img/${allInfo.data.image}`, {
                 method: 'GET',
                 headers: {
@@ -357,7 +371,7 @@ export function App() {
             })
                 .then(res => setPic(res.url))
         }
-    },[auth.token,allInfo.data])
+    },[auth.token,allInfo])
 
     // votes
 
@@ -492,6 +506,9 @@ export function App() {
         </PrivateRoute>
         <PrivateRoute auth={auth} path='/messages:id/:name'>
            <Messages/>
+        </PrivateRoute>
+        <PrivateRoute auth={auth} path='/chatsSupport:id'>
+            <ChatsSupport/>
         </PrivateRoute>
         <PrivateRoute auth={auth} path='/notifications'>
             <Notifications/>

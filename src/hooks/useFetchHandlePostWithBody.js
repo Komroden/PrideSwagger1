@@ -34,7 +34,13 @@ export const useFetchHandlePostWithBody = (url,payload,resetFunc,setOpenSnack,me
                     let error = new Error('Некорректные данные');
                     error.response = res;
                     throw error
-                }else {
+                }
+                if (res.status === 422 ){
+                    let error = new Error('Неправильный код');
+                    error.response = res;
+                    throw error
+                }
+                else {
                     let error = new Error(res.statusText);
                     error.response = res;
                     throw error
