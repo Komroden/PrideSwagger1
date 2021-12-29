@@ -52,7 +52,7 @@ export const TabMainInfo = () => {
         telegram.onReset()
         vkontakte.onReset()
     }
-    const post=useFetchHandlePostWithBody('http://lk.pride.kb-techno.ru/api/Profile/update',payload,handleReset,setOpenSnack,'PUT')
+    const post=useFetchHandlePostWithBody('http://lk.pride.kb-techno.ru/api/Profile/update',payload,handleReset,setOpenSnack,'PUT','Неправильный код')
 
     useEffect(()=>{
         if(counter===2){

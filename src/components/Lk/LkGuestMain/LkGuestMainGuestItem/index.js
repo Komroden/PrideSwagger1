@@ -1,25 +1,28 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import {useHistory} from "react-router";
 import {BlockUserId} from "../BlockUserId";
 import {UseYears} from "../../../../hooks/useYears";
 import {SendMessage} from "../../LkUserMain/SendMessage";
+import {useImage} from "../../../../hooks/useImage";
 
 
 
 export const LkGuestMainGuestItem = ({image,name,year,isOnline,setOpenModal,id}) => {
-    const [pic,setPic]=useState('');
+    // const [pic,setPic]=useState('');
     const [status,setStatus]=useState(false)
 
-    useEffect(()=>{
-        fetch(`http://lk.pride.kb-techno.ru/assets/Img/${image}`,{
-            method:'GET',
-            headers:{
-                'accept': 'application/octet-stream'
-            }
-        })
-            .then(res=>setPic(res.url))
+    const {pic} =useImage(image,'/images/logo_dark.png')
 
-    },[image])
+    // useEffect(()=>{
+    //     fetch(`http://lk.pride.kb-techno.ru/assets/Img/${image}`,{
+    //         method:'GET',
+    //         headers:{
+    //             'accept': 'application/octet-stream'
+    //         }
+    //     })
+    //         .then(res=>setPic(res.url))
+    //
+    // },[image])
 
 
     const {push}=useHistory()
@@ -35,7 +38,7 @@ export const LkGuestMainGuestItem = ({image,name,year,isOnline,setOpenModal,id})
     return (
         <div key={id} className="gost_item" style={{backgroundColor: "#fcf2ff"}} >
             <div className="gost_item_top">
-                <div className="gost_item_logo" style={{backgroundImage: `url(${pic})`}}/>
+                <div className="gost_item_logo" style={{backgroundImage: `url(${pic?pic:'/images/logo_dark.png'})`}}/>
                 <div className="gost_item_top_right">
                     <div className="gost_item_name">{name}</div>
                     <div className="gost_item_year">{year+' '+text}</div>
@@ -54,7 +57,7 @@ export const LkGuestMainGuestItem = ({image,name,year,isOnline,setOpenModal,id})
                 </a>
                 <SendMessage status={status} url={`http://lk.pride.kb-techno.ru/api/Chat/send-message/${id}`} modifyWrap={'mes_guest_wrap'} modifyEmoji={'mes_guest_emoji'}/>
             </div>
-            <BlockUserId/>
+            <BlockUserId id={id}/>
         </div>
     );
 };

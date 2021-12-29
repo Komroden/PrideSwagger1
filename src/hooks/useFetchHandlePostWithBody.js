@@ -1,7 +1,7 @@
 
 import {useSelector} from "react-redux";
 
-export const useFetchHandlePostWithBody = (url,payload,resetFunc,setOpenSnack,method) => {
+export const useFetchHandlePostWithBody = (url,payload,resetFunc,setOpenSnack,method,if422) => {
     const { auth } = useSelector((state) => state);
 
     const handlePost=()=>{
@@ -36,12 +36,12 @@ export const useFetchHandlePostWithBody = (url,payload,resetFunc,setOpenSnack,me
                     throw error
                 }
                 if (res.status === 422 ){
-                    let error = new Error('Неправильный код');
+                    let error = new Error(if422);
                     error.response = res;
                     throw error
                 }
                 else {
-                    let error = new Error(res.statusText);
+                    let error = new Error('Ошибка');
                     error.response = res;
                     throw error
                 }

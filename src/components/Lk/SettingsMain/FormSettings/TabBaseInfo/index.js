@@ -36,7 +36,7 @@ export const TabBaseInfo = () => {
     }
 
 
-    const post=useFetchHandlePostWithBody('http://lk.pride.kb-techno.ru/api/Profile/change-password',payload,handleReset,setOpenSnack,'POST')
+    const post=useFetchHandlePostWithBody('http://lk.pride.kb-techno.ru/api/Profile/change-password',payload,handleReset,setOpenSnack,'POST','Неправильный код')
     // const handlePut=(e)=>{
     //     e.preventDefault()
     //     setCounter(counter+1)

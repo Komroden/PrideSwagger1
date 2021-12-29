@@ -1,13 +1,12 @@
 import React, {useState} from 'react';
 import Fade from "@mui/material/Fade";
 import {Picker} from "emoji-mart";
-import {useSelector} from "react-redux";
 import SendIcon from '@mui/icons-material/Send';
 import {SnackBar} from "../../../Home/Snackbar";
+import {useFetchHandlePostWithBody} from "../../../../hooks/useFetchHandlePostWithBody";
 
 
 export const SendMessage = ({url,status,modifyWrap,modifyEmoji}) => {
-    const { auth } = useSelector((state) => state);
     const [message,setMessage]=useState('')
     const [open,setOpen]=useState(false)
     const [openSnack,setOpenSnack]=useState({
@@ -19,41 +18,47 @@ export const SendMessage = ({url,status,modifyWrap,modifyEmoji}) => {
     const handleOpen=(e)=>{
         e.preventDefault()
         setOpen(!open)}
-    const handleSend=(e)=>{
+
+    const resetFunc=()=>{
+        setMessage('')}
+
+    const send =useFetchHandlePostWithBody(url,message,resetFunc,setOpenSnack,'POST','Пользователь заблокировал сообщения')
+        const handleSend=(e)=>{
         e.preventDefault()
-        fetch(url,{
-            method:'POST',
-            body:JSON.stringify(message),
-            headers:{
-                'Authorization':`Bearer ${auth.token}`,
-                'accept': 'application/octet-stream',
-                'Content-Type': 'application/json'}
-        })
-            .then(res=> {
-                if (res.status >= 200 && res.status < 300) {
-                res.text()
-                    setOpenSnack({
-                        status:true,
-                        text:'Отправлено',
-                        color:'success'
-                    })
-                    setMessage('')
-                }
-                if(res.status===422) {
-                    let error = new Error('Пользователь заблокировал сообщения');
-                    error.response = res;
-                    throw error
-                }
-                else {
-                    let error = new Error('Ошибка');
-                    error.response = res;
-                    throw error
-                }})
-            .catch(error=>setOpenSnack({
-                    status: true,
-                    text: error.message,
-                    color: 'error'
-                }))
+            send.handlePost()
+        // fetch(url,{
+        //     method:'POST',
+        //     body:JSON.stringify(message),
+        //     headers:{
+        //         'Authorization':`Bearer ${auth.token}`,
+        //         'accept': 'application/octet-stream',
+        //         'Content-Type': 'application/json'}
+        // })
+        //     .then(res=> {
+        //         if (res.status >= 200 && res.status < 300) {
+        //             setOpenSnack({
+        //                 status:true,
+        //                 text:'Отправлено',
+        //                 color:'success'
+        //             })
+        //             setMessage('')
+        //             return
+        //         }
+        //         if(res.status===422) {
+        //             let error = new Error('Пользователь заблокировал сообщения');
+        //             error.response = res;
+        //             throw error
+        //         }
+        //         else {
+        //             let error = new Error('Ошибка');
+        //             error.response = res;
+        //             throw error
+        //         }})
+        //     .catch(error=>setOpenSnack({
+        //             status: true,
+        //             text: error.message,
+        //             color: 'error'
+        //         }))
 
 
 

@@ -11,6 +11,7 @@ import {Loader} from "../../../api/Loader";
 import {useFetchStringParametr} from "../../../hooks/useFetchStringParametr";
 import {SnackBar} from "../../Home/Snackbar";
 
+
 export const LkUserMain = () => {
     const { auth,allInfoUser } = useSelector((state) => state);
     // const [value,setValue]=useState({})
@@ -36,6 +37,7 @@ export const LkUserMain = () => {
     //         .catch(error=>console.log(error))
     // },[auth.token,id])
     const {text}=UseYears(value.data.yearsOld)
+
 
     useEffect(()=>{
         if(auth.token&&!value.data.isCurrentUser&&value.data.image) {

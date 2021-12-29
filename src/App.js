@@ -371,7 +371,7 @@ export function App() {
             })
                 .then(res => setPic(res.url))
         }
-    },[auth.token,allInfo])
+    },[auth.token,allInfo.data])
 
     // votes
 

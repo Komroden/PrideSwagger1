@@ -7,12 +7,13 @@ import {useSelector} from "react-redux";
 import {SnackBar} from "../../../Home/Snackbar";
 import {useFetchWithTokenGet} from "../../../../hooks/useFetchWithTokenGet";
 import {Loader} from "../../../../api/Loader";
+import {useFetchPayStringParametrs} from "../../../../hooks/useFetchPayStringParametrs";
 
 
 
 
 export const LkMainHeaderTop = () => {
-    const { auth,allInfoUser } = useSelector((state) => state);
+    const { allInfoUser } = useSelector((state) => state);
     const[open,setOpen]=useState(false);
     const [openSnack,setOpenSnack]=useState({
         status:false,
@@ -44,36 +45,38 @@ export const LkMainHeaderTop = () => {
 
     };
     const containerRef =useRef(null)
+    const addTop =useFetchPayStringParametrs(`http://lk.pride.kb-techno.ru/api/Main/pay-for-top?message=${message}&accountName=${valueType}`,'POST',setOpenSnack,'Вы добавлены в топ!')
     const handleVerify=()=>{
+        addTop.handleFetch()
 
-        fetch(`http://lk.pride.kb-techno.ru/api/Main/pay-for-top?message=${message}&accountName=${valueType}`,{
-            method:'POST',
-            headers:{
-                'Accept': 'application/json',
-                'Authorization':`Bearer ${auth.token}`},
-
-        })
-            .then(res=> {
-                if (res.status === 422) {
-                    let error = new Error('Недостаточно средств');
-                    error.response = res;
-                    throw error
-                }
-                res.json()
-
-            })
-            .then(body=> {
-                setOpenSnack({
-                    status:true,
-                    text:'Вы добавлены в топ!',
-                    color:'success'
-                })
-            })
-            .catch(error=> {
-                setOpenSnack({status:true,
-                    text:error.message,
-                    color:'error'})
-            })
+        // fetch(`http://lk.pride.kb-techno.ru/api/Main/pay-for-top?message=${message}&accountName=${valueType}`,{
+        //     method:'POST',
+        //     headers:{
+        //         'Accept': 'application/json',
+        //         'Authorization':`Bearer ${auth.token}`},
+        //
+        // })
+        //     .then(res=> {
+        //         if (res.status === 422) {
+        //             let error = new Error('Недостаточно средств');
+        //             error.response = res;
+        //             throw error
+        //         }
+        //         res.json()
+        //
+        //     })
+        //     .then(body=> {
+        //         setOpenSnack({
+        //             status:true,
+        //             text:'Вы добавлены в топ!',
+        //             color:'success'
+        //         })
+        //     })
+        //     .catch(error=> {
+        //         setOpenSnack({status:true,
+        //             text:error.message,
+        //             color:'error'})
+        //     })
         setOpen(false)
 
     }

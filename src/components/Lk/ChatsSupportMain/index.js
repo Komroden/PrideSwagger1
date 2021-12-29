@@ -1,9 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import 'emoji-mart/css/emoji-mart.css'
 import { Picker } from 'emoji-mart'
-
-import {LkMessagesMainYou} from "./LkMessagesMainYou";
-import {LkMessagesMainUser} from "./LkMessagesMainUser";
 import {Line} from "../MainTitle/GreyLine";
 import {LineTitle} from "../LineTitle";
 import { useParams} from "react-router";
@@ -11,6 +8,9 @@ import {useSelector} from "react-redux";
 import Fade from '@mui/material/Fade';
 import {useFetchWithTokenGet} from "../../../hooks/useFetchWithTokenGet";
 import {Loader} from "../../../api/Loader";
+import {LkMessagesMainUser} from "../MessagesMain/LkMessagesMainUser";
+import {LkMessagesMainYou} from "../MessagesMain/LkMessagesMainYou";
+import {useFetchSendMessage} from "../../../hooks/useFetchSendMessage";
 
 
 
@@ -63,20 +63,10 @@ export const ChatsSupportMain = () => {
 
 
     const handleAddEmoji=(emoji)=> setMessage(prev=>prev+emoji)
+    const sendMessage=useFetchSendMessage('http://lk.pride.kb-techno.ru/api/Chat/support/send-message',message,setMessage,setSend,send)
     const handleSend=(e)=>{
         e.preventDefault()
-        fetch('http://lk.pride.kb-techno.ru/api/Chat/support/send-message',{
-            method:'POST',
-            body:JSON.stringify(message),
-            headers:{
-                'Authorization':`Bearer ${auth.token}`,
-                'accept': 'application/octet-stream',
-                'Content-Type': 'application/json'}
-        })
-            .then(()=> {
-                setMessage('')
-                setSend(!send)
-            })
+        sendMessage.handleFetch()
 
 
     }
@@ -112,8 +102,8 @@ export const ChatsSupportMain = () => {
                                     {/*            <img src="/images/file_mes.png" alt=""/>*/}
                                     {/*    </label>*/}
                                     {/*</div>*/}
-                                    <div className="mes_text">
-                                        <textarea value={message} onChange={(e)=>setMessage(e.target.value)} placeholder="Type your message..."/>
+                                    <div style={{maxWidth:'none'}} className="mes_text">
+                                        <textarea  value={message} onChange={(e)=>setMessage(e.target.value)} placeholder="Type your message..."/>
                                     </div>
                                     <div className="mes_emoji">
                                         <a href="/" onClick={handleOpen}>

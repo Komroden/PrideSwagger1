@@ -55,13 +55,17 @@ export const SmsVerify = ({status}) => {
 
 
     useEffect(()=>{
+        let timer =null
         if(status){
         if(sec!==0){
-            setTimeout(() => setSec(sec-1) , 1000);
+             timer=setTimeout(() => setSec(sec-1) , 1000);
         }
         if(sec===0){
             setOpen(true)
         }
+        }
+        return ()=>{
+            clearTimeout(timer)
         }
 
     },[sec,status])
@@ -180,7 +184,6 @@ export const SmsVerify = ({status}) => {
             without2FA: userInfo.code!=='',
         },setToken,setLoading,setError,"Неправильный код или Email же зарегистрирован")
     useEffect(()=>{
-        console.log(counter)
 
         // const payload= {
         //     firstName:userInfo.value.firstName,

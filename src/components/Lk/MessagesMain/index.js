@@ -14,6 +14,10 @@ import Fade from '@mui/material/Fade';
 import {UseYears} from "../../../hooks/useYears";
 import {useFetchWithTokenGet} from "../../../hooks/useFetchWithTokenGet";
 import {Loader} from "../../../api/Loader";
+import {SendMessage} from "../LkUserMain/SendMessage";
+import {useFetchStringParametrWithoutSnack} from "../../../hooks/useFetchStringParametrWithoutSnack";
+import {useFetchSendMessage} from "../../../hooks/useFetchSendMessage";
+
 
 
 
@@ -27,6 +31,7 @@ export const MessagesMain = () => {
     const [pic,setPic]=useState('')
     const [value,setValue]=useState({})
     const {text}=UseYears(value.yearsOld)
+    const [support,setSupport]=useState(false)
     // const [messages,setMessages]=useState({
     //     messages:{
     //         items:[]
@@ -75,16 +80,11 @@ export const MessagesMain = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[auth.token,messages.id])
+
+    const readMessage=useFetchStringParametrWithoutSnack(`http://lk.pride.kb-techno.ru/api/Chat/read-chatroom/${id}`,'PUT')
     useEffect(()=>{
         if(auth.token) {
-            fetch(`http://lk.pride.kb-techno.ru/api/Chat/read-chatroom/${id}`, {
-                method: 'PUT',
-                headers: {
-                    'accept': 'application/json',
-                    'Authorization': `Bearer ${auth.token}`
-                }
-            })
-                .then(res => res.text())
+            readMessage.handleFetch()
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[auth.token,send])
@@ -92,20 +92,10 @@ export const MessagesMain = () => {
 
 
     const handleAddEmoji=(emoji)=> setMessage(prev=>prev+emoji)
+    const sendMessage=useFetchSendMessage(`http://lk.pride.kb-techno.ru/api/Chat/send-message/${name}`,message,setMessage,setSend,send)
     const handleSend=(e)=>{
         e.preventDefault()
-        fetch(`http://lk.pride.kb-techno.ru/api/Chat/send-message/${name}`,{
-            method:'POST',
-            body:JSON.stringify(message),
-            headers:{
-                'Authorization':`Bearer ${auth.token}`,
-                'accept': 'application/octet-stream',
-                'Content-Type': 'application/json'}
-        })
-            .then(()=> {
-                setMessage('')
-                setSend(!send)
-            })
+        sendMessage.handleFetch()
 
 
     }
@@ -189,8 +179,9 @@ export const MessagesMain = () => {
                                 <BlockUserId id={name}/>
                             </div>
                         </div>
-                        <a style={{color:'#fff'}} onClick={(e)=>{e.preventDefault()
-                        push('/chatsSupport')}} href="/" className="technical_help">Тех поддержка</a>
+                        <SendMessage url={'http://lk.pride.kb-techno.ru/api/Chat/support/send-message'} status={support}/>
+                        <a style={{color:'#fff',marginTop:support?'20px':''}} onClick={(e)=>{e.preventDefault()
+                        setSupport(!support)}} href="/" className="technical_help">Тех поддержка</a>
                     </div>
                 </div>
             </div>

@@ -22,7 +22,7 @@ export const ReviewForm = () => {
         message.onReset()
     }
 
-    const post=useFetchHandlePostWithBody('http://lk.pride.kb-techno.ru/api/Main/review',message.value,handleReset,setOpenSnack,"POST")
+    const post=useFetchHandlePostWithBody('http://lk.pride.kb-techno.ru/api/Main/review',message.value,handleReset,setOpenSnack,"POST",'Неправильный код')
 
     // const handlePost=(e)=>{
     //     e.preventDefault()
